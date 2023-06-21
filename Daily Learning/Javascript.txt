@@ -1,0 +1,475 @@
+7.2.2023
+
+---> selecting elements with query selectors
+---> textContent(returns the text content of element and descendances without tags but with spacing and hidden texts, CSS hidden text)
+---> innerHTML(returns the inner HTML of element with tags and spacing)
+---> innerText(returns only the raw text of element without any spacing or tag expcept style tag and script tag), 
+--->insertAdjacentText('beforeend' / 'afterend' / 'beforebegin' / 'afterbegin', text)
+---> classList, add, remove, contains, toggle method
+---> getAttribute, setAttribute
+---> Built in and custom attribute: data attribute using dataset property
+---> appendChild(), insertAdjacentElement(position, value)
+---> createElement()
+---> document.createRange().createContextualFragment('string') - converts string to HTML element
+-XSS (cross-side-scripting)  
+--->Traversing nodes: children, firstElementChild, lastElementChild, parentElement, nextElementSibling, previousElementSibling for elements and childNodes, firstChild, lastChild, nextSibling, previousSibling for nodes.
+---> Deletion of nodes using remove();
+
+8.2.2023
+
+---> addEventListener, removeEventListener (click, mousemove, mouseenter)
+---> event propagation - travelling of events
+--->bubbling up - from child element to parent element
+---> capturing down - from parent element to child
+---> target(returns the exact place where the event happened)
+---> currentTarget(it returns the element on which the event listener is added)
+---> event.stopPropagation - to stop the propagation of events
+---> {capture: true} - to explicitely set capturing down and stops bubbling up;
+-event.preventDefault(), form events: keyup, keydown, blur, focus
+---> accessibility gotchas and keyboard codes - difference between button and link - link directs to different page but button stays in the same page, how to handle click both through mouse(click event) and enter key in keyboard(both keyup and event.key === 'Enter')
+
+9.2.23
+
+-Etch-a-sketch project::: <canvas> HTML tag, properties like ctx(context), lineCap, lineJoin as round, lineWidth, strokeStyle and methods like beginPath(), moveTo(x, y), lineTo(x, y), stroke(), clearRect(start_x_pos, start_y_position, end_x_pos, end_y_position), different event listerners like keydown, click, animationend, and the third parameter of event listener that we already had learnt that it is a object that can take capture property as true or false. Now along with it, the object can take once: true that shows that add the event listener only once.
+-click-outside modal project:::
+
+10.2.23
+
+-tabs
+-scroll events
+
+13.2.23
+
+- BEDMAS (Bracket, exonential, division multiplication, addition, subtraction)
+- Flow control - if, else if, function return, truthy and falsy, operators(==, ===, !=, !==, <, >, <=, >=) 
+[], {}, -10, 1, 'full string', ' ', 'emoji' are truthy
+0, '', undefined, null, NaN are falsy
+[].length gives the length of array
+Object.key({}) returns an array of the properties or keys of objects passed as arguements
+.replace(searchValue, newValue) - searchValue can be a value string or regular expression(regex) that will be replaced with a new value.
+-coercion(converting other data types into boolean using '!!'), ternaries(condition ? true:false) and conditional abuse(using && instead of ternary operator that shows that if the first statement is true then only the second statement will be executed)
+-switch and turtle project
+
+15.2.23
+
+--- setTimeout(callBack, ms), clearTimeout(), setInterval(callBack, ms), clearInterval()
+--- Objects:
+ object creation with or without using new keyword, freezing an object using Object.freeze(obj_to_freeze), optional chaining (?.), methods using both normal function and arrow function. In normal function, this keyword refers to the objectname before which the dot(.) symbol was given. In arrow function, this keyword refers to the parent scope i.e., window.
+--- Object references vs values:
+ Equal to operator('=') in objects do not copy the object, they simply reference one object to another. As a result a slight change in one object can change the other object too. Spread operator ({...object_name}) does shallow copy i.e., only string, boolean, number value will be copied but the nested objects will be referenced. For doing deep copy we need to use an external javascript package called as lodash, that contains a method called 'cloneDeep' the deeply copies one object to another so that any changes in one object won't affect the other object. In case of function call when we pass object as arguement that is pass by referece. Any change happens in the called function, will change the object value in caller function. We can combine two objects to create another object by using spread operator. Ex: const obj3 = {...obj1, ...obj2}. Obj3 will contain all the properties of obj1 and obj2. If there exists same property in obj1 and obj2, the later value for the property will be considered. Along with this, we can also add other new properties if we want to add.
+
+
+
+16.2.23
+--- Maps:
+ stores in a order, inititalization, use of methods like set(key, value) - to set the key value pair, get(key) - to get the key value pair, has(key) - returns true if the key is present, delete(key) - to delete the key value pair. Foreach loop will give the value of each key value pair. For loop will return the array that contains an array of two values as key and pair for each element. We can use destructuring in for loop. '.size' property returns the size of the map. We can convert object into string using JSON.stringify(obj_name) method. We can also convert string to object using JSON.parse(string_name) method. We can convert maps into objects using Object.fromEntries(map_name) and then can convert object to string using JSON.stringify(obj_name)
+--- Array: 
+creation, Array.isArray(array_name), array.length
+mutable methods: array_name.reverse(), array_name.push('item'), array_name.unshift('item') - add item to the starting of array, array_name.splice(start_idx, number_of_items_to_delete)
+immutable methods: array_name.slice(st_idx, en_idx), using spread operator[...array_name], array_name.flat(), arr.findIndex(function)
+--- Array Cardio Static methods:
+Array.of(elements) - returns array out of passed elements,
+Array.from(iterable_object, function) - returns array by calling the callback function for each item of iterable object/array-like object,
+Array.isArray(array_name) - returns true if it is an array,
+Object.entries(obj_name) - returns a 2D array by taking key value pairs of obj in each row, 
+Object.keys(obj_name) - returns an array out of keys of object, Object.values(obj_name) - returns an array out of values of keys of object
+
+17.2.23
+--- Array Cardio Instance methods:
+array_name.join(string to keep between each array element) - converts array to string
+string_name.split() - converts string to array
+array_name.pop() - returns the last element of the array and pops it out of the array
+array_name.shift() - returns the first element of the array and deletes it from the array
+array_name.unshift(item) - add the item to the starting of the array
+array_name.slice(st_idx, en_idx) - to make copy of array
+array_name.splice(st_idx, no_of_items_to_delete) - deletes items from array and modifies the array and returns the array of deleted items
+spread operator - uses to copy elements into the array
+array_name.indexOf(item) - returns the first occurance index of the item
+array_name.lastIndexOf(item) - returns the last occurance index of the item
+array_name.includes(item) - returns true if the item if present in the array
+array_name.reverse() - reverse the array
+
+--- Array Cardio call back methods and function generation
+array_name.find(callBack) - finds the 1st element satisfying the function
+array_name.filter(callBack) - finds all the element satisfying the function.
+array_name.some(callBack) - returns true if one element satisfies the call back function
+array_name.every(callBack) - returns true if all the elements satisfy the call back function.
+array_name.sort(callBack) - sort the array in alphabetical order.
+
+--- Looping and iterating - Array.forEach(callBack)
+runs the call back function for each element in the array and the callback function takes three optional arguements i.e., element, index and the array itself.
+
+--- Looping and iterating - mappping
+sideeffects - when we are inside an function and try to do some stuff outside the function like attaching an eventlistener, adding some content to the page
+map - it takes some data, perfroms some operations on the data and returns the same number of data with modified values. But the original array will be preserved.
+'string'.repeat(number) - returns a string after repeating the string for that number of times
+Array(number) - returns an array with number of elements 
+array_name.fill(element) - fills the array with the element
+new Date() - returns current date and time in string
+Date.new() - returns current time in timestamp format
+new Date(date and time in string format) - returns that particular date and time in string format
+
+
+7.3.23
+--- Looping and iterating - Filter, Find and Higher Order Function
+array_name.filter(callBack) - returns an array of all the items that matches the particular callback
+array_name.find(callback) - returns only the first item that matches the callback
+In higher order function - one function returns another function 
+
+--- Looping and iterating - Reduce
+array_name.reduce(function(accumulator, current value), initial value) - it returns a single value
+
+--- Looping and iterating - reduce exercise
+
+13.3.23
+--- Looping and iterating - for, for in, for of and while, do while loops
+for loop - for(initial value; condition; increment)
+for of - for(eachValue of iterableObject) (used specially in case of promises)
+for in - for(eachProperty in object)
+difference between for in and Object.key is for in prints the property of prototype of the object also but Object.key only prints the property value without the prototype
+while loop- 
+while(condition)
+{
+//body 
+increment
+}
+
+do while loop -
+do{
+//body
+}while(condition);
+
+--- 60. The new keyword
+span element is instance of HTMLSpanElement class
+Node is the base class everyobjects
+new keyword is used to create objects.
+In js, everything is considered as an object where the syntax is "new functionName();"
+new - will create a new instance of the particular method.
+instanceof - returns true if the object is the instance of the class or not (syntax - object instanceof class);
+.constructor() - returns the function from which the instance is made
+String, Object, array have literal syntax where using 'new' keyword is not compulsory.
+
+--- 61. The this keyword
+In case of regular function, this keyword refers to the particular thing that is before the dot('.'). In case of arrow function, this keyword refers to the particular at one level up scope.
+this keyword stores all the properties of the particular constructor or function. 
+
+--- 63. Prototype and prototypal inheritance
+Prototype is the collection of property and methods that will be common to all the instances. These will not be created individually for each and every instances. The compiler will first check if the method available in the instances directly. If it doesn't exist, it will look inside prototype.
+polyfill - when the browser doesn't support any functionality, we can write mannually. This is called polyfill.
+
+--- 65. bind, call and apply
+bind helps in changing the scope of this keyword. This keyword value might change with respect to where it is called rather than where it is declared. So to bind this to a particular value, bind function is used. Bind also might be useful writing short form of document.querySelector, where querySelector is dependent on the scope that is defined before dot like document. So to bind the querySelector to a particular value bind is useful.
+syntax - const $ = document.querySelector.bind(document);
+
+bind method also can take multiple arguements like
+const bill = {
+	total : 1000,
+	calculate(taxRate) {
+		return this.total + (this.total * taxRate);
+	}
+}
+const calc = bill.calculate.bind({total: 500}, 0.13);
+console.log(calc());
+
+We can pass taxRate value either during calling calc function or in bind function. In find function first arguement will be regarded as scope of this and later arguements will be the arguement of calculator function respectively.
+
+call - it binds the scope and calls the function immediately whereas in bind we bind the scope and call later
+apply - difference between call and apply is - apply accepts 2 arguements where the 2nd arguement is an array of arguments to the function being called whereas in call, we can directly pass the arguments to the function. The 1st argument is same in both.
+
+14.03.23
+--- 66. The Event Loop and Callback Hell
+Javascript is a single threaded language. It can perform any one task at a time. In function calling, javascript calls one by one all functions in callstack from top to bottom. Then if the function is a waiting function like setTimeOut or an eventhandler then it's going to pass the function to web apis. Web apis is the part who is going to check the time or event. Once the time has come to perform the function, then it's going to pass the function to callback queue. Once the call stack is free and donot have any task remaining, then the functions from callback queue are going to be executed in the call stack. Even if the waiting time is 0 sec, still it will be passed to the web apis.
+
+callback hell - when one call back is nested in another callback making the code awful. It can be overcome using promises.
+
+--- 67. Promises
+syntax: const variable_name = new Promise(function (resolve, reject) {resolve(//task to perform);})
+To get the value of task resolved: create a variable of the promise function and chain .then which will return the value of the resolved function after resolving.
+syntax of .then: var_name.then(function(arg){});
+We can chain multiple '.then' to run one after another.
+
+Promise.all([promise1, promise2 ...]) - mega promise that executes once all the promises are resolved.
+Promise.race([promise1, promise2 ...]) - returns the promise that resolves first.
+
+--- 68. Promises - error handling
+If the promise is rejected then for that we should use reject() inside the promise callback function like the resolve() one. The reject() will generate an error and break the code. To save the code from breaking out, we should use a chain function after '.then' i.e., catch(function(err) {//body}) that handles error.
+
+In case of multiple chained then() function, we can use only one catch() function at the end of the chain. If one promise is rejected then all the upcoming promises will be skipped.
+Difference between Promise.all() and Promise.allSetteled() is Promise.all expects all resolved promises and to handle any rejected promise, it expects a catch(). Without catch() it will throw error and will not execute the upcoming promises. But in case of Promise.allSetteled(), it executes all the promises whether it is resolved or rejected and didn't show any error. It also doesn't expect any catch().
+
+
+--- 69. Refactoring callback hell to promise land
+--- 70. Async Await
+await can be used inside async function
+async means asynchronus function - the function that doesnot stops all the functions on the page to complete to perform a function.
+
+--- 71. Async Await Error Handling
+For error handling there are 4 different ways.
+1. using try{} and catch{} block inside async function
+2. using .catch() for each await variables.
+3. using .catch() at the time of async function calling
+4. using higher order function 
+Syntax: function makeSafe(fn, errorHandler){
+	return function(){
+		fn().catch(errorHandler);
+	}
+}
+
+--- 72. Async Await Prompt UI (missing)
+--- 73. Async Typer UI
+using two ways
+1. recursion: call function inside another function
+2. for of loop
+
+--- 74. Ajax and APIs
+Apis are the links that share some information
+AJAX stands form async javascript and xml. Ajax means to fetch data from apis and to use it in the website.
+apis always returns strings.
+JSON.parse(string) - converts string to JSON.
+
+
+15.03.2023
+--- 75. CORS and Recipes
+query params - those come after endpoints, started with '?' symbol and then separated with '&' symbol. If any parameter has multiple values, those will be separated by ',' symbol.
+
+CORS - cross origin resource sharing 
+origin means domain names like github.com
+
+In cors policy, it is not allowed to share data between different origin like github.com to sonali.com as it might contain some sensitive data like from bank.com. So in cors policy there are mentioned some origin names who are allowed to fetch data from the apis. It is mentioned in the server side. 
+
+Proxy is a mediater server which fetches the data from apis on behalf of localhosts, proxy will interact with the apis as it is allowed by cors
+
+--- 76. Dad Jokes
+Header are some additional information about the data we want back like in HTML form or JSON form or in plain text.
+
+--- 77. Currency Converter
+--- 78. Modules
+It helps to share files, datas across multiple javascript projects or folders or files.
+We can share files using export and import.
+import syntax - import {module_name} from 'location'
+modules have their own scope
+
+2 diff types of export: 
+Named export - export used before function name, variable name and used inside curly braces '{}'. Here the exact same name should be used during the time of import. We can use dummy name in the destructuring using 'as' keyword.
+
+Default export - export written at the bottom of the file and only one default export can be possible per module. Syntax: export default function_name/variable_name. We can import the default export using any name.
+
+import can be also different type. One is normal one and another type is demand based import where the import is done when in demand. Example can be used inside an async function that can wait for the import. Syntax: const var_name = await import('location');
+
+We can't export initialized variable in default export. But we can export the same in named export.
+
+--- 80. Dad jokes modules refactor
+
+16.03.2023
+--- 81. Bundling and building with parcel
+Bundler is a minimizer which is used to minify the code. If we have passed an 'options' into a function, it will replace it with 'o'. If there is any dead code, it will eliminate it. If there is Babel code or SASS, it wiill transpile the code.
+
+Package,json - it's a bunch of information about our project like what packages and scripts have used etc.
+
+Dependencies - Packages required by application in production
+devDependencies - packages that are only needed for local development and testing, command - npm install package_name --save-dev/-D
+
+to build the project, command used:  npm run build(in package.json, add inside scripts, 'build': 'parcel build index.html')
+
+--- 82. using open source npm packages
+Differenct npm packages are:
+waait - used to import the promise that waits for few time using setTimeout(ms).
+faker - used to get some random fake data like name, avatar, address etc.
+date-fns - used to customise the date formats like 16th March 2023 etc.
+axios - can be used inplace of fetch().
+lodash - can be used in performing different array functionalities like intersection, eq, isEqual etc.
+await-to-js - return an array where the first element is error message and the 2nd item is resolvedValue.
+
+--- 83. Security
+When we take input from the client, that we add into the webpage the data might be malicious that can harm out website or modify our website. For that we should sanitize all the data from client-side or user-side before using it.
+
+Syntax: 
+import {sanitize} from 'dompurify'
+const inputFromUser - sanitize(input.value, {
+	FORBID_ATTR: ['width', 'height', 'style'],
+	FORBID_TAGS: ['style']
+});
+
+//The client manipulate or change or use FORBID_ATTR or FORBID_TAGS.
+
+We should always try to use https origin request instead of http. As there might be a chance the hackers or other persons using the same wifi or goverenment network might manipulate the data we want to fetch of push into the api. And this is not possible in https as it is secure because of encryption.
+
+--- 84. Web Speech Colours Game
+webkit - called as vendor prefixed means the api is fully functional that's why they supplied a vendor prefix to the api.
+
+SpeechRecognition breaks all the letters in a word and try to get a meaningful word out of it from the letters set or subset.
+
+17.3.2023
+57. Shopping Form with Custom Event, Delegation and localstorage (missing)
+58. Building a gallery exercise
+55. Face Detection and Censorship (Ctnd.)
+ 
+
+
+18.3.2023
+55. Face Detection and Censorship (completed)
+--> Populate the content from user's webcam into the video element
+--> Try to detect faces present in the video
+--> Make a square around each detected faces
+--> blur the faces in 2 steps. In first step collect the content of the detected face and place it in a small pixel and then take the content of the small pixel and paste it in the entire face.
+
+56. Sarcastic Text Generator
+
+
+19.03.2023
+59. Building a slider (complete)
+85. Audio visualization (complete)
+62. Prototype Refactor of the Gallery Exercise
+64. Prototype Refactor of the Slider Exercise
+
+20.3.23
+--> Local storage - we can store some values in the local storage of the local browser in the form of key value pairs, which we can retrieve back.
+
+--> To add values syntax: localStorage.setItem('Name', 'Sonali');
+--> To read values syntax: localStorage.getItem('Name');
+--> To clear the localStorage syntax: localStorage.clear();
+--> To remove any particular item in localStorage syntax: localStorage.removeItem('Name');
+--> To get length of localStorage syntax: localStorage.length
+--> To get the key at a particular index: localStorage.key(index_no)
+
+--> We can't store arrays into local-storage. For that, we can store the array in the form of JSON.stringify(array_name) - this will convert the array into the string. And to retrieve the stringified array in the form of array we can use JSON.parse(stringified_array_name)
+
+--> Session storage - values stored in session storage are only valid for the particular session. It will be deleted if we reopen the browser. Data gets deleted even on opening the same webpage on different tabs.
+
+--> To add values syntax: sessionStorage.setItem('Name', 'Sonali');
+--> To read values syntax: sessionStorage.getItem('Name');
+--> To clear the localStorage syntax: sessionStorage.clear();
+--> To remove any particular item in localStorage syntax: sessionStorage.removeItem('Name');
+
+--> Storage event - When the data gets updated in the localStorage or sessionStorage, storage event triggers with these properties key, old value, new value, url, storage area(local / session). We can listen to the 'onstorage' event of window which is triggered when updates are made to the same storage from other documents.
+
+-------> complete shopping list
+
+.closest(class_name) - returns true if any ancestral element contains the class
+element.includes(class_name) - returns true if the element has the class
+parent_node.contains(child_node) - returns true if the node in the arguement is a child node of the parent node.
+
+
+***********************************To Complete:: video72(missing), 75(api changed), 77(missing), 79(refactoring of vid 77), 57(missing)*************************************
+
+
+
+
+JAVASCRIPT 30
+21.03.23
+---> drum kit
+eventlistener - transtitionend
+
+---> clock
+css property: transform-origin - 50% means to transform from center and 100% means to transform from the right end
+
+---> CSS variables
+Difference between Nodelist and array is - Nodelist looks like an array but having very limited functionality similar to array like forEach. Array has vast options like map, filter, reduce and other methods. Which are not available in case of nodelist.
+
+---> Array cardio day 1
+.includes() - returns true if element is present in array or string or a class is attached to the elment of not
+.contains() - returns true if the node in the arguement is a child node of the parent node, can also be used to know whether a classlist contains the particular class or not
+
+We can change the css properties using javascript by:
+document.documentElement.style.setProperty(propertyName, value);
+documentElement represents the root element i.e., html.
+
+22.03.23
+---> Flex panels image gallery
+string_name.match(regex_exp) - returns true if the regex expression is present in the string
+string_name.replace(string1, string2) - It will replace string1 if it is present in the string with the string 2
+
+---> Array cardio Day 2
+some(), of(), find(), indexOf(), findIndex()
+
+----> Fun with html5 canvas
+mouse events - mouseover, mousedown, mouseup, mouseout
+ctx, ctx.getContent(), ctx.lineWidth, ctx.strokeStyle, ctx.lineCap, ctx.lineJoin, ctx.globalCompositeOperation = 'multiply' (to mix colors when they meet), ctx.beginPath(), ctx.moveTo(), ctx.lineTo(), ctx.stroke();
+
+---> Dev tools domination
+console.log() - normal print
+console.table() - table print
+console.log('%s', 'text') - merge text
+console.log('%s', 'background-color: red; font-size: 20px') - print in design
+console.warn('danger') - print in warning 
+console.error('wrong') - print error
+console.info('1 + 1 = 2') - print any info
+console.assert('assertion', 'message if the assertion is wrong') - Message will be printed out if the assertion is wrong and if it is right, nothing will be printed out.
+console.clear() - console will be cleared out
+console.dir() - all the info regarding the output element will be printed out in the form of obj
+
+console.group('message')
+console.log('1');
+console.log('2');
+console.log('3');
+console.groupEnd('message) - message will be printed in a group
+
+console.groupCollapsed('message')
+console.log('1');
+console.log('2');
+console.log('3');
+console.groupEnd('message) - message will be printed in a group and by default will be a collapsed group
+
+console.count('message') - count the number of time the message is printed
+
+console.time('messagae')
+// any task
+console.timeEnd('message') - console out the time required to complete the particular task.
+
+23.03.2023
+---> Custom video player
+---> Key sequence detection
+.splice(st_ind, no_of_items_to_delete, items to insert)
+
+----> Slide to scroll
+offsetX, offsetY = gives the x and y coordinate of the point where the event happened relative to the  target element's x or y coordinate.
+offsetHeight = height of the element + padding height + border height
+offsetWidth = width of the element + padding width + border width
+scrollY = what is the amout scrolled from the top of the target element's top;
+offsetTop - returns the distance of the outer border of the current element relative to the inner border of the top of the offsetParent, the closest positioned ancestor element
+
+element.matches(css_selector) = returns true is the element matches to a valid css selector
+
+---> Javascript reference vs copy
+In case of string, number and boolean assignment operator leads to only copy. But in array and object assignment leads to reference not copy. Means changes to any one type will change others too.
+To make copy in case of array: we can use slice method or concat method or spread operator.
+
+To make copy in case of object: we can use slice operator or Object.assign(copy_obj, src_obj, additional key value pairs). But these all are shollow copy. for deep copy we can use cloneDeep method in lodash package or JSON.parse(JSON.stringify());
+
+---> Local storage and event delegation
+Event delegation: Event Delegation is basically a pattern to handle events efficiently. Instead of adding an event listener to each and every similar element, we can add an event listener to a parent element and call an event on a particular target using the .target property of the event object.
+
+24.03.2023
+---> Mouse move shadow
+In case of destructing, we can rename the properties using ":"(colon) syntax: {property: new_name} = obj_name;
+
+---> sorting band names without articles
+.innerHTML calls toString() if the assigned value is other than string like array or something else. The items of the array will be separated by comma and converted into a long string if join() is not there
+
+---> 18. Adding up times with reduce
+---> 19. Unreal webcam fun
+---> 20. Native Speech Recognition
+---> 22. Follow along link highlighter
+to get the coordinates of the element in the page we can use 'element_name.getBoundingClientRect'. It will return the width, height and x, y coordinates of the element.
+
+27.03.2023
+----> 23. Speech synthesis
+----> 21. Geolocation
+----> 24. Sticky Nav
+----> 25. Event capture, propagation, bubbling and once
+----> 26. Stripe follow along dropdown
+----> 27. Click and drag to start
+----> 28. Video speed controller UI
+scrollTop v/s scrollY: scrollTop returns the amount of vertical scroll wrt to parent element but scrollY returns the amount of vertical scroll wrt window.
+
+28.03.2023
+---> 29. Countdown timer
+---> Task
+
+29.03.2023
+---> Task
+-----> 30. Whack a mole game
+
+
+Mansi ma'am learnings:
+Number('string') - converts string into number type

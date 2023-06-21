@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="../base.css" />
+	</head>
+	<body>
+		<script>
+			function makePizza(toppings = []) {
+				const timeToBake = 500 + toppings.length * 200;
+
+				return new Promise(function (resolve, reject) {
+					if (toppings.includes("pineapple")) {
+						reject("Seriouslyyy!!!!! Get out of here!");
+					}
+
+					setTimeout(function () {
+						resolve(
+							`Your pizza is ready after ${timeToBake} seconds with toppings of ${toppings}`
+						);
+					}, timeToBake);
+				});
+			}
+
+			function handleError(err) {
+				console.log(err);
+			}
+
+			async function go1() {
+				try {
+					const pizza1 = await new makePizza(["cheese"]);
+					console.log(pizza1);
+					const pizza2 = await new makePizza(["pineapple"]);
+				} catch (error) {
+					console.log(error);
+				}
+			}
+
+			async function go2() {
+				const pizza2 = await new makePizza(["pineapple"]).catch(
+					handleError
+				);
+				const pizza1 = await new makePizza(["cheese"]).catch(
+					handleError
+				);
+				console.log(pizza1);
+			}
+
+			async function go3() {
+				const pizza1 = await new makePizza(["cheese"]);
+				console.log(pizza1);
+				const pizza2 = await new makePizza(["pineapple"]);
+			}
+
+			function makeSafe(fn, errorHandler) {
+				return function () {
+					fn().catch(errorHandler);
+				};
+			}
+
+			const safeGo = makeSafe(go3, handleError);
+
+			safeGo();
+			// go3().catch(handleError);
+		</script>
+	</body>
+</html>

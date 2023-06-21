@@ -1,0 +1,31 @@
+Docker Tutorial
+
+- Whenever we build any application we have our own configuration specific to our system or our os. We do use certain packages or dependecies also with specific versions. Those dependencies or packages might differ from os to os or from version to version. 
+
+- Whenever we want to run the same application in other system, there might arise some conflicts. Coz the os might differ or the versions of packages or dependecies might get changed or we are unknowngly using some configuration or files or dependecies for this particular application to run in the previous system which might get installed in some other applications that we worked on. So, now on this new system we are unable to run that application due to these several reasons. So, in this case docker becomes very handy.
+
+- It is a tool which helps in sharing applications across cross-platform. It uses virtualization. Virtualization means a virtual space which is available in every system which is a isolated space in the system. Docker will use that. Docker works on the top of virtual space. In this virtual space we can install another os and use that. We can strore various things and those will not interfere with our system's configuration. 
+
+- An application which is built with the help of docker docker will create an instance called as container which will contain all the packages, dependencies, configurations, files and everything that the file needs inside the container. Called as docker container. Then it creates a docker image of the container that is like a class that contains the blueprint of the particular container. It contains all the instructions step by step that should be done inorder to run that particular application. 
+
+- So instead or sharing the application, we can share the docker image and the person will be creating a docker container out of the docker image (Like classes doesn't exist, we have to create instances of the classes and use it. Likewise we have instatiate the docker image). And in that particular system we will have all the configuration that is needed without any error. 
+
+- Suppose if the docker container uses a particular version of a tool, in the current system some other version of the tool is there. Still the container will use that particular version used by the container or mentioned in the docker image rather than the version installed in the sytem beforehand. That's why docker containers are isolated. It doesn't uses the stuffs inside the systems enviorment. 
+
+- Difference between Docker and previously used applications like hypervisor or vmware are they install an os for a particular application. So if you are building multiple applications so vmware or hypervisor like application will install multiple os for each application. But docker will share kernels of the os. It will not install new os for each application. Instead if in the virtual space the os already exists then it will use a kernel of the os to run the applcation. It saves storage, performances and all. So docker is preferred more. 
+
+Commands used:::::::::::
+
+1. docker run <container-name> - If the container doesnot exist on the machine then docker will create a new container and run it
+2. docker run <container-name> -p <portA>:<portB> - It will do port mapping. portA is the incoming requested port and portB is the container port. Port mapping means when someone will request localhost:portA on this system. The docker will fetch this particular container which is present in portB.
+
+3. docker run docker run <container-name> -d: -d flag specifies that the container should contunue running at the background
+4. docker container ls: to list down all the container and their details
+5. docker container stop <container-name> : to stop running the container at the background.
+    docker stop <id_of_container>: it will also stop the container from running and we don't need to write the entrire id. The part of the id which is unique from other container's id is fine to stop.
+6. docker ps: list all the container which are currently running.
+7. docker ps -a: list all the container which are closed after running.
+8. ufw allow <port-number>: It will allow the particular port number where the containers can be served.
+9. docker rm <container_name or container_id>: remove the particular container from the system.
+10. docker system prune: remove all stopped containers, dangling image, dangling images and networks not used by atleast one container
+11. docker rm -f <id or name of container>: It will kill or remove the container forcefully even if the container is running. But without -f flag it will not remove any running container.

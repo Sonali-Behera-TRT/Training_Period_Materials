@@ -1,0 +1,806 @@
+- Nestjs and expressjs both are framerworks built on the top of nodejs application.
+- Both uses javascript to write code. But specifically nestjs supports typescript that expressjs doesnot.
+- Both can be used to write less code.
+- Expressjs doesnot have that nice folder structure that nestjs contains.
+- Nestjs divides the application into simpler components like provider, controller so that users need to concentrate on a particular task in a particular file.
+
+
+---------------------------------------------------------Section 2 - Task Management Application(REST API)--------------------------------------------------------------
+
+7. Creating our project via the nestjs
+---> command to create a new project - nest new <project-name>
+
+8. Nestjs project structure
+9. Indtroduction to nestjs modules
+---> Each application has atleast one module known as the root module which is the starting point of the application i,e,. app module.
+---> modules are singleton.
+---> If a decorator @Module is applied with a class, then it is called as a module.
+- Module decorator will take 4 arguements. Those are: providers, controllers, imorts and exports
+
+10. Creating a task module
+---> We can create a module using nest cli and the command used is:
+Command: nest g <schematic-name> <folder_name>
+- Here 'g' stands for generate.
+- It will end up creating a folder of the provided folder-name in the command inside src folder. Inside that folder it will create a file named as <folder-name.module.ts>. 
+- It will also bring changes to app.module.ts file. It will import the newly generated module and also add it in the array of imports in Module decorator of the class in app.decorator.ts file. 
+- To start a development server in watch mode we can use the command: yarn start:dev
+where start:dev is describled in package.json file under script key.
+
+11. Introduction to nestjs controllers
+- It's a class associated with a 'controller' decorator.
+- The decorator accepts an arguement which is a path handled by the controller in the form of string.
+- Inside controller class the methods which are decorated with decorators like @Get, @Post, @Delete are called as handler.
+
+12. Creating at tasks controller
+- To create a controller using cli, the command used is: nest g controller <folder_under_which_to_create_the_controller> 
+- It will create a controller file inside the particular folder named as '<folder_name>.controller.ts', this file will be imported inside the module.ts file and will be mentioned in the import array. 
+- If we don't want to create a spec file for the controller file, then we can write additional command while creating the file like: nest g controller <folder_under_which_to_create_the_controller> --no-spec
+
+13. Introduction to NestJS Providers and Services
+- Providers provide certain services to The controller class. It's a singleton class and it's servies are generally decorated with @injectable decorators. 
+- It uses dependency injection. Dependency injection means any component in nestjs can inject a provider that is decorated with @Injectable() decorator. We can inject the provider at the constructor of the class. 
+- These service providers are singleton classes. Inside constructor when the class is referred then the compiler will check whether an instance of the class exist or not. If exist then it will use the same instance throughout. Else will create a new instance.
+- It contains most of the business logics.
+- It can handle services like create, update, delete etc.. related to a particular component.
+- Can be accessed inside constructor of other classes
+
+14. Creating a tasks service
+- Command used to create a service: nest -g service <folder-name> --no-spec
+- It will end up creating a file under the folder named as 'folder-name.service.ts'. It will be auto imported into module file and mentioned inside the decorator as a value to the proprety Provider.
+- We can import this file inside controller file and create properties of type of this and use inside the controller class to use the methods of service class.
+
+15. Feature: Getting all tasks
+- The service file contains the main business logic while controller deals with the recieving of request and responding back to the requests.
+- We should always keep all the properties of a function private unless it's not required. So that any changes made by other classes won't affect the action of this class.
+
+19. Feature: Creating a task (Part 1 - controller)
+- For controller, in case of get request it will return all the items in the tasks array.
+- In case of post request it will call the createtask method of service class and return the new task.
+
+20. Feature: Creating a task (Part 2 - Service)
+- When controller will call getTask, service class will return all the items in the tasks array. and when controller will call createTask, service will create a task and push it into the array and return the new task.
+
+@Get() will work in case of get request from a server.
+@Push() will work in case of push request send to a server.
+@Body() will take the content of the sent object in case of push request and assign it to the parameter of function to which it is attached.
+
+All the decorators are decorators factory, so parenthesis must be used.
+
+17.04.2023
+
+21. Intro to Data Transfer Objects (DTO)
+- DTOs are objects which encapsulate data and transfer them from one part of the application to other part.
+- It can be defined as interfaces and classes. But classes are more preferred. As interface is a typescript specific concepts. So in runtime it will not exist, while classes are also there in javascript. So it will persist during runtime also.
+- DTOs are helpful if we want to change the shape of a particular object which was used in multiple places. We don't need to restructure it everywhere the object is used. We just need to modify it in the classes and we are good to go.
+
+22. Implementing CreateTaskDto
+23. Feature: Getting a task by id
+- We can fetch a task by calling a path like e.g. task/<id_of_a_particular_task>. We can use path params for that. 
+- Syntax: Get( '/:id') - Nestjs will consider 'id' as a path parameter and will pass the value to the function. 
+- We can use @Param() handler inside the function parameter that will pass the value of the path parameter to the parameter of the function.
+
+24. Deleting a task
+- To delete a task item we can use @Delete() handler
+
+26. Update task status
+- To update a task status we can use @Patch handler.
+- @Patch() handler will update a value (here status) of the task  object.
+- Difference between @Patch() and @Put() handlers are patch will update a field of the entity where put will change the entire entity. Both are used for updation.
+
+27. Searching and filtering
+- @Query() handler returns an objects that contains all the query parameters and their values in the form of key value pairs.
+- We can import all the handlers from the package '/@nestjs/common'
+
+
+
+---------------------------------------------------------------------------- Section 3 - Validation & Error Handling -----------------------------------------------------------------------------------
+
+30. Introduction to Nextjs pipes
+- Pipes are the classes which has decorator @injectable and implements an 'PipeTransform' generic interface.
+- Pipes are applicable to the arguements of the handler functions before the method is called.
+- Pipes performs two kind of functions. One is transformation and another is validation.
+- Pipes will return data which will be passed to the handler methods either in original form or in modified form. If there exists any kind of error in either transforming the data or validating the data, then it will throw error, which will not allow the method to be called.
+- There are some default pipes in nestjs. Like ParseIntPipe, ParseFloatPipe, ParseBoolPipe, ParseArrayPipe, ParseUUIDPipe, parseEnumPipe which is used for transformation of datas. 
+- There is also a ValidationPipe which is used to validate whether an object implements a class properly or not. It matched with each and every property of the class. If any property doesn't match properly it will throw error.
+Ex: DTOs
+
+- ParseIntPipe it converts the string into integer if possible. As the parameter that we obtain from requests are string by default even if it's looking like a number. So ParseIntPipe will convert it into integer. If it's not possible to convert the string into number, then it will throw error. Ex: 'abc' can't be parsed into number.
+
+- Custom Pipe implementation: Pipe should contain a decorator @injectible along with it should implement an generic interface called as PipeTransform. 
+- As it's implementing an interface so every pipe must have a transform() method. It will be called by nestjs to process the arguements of the methods. 
+- It accepts two arguements. one is value: value of the arguement and other is metadata(optional): metadata about the arguement.
+- Whatever will be returned by the transform() will be passed to the method arguements. Exceptions and errors will be sent back to client.
+
+- Pipes are implemented in different ways.
+- Handler level pipes are implemented in Handlers and all the arguements will be processed against the pipe. It is mentioned inside @UsePipes() decorator.
+- Syntax: 
+@Get()
+@UsePipes(somePipe)
+getItems(@Body('description') description: string): return_type {}
+
+- Parameter level pipes are applicable to single single parameters. It will only process the particular parameter against which it is annotated. 
+Syntax: 
+@Get()
+getItems(@Body('description', somePipe) description: string): return_type {}
+
+- Global pipes are the pipes which are set globally at application level and it can process any incoming request wherever it is present. Suppose we want to validate an input whether it is empty or not. For this, we have used class validator external package that provides builtin decorators which can validate such things. But only applying the decorator is not enough. We need to call the validate() function which is available inside the class-validator package. Then only the applied decorators will work. 
+- But instead of calling it every time we use it's decorator. Isn't it great to apply it in globally and validate method will be automatically called whenever the validation decorator is used. For this to happen we can use nestjs buitin validationpipe which will call this validate() function. To make this validationPipe to work everytime a validator decorator is used automatically anywhere, we need to globally enable this pipe.
+- Syntax: app.useGlobalPipe(new ValidationPipe()); 
+
+32. Error Handling
+- For any generated error, to handle the error it will bubble up. If the error handlling mechanism like try catch block we have implemented at that place then it will be resolved by that. But if there isn't any error handling mechanism defined then it will look up at the file which has called that file, if there exist any error handling mechanism then it will handle that over there. But if there also is not present any handling mechanism it will continue looking up and at last it will use nestjs's error handling method. That any specific kind of error, it will convert into a HTTP error code and return in the return in the form of a JSON object. 
+- But if nestjs couldn't resolve the error, then it will consider the error as error code 500 as internal server error.
+
+- If we are fetching any item in any handler and we are not getting any particular type of item then we can raise an error like 'NotFoundException'.
+
+34. Update Task Status
+- If we want to check whether an input is a valid value of a particular enum or not, then we can use a decorator from 'class-validator' called as IsEnum()
+- Syntax: 
+@IsEnum(EnumName)
+var: EnumName
+It will make sure that whether the variable contains a value of the available values of the <EnumName> type or not.
+
+- If we want to mention any variable as optional,then we can use the decorator from the 'class-validator' called as IsOptional(), which will ignore all the other validation is not present at run-time.
+
+
+18.04.2023
+
+38. Installling Docker and pgAdmin
+- Docker - refer the docker tutorial notepad
+
+39. Running PostgreSQL via Docker
+- PostgreSQL  - It's a relational database management system(RDBMS).
+- pgAdmin - It's a UI for visualizing the postgres database. We can easily create database with the help of UI instead of writing codes.
+
+42. Introduction to TypeORM 
+- Object–relational mapping (ORM) in computer science is a programming technique for converting data between a relational database and the heap of an object-oriented programming language.
+
+- TypeORM is a tool which helps to write queries for databases in the form of object-oriented way and in simpler way in a simpler syntax and will convert this query to database specific queries and perform the action on the database.
+- It uses typescript (or javascript) to write the queries. 
+- It's a dependency available in yarn. 
+
+43. Setting up a database connection.
+- In the entry module i,e,. app.module.ts file we need to import {TypeOrmModule} from '/@nestjs/typeorm' package. 
+- We can set another thing inside the imports key.
+- Syntax: 
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+@Module({
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'postgres', // name of the database it's handling
+      host: 'localhost', // how the db is available
+      port: 5432,  // port number where the db is available
+      username: 'postgres', // usernmae of postgres account
+      password: 'SonaliBehera@123', //password set for postgres a/c
+      database: 'task-management', // db name which will be handled
+      autoLoadEntities: true, // look at below
+      synchronize: true // db schema should be auto created on every application launch
+    })
+  ],
+})
+
+- If we import the entites directly at the root module, then there is a chance of data transfer to the part of the application where the data is not needed. So autoloadentites will look at the forFeature() method at each module and import the entites mentioned in that array and load those entities to that particular module only. 
+
+- Difference between forRoot() and forFeature() is whatever configuration mentioned inside forRoot() is valid for that particular module and all the imported modules. forFeature()'s configuration is valid for that particular module.
+
+44. Creating a entity
+- In ORM entity means table. 
+- It's basically a class which is annotated with a decorator named as @Entity() which is available in typeorm package.
+- The class name will be the table name. 
+- If we want to change the table name to something else, then we can pass the table name that we want to keep inside the parenthesis of @Entity() decorator. It will end up creating a table named as that particular string inside the argument of the decorator.
+
+- We can also create the columns for the table by mentioning the decorator @Column() to the property of which we want to create column of. 
+
+- We can create primary columns with the decorator @PrimaryColumn().
+
+- We can also specify primary columns which will be auto numbered by typeorm by using @PrimaryGeneratedColumn() which will keep the column as a primary column will give values like 1, 2, 3, and so on....
+
+- We can create primary columns with universally unique identifier(UUID) of 32 digits by using the decorator @PrimaryGeneratedColumn('uuid').
+
+45. Active records vs Data Mapper
+- In active records the entity class or model class contains the column names as well as the query methods that we may use to interact with the entity or table. 
+- It is a class which extends the base class BaseEntity.
+- BaseEntity class contains some methods that helps in operation in the table. And we can also define extra functions inside the entity class.
+- It makes the code more simpler.
+
+- In data mapper the entity class only contains the column names. The query methods are defined inside the repositories instead of models or entity class.
+- Repository is a class which extends a generic class named as 'Repository'. And it's takes the generic arguement as the Entity class whose method's it's going to contain. And it should be annotated with the decorator '@Injectable'.
+- If we want to use only the default methods availble in typeorm them we can create a repository using the syntax
+
+@Injectable
+class <class_name> extends Repository<Entity_class_name> {
+	constructor(private dataSource: DataSource) {
+		super(Entity_class_name, dataSource.createEntityManager());
+	}
+}
+
+Inside thise class we can mention additional functionality for the particular entity. 
+
+- We have to import the entity into the particular module classs using TypeOrmModule.forFeature() method. Inside forFeature() we can mention all the entities inside an array.
+- We can mention the above repository inside the provider attribute inside module class. 
+
+- And we can do dependency injection to use it inside any class under that module. And we have to annotate a parameter decorator named as '@InjectRepository(<Repository_name>)' inside the constructor where we did dependency injection.
+
+- Data mapper method helps in maintainability
+
+19.04.2023
+
+48. Getting a task by id:
+
+- findOneBy(optionsObject): It is a typeOrm method to find the first item from the entity table which matches the passed options object and returns that item and if the item not found it returns null. It returns a promise of type entity_name.
+
+- findOne({options}): It does the same as findOneBy. But it takes the argument as a object that should have a 'where' field which should take the filtering conditions (where conditions). findOneBy is more preferred.
+
+
+49. Creating a task:
+- create({}): It will create an entity of the given object.
+- save(entity_name): It will save the entity in the entity type or table.
+
+50. Deleting a task:
+- remove(entity_instance): remove() function will remove the entity instance from the table and returns the removed item.
+- delete(id): It takes the condition based on which it can delete an item from the table and returns some metadata about the delete operation. The argument can be a single id, or array of ids, or an object containing some values.
+
+- delete() is more preferred as it has less call to the db. So performance increases. From the returned result from delete() method. We can check if the 'affected' property has value '0' means no rows deleted, that means no rows found. But if contains value >= 1, it means some rows been deleted.
+
+52. Update task status:
+- update(which_one_to_update, what_to_update): It updates the particular field with the particular value provided in the second arguement after filtering the particular item by the first arguement.
+
+Instead of using update(), we can use find the item by findOneBy() and change the property by using '.' operator and save the changes to the db by using save().
+
+53. Getting all tasks:
+- QueryBuilder is a method to build sql queries using typeorm.
+- createQueryBuilder(alias_name) - creates a new querybuilder which takes an alias name for the table
+- where('alias_name.column_name = :value', {value: val}) - It's the where clause which matches the value of the column_name with the val provided. ':value' is a variable and will be replaced by val. Whatever written after ':' must be exactly same with the key of the object in the second argument.
+
+- andWhere('alias_name.column_name = :value', {value: val}) - It's the same where clause but prefixed with a 'AND' keyword when converted in sql language.
+
+- orWhere('alias_name.column_name = :value', {value: val}) - It's the same where clause but prefixed with a 'OR' keyword when converted in sql language.
+
+- LIKE operator in posgres language does partial matching of the variable with the value provided. It must be accompanied by '%' symbol in val string. Otherwise it will do exact matching.
+'%a%' - 'a'can be present anywhere in the string
+'a%' - the string must start with 'a'
+'%a' - the string should end with 'a'
+
+- ILIKE operator does case insenitive partial matching.
+
+- If we want to insert brackets inside our query, we can do that by using syntax:
+query.andWhere(
+	new Brackets((qb) => {
+		qb.andWhere('alias_name.column_name = :value', {value: val})
+		.orwhere('alias_name.column_name = :value', {value: val})
+		.
+		.
+		.;
+	})
+)
+
+Here qb stands for queryBuilder and all the queries written inside new Brackets() will be encapsulated with brackets.
+
+
+----------------------------------------------------------------------- Section 5 - Auth Part1- Authentication--------------------------------------------------------------
+
+56. Intro to Authenication and Authorization:
+
+- Auth stands for both authorization and authentication.
+- Authentication means to verify someone who they claim to be 
+- Authorization means to provide authority to someone to do some task
+
+59. Validations: credentials and passwords
+- To validate the username and password provided by the client or user is valid or not, we can do the validation by applying the decorators provided by the external package 'class-validator' to the DTOs. 
+- For username, we can validate by applying the following decorators
+@IsString() - validate whether the property is going to store a string or not. If not then throw an error
+@MinLength(length) - validate whether the length of the string should be equal to or more than the length provided in the arguement.
+@MaxLength(length) - validate whether the length of the string should be equal to or less than the length provided in the arguement.
+
+- For password, we can validate by applying the following decorators
+@IsString() - validate whether the property is going to store a string or not. If not then throw an error
+@MinLength(length) - validate whether the length of the string should be equal to or more than the length provided in the arguement.
+@MaxLength(length) - validate whether the length of the string should be equal to or more than the length provided in the arguement.
+@Matches(regex) - validate whether the value of the property matches with the regular expression or not. 
+
+- If we want to provide custom messages for fail in a particular validation, then we can pass it in the second arguement of the validator decorators as a property called as message of an object.
+Syntax: 
+@Matches(regex, {message: '<custom_message>'})
+If the validation fails, this particular custom message will be shown to user.
+
+N.B>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+Passwords will contain at least 1 upper case letter
+Passwords will contain at least 1 lower case letter
+Passwords will contain at least 1 number or special character
+There is no length validation (min, max) in this regex!
+Regular expression for JavaScript:
+
+/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+60. Error handling username conflict
+- If we want that username should contain only unique items, then can specify it in the @Column() decorator like @Column({unique: true}).
+- For all the entries where column name will same it will throw an internal server error. If we want to show more meaningful error, we can do error handling in the repository or service file by attaching a catch() block to the save() method of typeorm that was throwing internal server error. Now onwards the error will be handled by this catch() block. 
+- The error code for duplicate error is 23505.
+- For this particular type of errorcode we can throw a new ConflictException by using the syntax:
+if(error.code === '23505')
+	throw new ConflictException('<custom error message>');
+else throw new InternalServerErrorException();
+
+- The error thrown inside catch() block will be handled by up scope means the function by whom it was called. It will continously check for error handling mechanism if any calling function has. Otherwise nestjs will use it's default error handling mechanism.
+
+61. Securely storing passwords
+- Storing the passwords directly is not safe. The attackers might break through the account and use our informations.
+- For this hashing is important. Hashing is a one way function which converts a string into a hash code. The hash code for two same string will be always same. 
+- As this is a one way function. So authorization of password happens when user try to log in into the system. The system creates hash for the entered password and matches it with the stroed hashed password. If both matches then the user is authorized otherwise not. 
+- There are different kind of hashing algorithm like SHA 256. 
+- But only directly storing the hashed password of raw password is also not safe. If in a database multiple users have same password then they will have same hash code. So the attackers might note the same hash code and match it with the rainbow table that contains hash code of some strings. If they got the string from there, then your db is at risk.
+
+- For this salting is required. Salting is also a hash code which prefixes the hashed password. The salt will be different each time. Means for same raw password, the salt will be different. Hence the hashed password will be different. So it would be difficult for the attackers to hack the passwords. 
+
+62. Password hashing with Bcrypt
+- To generate salt and hashed password we can use external package called as bcrypt.
+- bcrypt.genSalt() will generate a unique salt value.
+- bcrypt.hash(original_password, salt) - create hash by taking input the password and salt.
+- bcrypt.compare(input_password, hashed_password_stored_in_db) - It will return true if the inputed password's hash is same with the stored hashed password otherwise return false.
+ 
+- All these methods are async methods. So should be used with await. 
+- All the query methods of dbs(except create()) are also async methods. So should be used with await.
+- Part of the salt in hashed password will be same which will make easy while comparing process.
+
+- If the authorization fails, we should throw a new Error UnauthorizedException('<custom_error_message>');
+
+
+
+20.04.2023
+
+64. Intro to JSON Web Tokens(JWT)
+- It's a token which is used for authorization and secure exchange of information between parties.
+- It verifies that the sender is who it/he/she claims to be.
+- It has 3 parts separated by '.' and known as header, payload and signature.
+
+- The header is just a metadata about the token. It has 2 parts - type of token(typ) and hashing alogrithm it uses(alg). 
+For Ex: {
+	 "alg": "HS256",
+ 	 "typ": "JWT"
+	}
+This JSON is enoded to the first part of the token using 'Base64Url' encoding method.
+
+- Payload contains claims about the user. Claims are statements or data about the user. It can include several fields like username, role , time when the token is issued(iat - issue at time) and expiration time of the token(exp) etc..
+For ex: {
+	"username": "Sonali Behera",
+	"role": "admin",
+	"iat": 1516239020,
+	"exp": 1516242620
+}
+This JSON is also enoded to the second part of the token using 'Base64Url' encoding method.
+
+
+- Signature is the hashing result of the encoded header, encoded payload with a secret key  which is hashed with the defined hashing algorithm mentioned in the header. 
+For ex: 
+HMACSHA256(
+  base64UrlEncode(header) + "." +
+  base64UrlEncode(payload),
+  secret)
+
+Here HMACSHA256 is the hashing algorithm mentionedd in the header. 
+- This signature is unique as it will contain a secret key about which only we will know.
+
+These three parts combinely will form the JSON web token.
+
+-----> Working methodology of JWT
+- When a user signs into our application, we will create a token with which the particular user can authorize for a while.  
+- We create a payload containing the username and role and we will set the expiration time of the token to 1 hour. To create the signature we will use a secret key. The payload and signature and autogenerated header will return us the token. 
+
+
+- Whenever the same person wants to interact with our API like deleting a task. In the request header section we can get the jwt token of the user. 
+- We can take the header and payload associated with the token and create a signature using our secret key. If this generated signature is same as the provided signature then the user is authorized.
+
+65. Setting up the JWT Token on Sign in
+- To use jwt in our application. We can install these external packages:: @nestjs/passport, @nestjs/jwt, passport, passport-jwt
+
+- Inside the authorization module, we need to do some settings for the jwtmodules and passport module. Following are the syntax:
+
+PassportModule.register({ defaultStrategy: 'jwt'}),
+JwtModule.register({
+      secret: 'topSecret2001',
+      signOptions: {
+        expiresIn: 3600
+      }
+})
+- This will return us dynamic modules that will provide us services.
+
+66. Signing a JWT token on sign in
+- When the user successfully signs in then we will create the jwt. 
+Syntax: 
+const payload = {username};
+const accessToken = this.jwtServices.sign(payload); // accessToken is the jwt
+
+this.jwtServices is the result of dependency injection of dynamic service JwtService from '@nestjs/jwt/dist' package.
+
+67. Implementing JWT validation
+- We have to create JwtStrategy which we can invoke during AuthGuard() decorator call. 
+- We can create a separate file called jwt.strategy.ts.
+- Here we can mention an Injectable() class called as JwtStrategy that extends a class PassportStrategy(Strategy) and export this class. 
+- Here we will do dependency injection of the repository class. So we will mention the constructor with the following syntax: 
+constructor(@InjectRepository(UsersRepository) private usersRepository: UsersRepository) {
+    super({
+      secretOrKey: 'topSecret2001',
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    });
+
+- We will mention a validate method which will be called when AuthGuard() decorator will be added. 
+- Syntax: 
+async validate(payload: JwtPayload): Promise<User> {
+    const {username} = payload;
+
+    const user: User = await this.usersRepository.findOneBy({username});
+    if(!user)
+      throw new UnauthorizedException();
+    return user;
+  }
+
+68. Custom @GetUser Decorator
+- Instead of getting the whole request object if we want to get the only user property of the object then we can create our own custom decorator. Ex: GetUser
+Syntax: 
+import { createParamDecorator, ExecutionContext } from "@nestjs/common";
+import { User } from "./users.entity";
+
+export const GetUser = createParamDecorator((_data, ctx: ExecutionContext): User => {
+  const req = ctx.switchToHttp().getRequest();
+  return req.user;
+})
+
+- Here createParamDecorator is a function that returns a custom param decorator which takes a function as arguement which takes two arguements. First one is data which is not required and the second one is ctx which is of type ExecutionContext.
+- switchToHttp() - returns the arguements present in the HTTP request.
+- getRequest() - returns the request object from that.
+
+
+69. Guarding the tasks routes
+- We can protect a route by applying the decorator UseGuards() which will take as arguement another decorator called as AuthGuard() which will call the jwt.strategy.ts's validate() method. 
+- So we should import AuthModule inside TaskModule if we want to use this feature. 
+Syntax: 
+imports: [AuthModule]
+
+
+21.04.2023
+
+
+----------------------------------------------------------------------- Section 6 - Auth Part2- Task ownership and restriction --------------------------------------------------------------
+
+71. Tasks and Users - Database relation
+- We can define relations between tables using the decorator @OneToOne(), @OneToMany(), @ManyToOne(), @ManyToMany() from the TypeOrm package.
+- @OneToMany() and @ManyToOne() should be integrated together always. If one relation is OneToMany in one direction then it's going to be ManyToOne() in other direction.
+- It takes two three arguements. First one is a function that returns which entity it's relating with, second one is also a function that returns where the foreign key is present in the entity table means the exact property or column. And the third one is one optional property that includes eager. If it's set to true then it means that Eager relations are always loaded automatically when relation's owner entity is loaded using find* methods. Only using QueryBuilder prevents loading eager relations. Eager flag cannot be set from both sides of relation - you can eager load only one side of the relationship.
+
+72.  Make users own tasks:
+- When we are creating a task we can include the user inside the task also. So that typeorm will automatically add the user id to the task relationship. As the foreign key is always added in many side. 
+- While fetching the key, we should not show the user details. So we can hide user details by adding @Exclude() decorator from 'class-transformer' which will exclude the particular field in both plain form and object form. If we want to restrict this to only one type then we can mention an arguement inside the @Exclude() decorator which is a object having a property {toPlainOnly: true}
+- Then when we return an instance of this entity then the property with exclude decorator will not be shown if it is in the form of object.
+
+73. Serialize User Data: 
+- This exclude() won't work by their own. Like for class-validators to work we did some initial settings. We need to perform the same in here. 
+- We will create a new file called transformer.interceptor.ts which will contain some logic so that the decorators of 'class-transformer' wil work. 
+Below is the code:: 
+import {
+  NestInterceptor,
+  ExecutionContext,
+  Injectable,
+  CallHandler,
+} from '@nestjs/common';
+import { instanceToPlain } from 'class-transformer';
+import { map } from 'rxjs/operators';
+
+@Injectable()
+export class TransformInterceptor implements NestInterceptor {
+  intercept(context: ExecutionContext, next: CallHandler<any>) {
+    return next.handle().pipe(map((data) => instanceToPlain(data)));
+  }
+}
+
+
+- An interceptor is a class annotated with the @Injectable() decorator and implements the NestInterceptor interface. It can bind extra logic before / after method execution, transform the result returned from a function, transform the exception thrown from a function, extend the basic function behavior and completely override a function depending on specific conditions.
+
+- The interceptors can be applied globally, or at handler level or at controller level. Interceptors can be applied using at controller level using @UseInterceptors() decorator from '@nestjs/common'. We can mention globally like 'app.useGlobalInterceptors(new TransformInterceptor());'
+
+- Now the 'TransformInterceptor' interceptor is globally enabled. Now @Exclude() decorator will work.
+
+74. Restricting getting all tasks: 
+- Now we can restrict handlers to do the query operations specific to the user. We can use the custom decorator @GetUser() that returns the user object from the body of the request from the client. And we can pass it as the second operator in every method, so that we can restrict the functionalities specific to the user.
+
+
+
+----------------------------------------------------------------------- Section 8 - Logging --------------------------------------------------------------
+
+81. Introduction to logging: 
+- We want to apply logging statements to know the status of our application in console.
+- There are different kinds of logs
+ -> Log - general purpose logging og important information. Like to log that our server is active at port 3000
+-> Warning - unhandled issue that is not fatal or destructive. Like to save our items into database but only after 2 attempts.
+-> Errors - unhandled issue that is fatal or destructive. Like fails to save items into the db even after the validation passed.
+-> Debug - Useful information that can help us debug the logic in case of an error/warning. Intended for developers. Like logging the state of the application in some operations.
+-> Verbose - Information providing insights about the behavior of the application. Intended for operators. Like logging the dto or username of the query. It is considered as too much of information.
+
+Log Levels:::
+
+				Log		Error		Warning		Debug		Verbose
+Development		✅		✅		✅			✅			✅
+Staging			✅		✅		✅			❌			❌
+Production		✅		✅		❌			❌			❌
+
+82. Implementing Logs in our NestJS app
+- Logs should be a part of day to day development part. 
+- Syntax: 
+import {Logger} from '@nestjs/common'
+const logger = new Logger('context', {timestamp: true});
+logger.log();
+logger.verbose(verbose_message);
+logger.error(error_message, error.stack)
+
+- context can be helpful in knowing what is the context of the logger. We can set it mannually like in which file the logger is present.
+- {timestamp: true} - can set the timestamp or the ms time taken to execute this logger after the previous logger.
+- error.stack - can show the call stack which will be easy for us to find the error. 
+
+
+----------------------------------------------------------------------- Section 9 - Configuration management --------------------------------------------------------------
+
+84. Introduction to management:
+- Configuration are the central way of defining values that will be loaded upon starting the application.
+- Configuration are set depending upon enviornment like development, staging and production
+- Conifguration can be defined in the codebase and can be useful while working with multiple developers.
+- It can be defined in many ways like JSON, YAML, XML, enviornment variables or open-source libraries.
+
+---> Codebase v/s enviornment variables
+- We can define the configuration in our codebase for example in a config folder.
+- We can also define the configuration in the enviornment variables which are provided while running the application.
+- Non-Sensitive datas like port number can be defined in the codebase.
+- But sensitive informations like username, password should be provided in enviornment variables upon running the application.
+
+86. Quick intro to enviornment variables
+- Nodejs provides certain default enviornment variables like details about the user's enviornment in the form of key value pairs. 
+We can get the enviornment variables using 'process.env'.
+- Here process is an object that contains the enviornment variables of Nodejs applications. env is one of the property of process object. env is also an object that contains the enviornment variables and their values in the form of key value pairs. 
+- It is preferred to write the enviornment variables in upper case. 
+- If we want to provide our custom enviornment variables then we can write it while starting the application using the syntax:
+NAME=VALUE yarn start:dev
+Now we can access this NAME inside process.env.
+- We can provide multiple custrom enviornment variables during starting of the application separated by a space(' ')
+Syntax: NAME1=VALUE1 NAME2=VALUE2 yarn start:dev
+
+87. Setting up config module
+- If we want to setup different configuration file depending upon the stage or the enviornment like production or development. Then we can set a property called stage in enviornment variables and we can use the package configmodule. 
+- Inside appmodule file we need to import the module into our application and do some initialization like envFilePath that's an array that stores the value to the files containing enviornment variables.
+- Syntax: 
+imports: [ConfigModule.forRoot({envFilePath: [`.env.stage.${process.env.STAGE}`]})]
+
+- We can set the value of STAGE property during starting of the application so that we can dynamically change the envFilePath depending on the staging.
+
+- The module where we want to use the enviornmental variables, we just simply needs to import it and can do dependency injection to the dynamic service that it provides and use the enviornment variables.
+
+- Now we can store some variables in the file and access inside the module where it's imported using dependency injection.
+Syntax: this.configService.get('VARIABLE_NAME');
+- Using .get() we can access the value to the enviornment variables. And the arguement should be a string covered with single or double quotes.
+
+88. TypeORM configuration:
+- The confidential informations related to the db which we stored in the appmodule file directly now we can store in the env files. 
+- But to use these values we need to do depenency injection but it is not possible directly in appmodule file.
+- So we can use forRootAsync() method that is asynchronous in nature. Other methods are synchronus in nature. Means they will be executed one after another directly without waiting for something. But forRootAsync() method will wait for a module to load first then it will execute.
+- It has 3 fields.
+--> imports: which is an array that contains the modules names which loading is being waited by this asynchronous function
+--> injects: it's also an array that contains the injection that is intended like in this case
+--> useFactory: it's a asynchronous function which takes a parameter of type ConfigService. And now using this parameter we can access the env variables. This method returns the object which will be used as initialising the particular module.
+
+Syntax: 
+TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        type: 'postgres',
+        autoLoadEntities: true,
+        synchronize: true,
+        host: configService.get('HOST'),
+        port: configService.get('DB_PORT'),
+        username: configService.get('DB_USERNAME'),
+        password: configService.get('DB_PASSWORD'),
+        database: configService.get('DB_DATABASE'),
+      }),
+    }),
+
+89. Config schema validation:
+- We can provide a schmea for env files so that we can validate whether all required env variables are present or not. 
+- For this we can install a package @hapi/joi that provides a schema object and certain validation methods.
+- We have to create a config.schema.ts file where we can export an object using Joi.object() method. Inside this object we can mention all the variables that should be there inside the env files and with the appropriate validations like for string variables we can define the type as Joi.string() and for required variables we can use .required().
+- All these validation methods will return an object so we can chain these methods. 
+- Syntax: 
+import * as Joi from '@hapi/joi';
+
+export const configValidationSchema = Joi.object({
+  STAGE: Joi.string().required(),
+  DB_HOST: Joi.string().required(),
+  DB_PORT: Joi.number().default(5432),
+  DB_USERNAME: Joi.string().required(),
+  DB_PASSWORD: Joi.string().required(),
+  DB_DATABASE: Joi.string().required()
+});
+
+- Inside the initialization of configmodule (inside appmodule) after specifying the envFilePath, we can set another property called as validationSchema which value should be the exported Joi object. 
+- If any validation fails in Joi object it will throw a fruitful error which can be helpful and easy to debug.
+
+90. JwtSecretConfiguration
+- Apply the above learnt concepts to apply env var feature for the JWT_SECRET and to hide the confidential secret key in Auth_module.
+
+
+----------------------------------------------------------------------- Section 12 - Unit Testing --------------------------------------------------------------
+
+103. Unit Testing Crash course: Basics
+- For nestjs testing purpose, we can use jest framework. 
+- For running jest commands, our applications must have '.spec.ts' files. Otherwise it won't work and throw error.
+
+104. First Tests
+- To do testing we have to write the test cases inside describe() that accepts two parameters. First one is the name which is a string and the second one is an arrow function which will contain all the test cases. 
+- The test cases must be defined inside it(). For one test case, there should be one it(). It also accepts two parameters. First one is the string and the second one is an arrow function which will contain the actual testing.
+- Suppose we want to test a fucntion, then inside the arrow function of it(), we can mention the syntax: 
+expect(function_name(arg1, arg2)).toEqual(val_the_function_should_return)
+- The above syntax means the thing or functionality that we want to test, we should mention it inside expect() and the value that we are expecting as the output we can mention inside toEqual(), so that the expect() will match the value against the matcher(toEqual).
+
+106. Testing TasksService - Part 1
+
+- In case of writing unit testing for a TasksServices which is integrated in a module ecosystem, we need to create a testing module. 
+Syntax:
+import { Test } from '@nestjs/testing'
+
+const module = await Test.createTestingModule({
+	providers: [TasksService, 
+			{provide: TasksRepository, useFactory: mockTasksRepository}
+		]
+}).compile();
+
+- The above syntax means that we are creating a testing module for which nestjs provides us a package which should be imported form '@nestjs/testing' package which is called 'Test'.
+- It provides a method called createTestingModule() which takes an object as parameter which contains metadata about the module.
+- In case of unit testing one should concern with only one thing. So while writing test cases for TasksService we should only focus on that particular part. So we can mention inside the providers array TasksService.
+- As out TasksService is dependent on TasksRepository, we should not use database stuff and all to perform testing on TasksService. So for that we can create a mock TasksRepository which we call as mockTasksRepository.
+- As TasksRepository is at the end an object which have some properties and functions, so we can create mockTasksRepository as a direct object or can return from a function which will be everytime called by using useFactory. useFactory is more preferred. 
+- useFactory will everytime will run the function and the returned object will be set as the value of TasksRepository.
+- Now we are done with writing the module. But we can't use this module till we compiled it. So need to compile the module using .compile() method.
+- Then we can assign the TasksService and TasksRepository to variables named tasksService and tasksRepository respectively like dependency injection to test the method present in it. 
+- All these stuffs should be done inside beforeEach(), so that all these things will be done everytime before any other things.
+ 
+- Suppose we consider to test the functionality of only one function of TasksService then we can nest describe blocks one within another.  
+- this describe block is to test getTasks(), so the first arguement's value should be 'getTasks'. Inside this describe, we can mention it() block. 
+- Inside it block we can check whether tasksService.getTasks() is calling tasksRepository.getTasks() or not. And also we can check tasksService.getTasks() is returning the samething that tasksRepository.getTasks() returns.
+- For this we can set mock return value or mock resolve value of mock functions. mock return values is used for synchronous functions whereas mock resolve value is used for asynchronous functions and we can match the value of returntype of TasksService.getTasks() with the set value of tasksRepository.getTasks().
+
+Syntax: 
+describe('getTasks', () => {
+    it('calls tasksRepository.getTasks() and returns the result', async () => {
+      expect(tasksRepository.getTasks).not.toHaveBeenCalled();
+      tasksRepository.getTasks.mockResolvedValue('something');
+      const result = await tasksService.getTasks(null, mockUser);
+      expect(tasksRepository.getTasks).toHaveBeenCalled();
+      expect(result).toEqual('something');
+    });
+  });
+
+Syntax for mockTasksRepository():::
+
+const mockTasksRepository = () => ({
+  getTasks: jest.fn()
+})
+
+Here jest.fn() gives a mock functions.
+
+107. Testing TasksService - Part 2
+- We can test another method of TasksService i,e,. getTasksById() which either returns the tasks if found else throws notfoundException.
+- For this we need to write two test cases means two it() blocks. One will be for if the item present another one is if the item is not present. 
+- Syntax: 
+describe('getTaskById', () => {
+    it('calls tasksRepository.findOneBy() and returns the result', async () => {
+      const mockTask = {
+        id: 'Test ID',
+        title: 'Test title',
+        description: 'Test description',
+        status: TaskStatus.OPEN,
+        user: mockUser,
+      };
+
+      tasksRepository.findOneBy.mockResolvedValue(mockTask);
+      const result = await tasksService.getTaskById(mockUser.id, mockUser);
+      expect(result).toEqual(mockTask);
+    });
+
+    it('calls tasksRepository.findOneBy() and handles an error', async() => {
+      tasksRepository.findOneBy.mockResolvedValue(null);
+      expect(tasksService.getTaskById('someId', mockUser)).rejects.toThrow(
+        NotFoundException,
+      );
+    });
+  });
+
+- Here we set the returntype of mockTasksRepository as the mockTask.
+- The first testcase works similar to the previous one.
+- But the second it(), the return type of the mockTasksRepository.findOneBy() is set to null. So it will throw error
+- We are comparing that tasksService.getTaskById() whether it's rejecting the promise and throwing an error or not. 
+- We can specifically mention whether the error is particularly NotFoundException or not.
+
+
+----------------------------------------------------------------------- Section 13 - GraphQL + MongoDB --------------------------------------------------------------
+
+115. Installing GraphQL Dependencies
+- "@apollo/server" - It provides a server for GraphQL 
+- "@nestjs/apollo" - integration of nestjs and apollo
+- "@nestjs/graphql" - integration of nestjs and graphql
+- "graphql" - driver package of graphql
+- "graphql-tools" - contains some extra tools of graphql
+
+- GraphQL is a query language for API which is very flexible in nature. Here the client can mention exact what data it needs from the API.
+
+
+1.5.23
+118. Defining the lesson graphql type
+- Like entity in nestjs, in graphql we have type. Here we can mention the structure or schema.
+- Here is the class is decorated with a decorator named as 'ObjectType()' to mark it as a type and all the column fields inside the class is marked with the decorator '@Field()' .
+- We can explicitly declare the name of the table inside the ObjectType() parenthesis. Also we can explicitly set the type of fields inside the field decorator though it will automatically sense it from the typescript assigned types. But it's preferred in case of IDs to explicitly set the type as 'ID'.
+
+119. Creating the Lesson Resolver
+- Like controllers in nestjs to handle all the routes. In graphql we have resolver which we define with the help of @Resolver() decorator. Inside the parenthesis we can mention the graphql type the resolver dealing with. 
+- Like we had handlers in case of nestjs, here we have @Query() decorator, which is annotated to a function which is used to fetch the data from something. 
+- We have also a concept called mutation which is used to post or create some new data in the database. 
+- We need to specify this resolver inside the module, inside the field of providers.
+- The apollo package will create a graphql server which will be generated in 'localhost:3000/grpahql' local server which will provide us a playground using which we can visualize the datas and the queries. 
+- In the playground, we can either pass queries or mutations. Example syntax: 
+mutation (parameter1: val1, parameter2: val2...) {
+	field1
+	field2
+	.
+	.
+	.
+}
+
+query(parameter1: val1, parameter2: val2) {
+	field1
+	field2
+	.
+	.
+	.
+}
+
+120. persistence: TypeORM, MongoDB and Lesson Entity
+- Here we will also use TypeORM which will convert the syntax to monogodb language. 
+- The initializations that we need to perform in the app.module.ts file are: 
+TypeOrmModule.forRoot({
+      type: 'mongodb',
+      url: 'mongodb://localhost/school',
+      synchronize: true,
+      useUnifiedTopology: true,
+      entities: [Lesson]
+    }),
+- We can create an entity named as 'Lesson' which will contain the schema of the database which will be similar to the previous one. But here in case of mongodb there is needed an extra field named as '_id' which will is a default field in case of mongodb, so it's should be annotated with the decorator @ObjectIdColumn()
+
+121. LessonService and createLesson method
+- To create a lesson we can use create() and save() method as we used it before.
+- But here instead of creating a separate repository file, if we want to direct use the default repository then we can use the syntax,
+syntax:: constructor(InjectRepository(Entity_name) private repository_name: Repository<Entity_name>) {};
+
+- @Args('field_name') - This decorator is used to get the fields which are requested by the end-user and attach these values to the function parameters.
+
+124. getLesson GraphQL Query with MongoDB
+- findOneBy({field: val}) - returns an item which fulfills the object query in the parameter.
+
+125. Validation: Create Lesson Input
+- In place of DTOs, In GraphQl we can use @InputType() decorator in the class and all the fields must be first annotated with @Field() decorator before getting annotated with other class validators.
+- @Args() inside the parenthesis we need to pass a string which should be a valid field name. It can't take empty parameters. 
+
+126. Challenge: Get All Lessons GraphQL Query
+find() - returns all the items from the db
+- Inside @Query(), if we want to mention the return type as an array, we can mention array in GraphQl using the syntax:: [data_type]
+- When we don't have any parameter for query or mutation then we should not mention the parameter in the playground server.
+
+132. Assign students to lesson GraphQL
+- If we want to join two tables in graphQL we can mention type as the Entity type in the type file and store ids of one table in one particular field of other table.
+
+134. Resolve 'students' field in lesson
+- When we want to use resolver inside resolver, then we can mention a method whose name should be the column name and should be annotated with the decorator '@ResolverField' and the argument should contain '@Parent()' decorator which will pass the entire selected instaces to the sub resolver. 
+- Inside the subresolver we can write our own logic to attain the required result.
+- Syntax: 
+@ResolveField(() => [StudentType])
+  async students (@Parent() lesson: Lesson) {
+    return await this.studentService.getManyStudents(lesson.students);
+  }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="../base.css" />
+	</head>
+	<body>
+		<p class="user"></p>
+		<script>
+			const baseEndpoint = "https://api.github.com";
+			const userEndpoint = `${baseEndpoint}/users`;
+			const el = document.querySelector(".user");
+
+			function handleError(err) {
+				el.textContent = `OH NOOO!! Something went wrong: ${err}`;
+			}
+
+			async function getData(user) {
+				el.textContent = "Loading...";
+				const endpoint = `${userEndpoint}/${user}`;
+				const response = await fetch(endpoint);
+				console.log(response);
+				const data = await response.json();
+
+				el.textContent = `${data.name} - ${data.blog}`;
+			}
+
+			getData("wesbos").catch(handleError);
+		</script>
+	</body>
+</html>

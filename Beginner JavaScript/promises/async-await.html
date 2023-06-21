@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="../base.css" />
+	</head>
+	<body>
+		<script>
+			function wait(ms) {
+				return new Promise((res) => {
+					setTimeout(res, ms);
+				});
+			}
+
+			function makePizza(toppings = []) {
+				const timeToBake = 500 + toppings.length * 200;
+
+				return new Promise(function (resolve, reject) {
+					if (toppings.includes("pineapple")) {
+						reject("Seriouslyyy!!!!! Get out of here!");
+					}
+
+					setTimeout(function () {
+						resolve(
+							`Your pizza is ready after ${timeToBake} seconds with toppings of ${toppings}`
+						);
+					}, timeToBake);
+				});
+			}
+
+			async function go() {
+				console.log("start");
+				await wait(1000);
+				console.log("end");
+			}
+
+			go();
+
+			async function makeDinner() {
+				const pp1 = new makePizza(["pepperoni"]);
+				const pp2 = new makePizza(["cheese", "baby corn"]);
+
+				const [pep, cheesy] = await Promise.all([pp1, pp2]);
+
+				console.log(pep);
+				console.log(cheesy);
+			}
+
+			makeDinner();
+		</script>
+	</body>
+</html>

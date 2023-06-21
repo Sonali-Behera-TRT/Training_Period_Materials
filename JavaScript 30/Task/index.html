@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="./style.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Alkatra:wght@700&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<div class="appointment">
+			<h1>Book Appointment</h1>
+			<form>
+				<input
+					name="startInput"
+					type="time"
+					id="start__time"
+					min="09:00"
+					max="19:00"
+					required
+				/>
+				<label for="start__time">Choose Start Time</label>
+				<input
+					id="end__time"
+					type="time"
+					min="9:00"
+					max="19:00"
+					required
+				/>
+				<label for="end__time">Choose End Time</label>
+				<span>Duration: <span class="duration">00:00</span></span>
+				<button type="submit">Book</button>
+			</form>
+			<h1>The Appointment List</h1>
+			<ul class="appointment__list"></ul>
+		</div>
+		<script src="./index.js"></script>
+	</body>
+</html>

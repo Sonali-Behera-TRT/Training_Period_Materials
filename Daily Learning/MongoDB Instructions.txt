@@ -1,0 +1,18 @@
+Connecting MongoDB to Nestjs application
+
+Step1: Installing dependecies
+- We need to install dependecies like @nestjs/mongoose and mongoose. 
+- Here @nestjs/mongoose is the npm package that includes methods to integrate mongodb with nestjs application and mongoose is the dedicated package containing all the mongodb methods.
+
+Step2: Connecting to MongoDB
+- We need to import MongooseModule into our application using the syntax 
+import { MongooseModule } from '@nestjs/mongoos';
+- Then we need to mention it in the import array inside our AppModule and connect to the MongoDB database using the following syntax:
+import: [MongooseModule.forRoot(process.env.MONGODB_URI)] 
+Here the forRoot method shares the database connection with all other modules inside our application.
+
+Step3: Creating a Mongoose schema
+- Now our database connection part is done. We need to create schema of our table like we created entity in case of postgres. 
+- We can create a <name>.schema.ts file and mention all schema of the table that will be a class annotated with @Schema() decorator. 
+- We can also mention the properties or columns of the table using @Prop() decorator.
+- Further we can see mongoose documentation for further application. 

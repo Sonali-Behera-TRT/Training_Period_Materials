@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Currency Converter</title>
+		<link rel="stylesheet" href="../base.css" />
+		<link rel="stylesheet" href="./money.css" />
+	</head>
+
+	<body>
+		<div class="app">
+			<form>
+				<input type="number" name="from_amount" />
+				<select name="from_currency">
+					<option>Select a Currency</option>
+				</select>
+				<p>in</p>
+				<select name="to_currency">
+					<option>Select a Currency</option>
+				</select>
+				<p>is</p>
+				<div>
+					<span class="to_amount">$0</span>
+					<div class="loader_container">
+						<div class="loader hidden"></div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<script src="./money.js"></script>
+	</body>
+</html>

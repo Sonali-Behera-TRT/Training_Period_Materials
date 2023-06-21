@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="../base.css" />
+	</head>
+	<body>
+		<script>
+			String.prototype.sarcastic = function () {
+				const sarcastic = this.split("")
+					.map((char, i) => {
+						if (i % 2 == 0) return char.toUpperCase();
+						else return char.toLowerCase();
+					})
+					.join("");
+				return sarcastic;
+			};
+
+			function Pizza(name, toppings) {
+				this.slice = 10;
+				this.customer = name;
+				this.toppings = toppings;
+			}
+
+			Pizza.prototype.eat = function () {
+				if (this.slice > 0) {
+					this.slice -= 1;
+					console.log(`CHOMP, ${this.slice} slices left`);
+				} else console.log("Your pizza is finished");
+			};
+
+			Pizza.prototype.describe = function () {
+				console.log(
+					`This pizza is for ${this.customer} with toppings of ${this.toppings} and left with ${this.slice} slices.`
+				);
+			};
+
+			const pepperoniPizza = new Pizza();
+			const canadianPizza = new Pizza();
+
+			const sonaliPizza = new Pizza("Sonali", [
+				"extra cheese",
+				"baby corn",
+				"chilly",
+				"mushroom",
+			]);
+			console.log(sonaliPizza);
+		</script>
+	</body>
+</html>

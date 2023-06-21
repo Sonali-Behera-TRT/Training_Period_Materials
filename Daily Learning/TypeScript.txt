@@ -1,0 +1,711 @@
+29.03.2021
+-----------------------------SECTION 1-----------------------------
+TypeScript:
+- Javascript superset - javascript language + new feature with which we can write better code
+- The compiler will convert the code of typescript to javascript
+- Typescript also can catch errors that js can't.
+- We can write syntactically better codes that might be lengthier using js.
+- compiler - tsc file_name_having_extension_.ts
+- We can write next-gen js feature codes that can run on old browser, non-js features like interfaces and generics and many more.
+- Gives error before the code runs on browser, locally when we compile the file. As browser can't understand typescript.
+
+--------------------------SECTION 2---------------------------------
+---> Core Types
+number - 1, 5.3, -10
+string - 'Hi', "Hi", `Hi`
+boolean - true/false
+
+---> Javascript types vs typescript types
+-Javascript uses dynamic types - that will be checked dynamically at run time, but typescript types are static types - will be checked at compile time i.e., at development time
+- The core primitive types in typescript are all in lowercase like number, string not String, Number
+
+--->  Working with numbers, strings and booleans
+- In js and ts, all numbers are float by default. No difference between 5.0 and 5.
+
+---> Type assignment and type inference
+we can explicitly assign types using ':type_name' syntax. But it should not be done at the place where typescript or javascript can infer the type automatically. There it is of no use.
+
+---> Object types
+Written almost like objects but here the entries are key and type pairs separated by semi-colon(;). 
+If we explicitly assign 'object' type, we don't give any of the info about our object to typescript. So we should be specific about our object. And set the type of object to always object type.
+- Syntax: 'const obj_name: {key: type;}'
+
+---> Array types
+- type of array is: 'data-type[]' Ex: string[], number[]
+-For to have mixed type array: we can use type of array as 'any[]'
+
+30.03.23
+---> Tuples 
+- Fixed length array having fixed types
+- We can't reassign to another tuples with more items than the structure we have defined in the types. But still we can add more items into the tuples or arrays than the size it is defined using push method. Typescript can't catch this error. 
+- In union types, there we can't add other types values. But we can push an array of the defined particular type. But in tuple we can't add array of the defined types also. It only allows values of the mentioned types.
+
+---> Working with enum type
+- Custom type or user defined data types
+- Syntax: enum enum_name {key1 = value1, key2 = value2, key3 = value3};
+- The enum name should start with uppercase.
+- We can access the values of the enum using enum_name.key_name like in objects
+- Only numbers and strings are allowed in enum. And if the enum is of number types, then if the keys are not initialized the keys will be initialized to '0' by default and the next key will be increments by 1 means 1, 2 , 3 and so on....
+- We can have string and number mixed type enums. If only the first key is initialized to number then the next keys will be incremented by 1. 
+- We can't initialize an enum's only first key to string. In case of string enums all the keys must be initialized to numbers or strings.
+
+---> any types
+- We can store any type of values we want. No specific type assignment
+- It takes away all the advantages of typescript
+- Becomes same as vanilla javascript
+
+List of core types:
+- number
+- string
+- boolean
+- object
+- array
+- tuple
+- enum
+- any
+
+---> 22. Union types
+- If we want a variable to have more than one type then we can use union types. 
+- Syntax: const var_name: type1 | type2
+
+---> 23. Literal types
+- When the type of a variable is fixed to a particular version of other data types then we call it as a literal type.
+- const a = 12; Here a is of const type and it can't be reassigned. So the type here is literal type means constant type.
+const s: 'Sonali' | 'Monali' Here we are mentioning that string s can have only one value out of these two string. So it is also a literal type used in union type.
+
+---> 24. Type Aliases/ Custom types
+- Whenever we are using union types or complex object types or other types, we can create an alias type or custom type to store that particular type.
+- Syntax: type alias_name = data_type;
+- alias name should not be a keyword either in javascript or typescript
+
+---> 26. Function return types and void
+- The return types of function are mentioned after the closing bracket of arguments.
+- syntax: function function_name(arg1, arg2): return_type{}
+- If a function doesn't return anything, it means that the return type is void.
+- For all other types, typescript understands that it must have an return type. 
+- For undefined it should use the keyword return, but should not mention anything to return. It is very rare.
+- In void type also we can use return keyword.
+- Void doesn't exist in js, undefined is used instead.
+
+
+---> 27. Functions as types
+- Function type means the variable can store a value of function type.
+- If we want to store any function type we can write the syntax as let var_name: Function
+- If we want to store any specific type of function, we can write the syntax as 
+let var_name: (par1: type, par2: type....) => return_type;
+
+----> 28. Function types and callbacks
+If the return type of the call back is set to void, the compiler will ignore the return type. If the return type of the call back is set to exlicitly void and the function still returns anything, then compiler can't catch this error. As the compiler will ignore any kind of return type.
+
+
+---> 30. The 'unknown' type
+In 'unknown' type, we can assign any value to the variable, but the difference between unknown and any is we can't assign an unknown type to a string type even if the unknown type variable stores strings. But it is allowed in any, as the compiler stops type checking.
+
+----> 31. The 'never' type
+- If the function crashes in between like throws an error or went inside an never ending loop then the return type of the function would be never type. The functions having never as return type should not reach at the function ending.
+- If we doesn't specify explicitly as 'never' type then the function considers it as a void return type.
+
+
+-----------------------------------------------------------------------------------------SECTION 3----------------------------------------------------------------------------------
+
+----> 34. Using 'watch mode'
+Syntax: tsc file_name --watch or tsc file_name -w
+
+----> 35. Compiling entire project or multiple files
+Syntax: tsc --init, tsc --watch or tsc -w on the folder in which we want ts to watch through the folder and if there happens any chages to the typescript files, then recompile them.
+
+---> 36. Including and excluding files
+- In tsconfig.js file, we can mention certain files or folders that we want typescript not to touch, those we can mention in an array inside 'exclude' tag. Node_modules is by default excluded. If node module is the only file you want to exclude, doesn't require to write. But if we mention other files or folders to exclude and don't mention node modules explicitly then node modules will be watched also. In this case we need to explicitly set node modules to be excluded.
+- 'include' key is used to include certain files or folders that we want only to be watched by typescript. If we are using include key, then we need to mention all the files or folders that we want to compile.
+- 'files' key is used to set only the files that should be compiled. Other files in the directory will be untouched by typescript.
+
+---> 37. Setting a compilation target
+'target' : 'es6/es2015' - we can set the javascript version to which the compiler can compile. es6 is the popular version that can allow use of let and const. And works on latest browsers. If we want our code to run on older browsers as well then we can mention here older versions as well.
+
+---> 38. Understanding typescript core libs
+In order to understand some functionality we need to include some files into the lib array inside tsconfig.js, so that typescript can include those files to perform something.
+
+----> 39. More configuration and compilation options
+'allowjs': ts compiles all files those who are certainly not ending with .ts also can also be compiled
+'checkjs': ts doesnot compiles but checks those files even if not ending with .ts
+
+----> 40. Working with source map
+'sourceMap': true, by setting this property, we can create a javascript map file that is a bridge between js file and ts file and allow ts file to show in the browser developer tool, and also we can add breakpoints and debug our code.
+
+----> 41. rootDir and outDir
+- outDir: specifies the directory where the compiled js files should present. The directory should be relative to the ts file directory.
+- rootDir - specifies the directory where the compiler should look at and compile only files inside that particular directory. Other files or folders outside that directory will be ignored.
+- removeComments: true - If we want to remove comments in js files which are present in ts files.
+- noEmit: true - doesn't create an output js file. Only checks whether the input ts files are correct or not
+- downLevelIteration: true: turn this on when you find that your code includes any loops and that loop is not working in any particular niche cases.
+
+42. Stop emitting files on compilation errors
+- noEmitOnError: true - when there is compilation errors, compiler will not create any output js files. If error is present in one file, then also not a single file inside that folder will generate js files.
+
+43. Strict compilation
+- strict: true - by default sets these following options to true
+- noImplicitAny: true - compiler will not allow any implicit any type by far we have not set this explicitely. But this can be relaxed in case of variables. But can't be ignored in case of function parameters.
+- strictNullChecks: true - strictly checks for the possible null values. For HTML elements to solve the null checks, we can mention an exclamation mark at the end of querySelector statement that represent that I as a developer can vouch for the particular HTML element that it will surely represent to a valid element in DOM.
+- strictFunctionTypes: true;
+- strictBindCallApply: true - it makes sure that the bind, call and apply methods are not wrongly written
+- strictPropertyInitialization: true - related to class
+- noImplicitThis: true - ts warns if the scope of this is not clear in the code
+- alwaysStrict: true  - adds 'use: strict' to the top line in the js files.
+
+44. Code quality options
+- "noUnusedLocals": true, "noUnusedParameters": true, - some options that shows error if the code contains any unused local variables or function parameters.
+- "noImplicitReturns": true, - shows error if the function returns in some cases and does not return anything in other cases. If the doesnot return anything in any cases then it will not show error.
+
+45. Debugging with visual studio code
+
+
+-----------------------------------------------------------------------------------------SECTION 4----------------------------------------------------------------------------------
+49. const and let - const is for const values and let and const are block scoped and var is function scoped
+50. arrow function - 
+
+51. Default function parameters 
+- we can mention default values of function parameters. 
+- syntax: function fun_name(para1: type = value)
+- we can skip the value of default parameters in function calling.
+- The default parameter should be assigned to last parameters. Because default parameters can't be skipped while assigning values.
+
+52. The spread operator
+53. Rest parameters
+- If we want a function to accept variable number of arguments then we can use rest parameter using '...'infornt of parameter name. In a function there can be only one rest parameter that should be the last arguement of the function. It converts the comma separated values into array.
+
+54. Array and object destructring
+55. How code gets compiled
+
+
+--------------------------------------------------------------------------SECTION 5 : classses and interfaces---------------------------------------------------------------
+
+58. what are classes ?
+---> Classes
+- Blueprint of objects. 
+- Defines how objects should look like and which properties and methods they have
+- It makes creation of multiple similar objects much easier.
+
+----> Objects
+- Instances of classes.
+- the thing we work with in code
+- Class based obj creation is an alternative to using object literals.
+
+59. Creating a first class
+- Syntax: 
+class class_name{
+	variable_name: type;
+	constructor(){
+	}
+}
+
+60. compiling to js
+- For es6 js there exist classes, so the above program will stay the same except we don't need to declare the variables. We can directly get them using 'this' keyword.
+- For older version of js, there doesn't exist class, so the class will be converted to a constructor function like we did in js. And we can set the variables using 'this' keyword.
+
+61. Constructor function & 'this' keyword
+- All the functions present inside a class is called as methods and 'this' keyword refers to the object which has called that method.
+- Syntax for constructor: constructor(){//body}
+- Syntax for methods: method_name(){}
+- We can attach reference to 'this' keyword in the method parameter using the syntax: method_name(this: scope){}
+- If we mention the scope to class name then it represents that here 'this' represent to a object of that particular class.
+
+62. 'private' and 'public' access modifiers
+- 'public' specifies that the variable is accessible from outside the class. (default)
+- 'private' specifies that the variable is only accessible inside the class.
+
+63. Shorthand initialization
+- Instead of writing the property name in the class and initializing the property in the constructor, we can use shorthand initialization.
+- Syntax: constructor(modifier name: type) // It specifies that the particular parameter starting with a modifier is a property of the class and the particular property name and type is same as the parameter name and type.
+
+64. 'readonly' properties
+- If we define any particular property of class as readonly, then the property can't be changed throughout the code.
+- It is mentioned in the initialization part or inside the parameter of constructor after specifying the modifier.
+
+65. Inheritance
+- The process of inheriting properties, methods and constructor from one class to another class
+- Syntax: class class_B extends class_A{}
+- We can call parent class constructor from child class using 'super' keyword. But it should be the first statement inside constructor that should be present before the use of 'this' keyword.
+- In inheritance along with parent class properties and methods we can also define new properties and methods also.
+- We can inherit only from one class.
+
+66. Overriding properties and the 'protected' modifier
+- Protected keyword helps to avail the property inside the class as well as in it's derived class.
+- We can rewrite the logic of an already declared class in child class called as overriding. We cannot change the parameter numbers and types. But we can change the return type.
+- Overloading(rewriting inside the same class) is not allowed.
+
+
+67. Getters and setters:
+- Getters are the properties that is used to get the values of private variable outside of the declared class.
+- Setters are the properties that is ued to set the values of private variables or to perform certain task.
+- Syntax:
+get getter_name(){//body}
+set getter_name(){//body}
+- Getters and setters are properties, so it should be used outside without parenthesis like 
+object_name.getter_name // getter will return a value;
+object_name.setter_name // setter will perform certain task.
+- But getters and setters should be declared like a function inside the class means parenthesis should be used there.
+- Getters must return a value.
+- Setters must have exactly one parameter.
+
+68. Static methods and properties
+- Static methods and properties are the methods and properties that doesnot need the instances of the class to work with. They can be directly used with the class name.
+- 'static' keyword must be used before property name or class name. 
+- Static keywords cannot be accessed using instances.
+- To access static proerties and methods inside not static part of the class, we need to call them using class name instead of this keyword. 
+- But static methods or properties can be accessed using this keyword inside other static methods inside the class
+
+69. Abstract classes
+- Abstract classes are the classes which contain atleast one abstract method or property. 
+- Abstract classes or properties can't have a body or description in the abstract class.
+- All the inheritated class must have the description of all the abstract methods and properties.
+- Abstract class, properties or methods should start with 'abstract' keyword.
+- We can't change the method signature and return type of  abstract properties and methods in child classes.
+- Abstract classes can't be instatiated means we can't create object of abstarct classes.
+
+70. Singletons and private constructor
+- If we want to make sure that only one instance of the class should be there for a particular class, then it is called as singleton pattern.
+- Singleton pattern can be achieved using private constructor. And we need to create a static private property which will be the class type and stores the instance of the class. And we will declare another static method which will check that if any instance of the class exist return that one. If not then create a new instance store it in the property(above mentioned) and return that one.
+- Any changes to any value of one object of singleton class, all the other object's values will be changed.
+
+72. A first interface
+- Interface stores the structure of an object. It is only for typechecking purpose.
+- 'interface' keyword should be used to create an interface.
+- We can't initialize properties and methods can't have body.
+- We can only provide the structure of the object i,e,. which properties and methods should be there in a particular object and what are there types and return types and parameters.
+- Syntax: interface interface_name{
+	property1: type;
+	property2: type;
+	method_name(parameter: type...): returntype;
+	.
+	.
+	.
+}
+- Interface is strict about return type other than void, change in parameters are relaxed.
+
+73. Using interfaces with classes
+- Interfaces and custom type objects can be used interchangably. With classes, interfaces are prefered more. The difference between them is custom type objects support union types but interfaces don't.
+- Like inheriting properties and methods of one class in another class, we can also implement the properties and methods of interfaces into a class using 'implements' keyword.
+- The class implementing an interface should contain all the methods and properties of the interface and should have implementation.
+- An interface is similar to an abstract class. But the core difference is abstract class might have some method description. But an interface can't have any implementation.
+- Keyword used 'implements'
+- We can implement a class from more than one interfaces.
+- We can explicitly define the type of a variable to interface type. And then initialize it to the implemented class. And can access all the methods and properties inside the class even the properties or methods which are not there in the interfaces but present in the class.
+
+74. Why interfaces?
+- Interfaces are useful in cases where we have certain properties and methods that we want to be present in some classes and classes can have there own implementation, but must include those properties and methods. In those classes we can use interface that will ensure that all the classes that inherit it or all the objects that is of that interface type must include all the properties and methods of interfaces.
+
+75. Readonly interface properties
+- We can make a property as readonly in interfaces also. But we can not add access modifieres like public, private and protected.
+- Readonly properties in interfaces even if not rementioned as readonly in classes, will still be readonly. But if a property is not declared as readonly in interfaces but declared as a readonly in classes, if a obj is created of type interface then the object can change the readonly property.
+
+76. Extending interfaces
+- We can also inherit properties and methods of other interfaces into one interface using 'extends' keyword.
+- Here we can inherit from more than one interfaces which is not possible in case of classes.
+
+77. Interfaces as function types
+- Interfaces can be used as function types also. 
+- Syntax: interface interface_name{
+	(parameter: type):return_type;
+}
+- In case of interfaces of function types, it strictly checks for parameters and return type while in normal interfaces methods, it doesn't check for parameter but strict about return types except void.
+- In interfaces we can't use '() => return_type' syntax. We have to use '():return_type' syntax.
+- In function type we can't use '():return_type' syntax. We have to use '() => return_type' syntax.
+
+78. Optional parameters and properties
+- We can create optional properties and methods in interfaces using '?.'
+- Syntax:
+For properties == property_name?: type;
+For methods == method?(): return_type;
+- If one property is set as optional in interface, it should also be set as optional in class otherwise we need to modify our code such that it will always have a value for that property.
+- We can create optional properties, methods, and also optional parameters.
+- Optional parameters can use the above syntax or can contain a default value, which will also make them as optional.
+
+79. Compiling interfaces to javascript
+- Javascript doesn't know interfaces. Even es6 doesn't know interfaces. So interface is only used during development and compile time. No tresses of interface will be there in our transpiled javascript files. These interfaces would have been converted into some functions(in es5) or classes(in es6);
+
+
+--------------------------------------------------------------------------SECTION 6: Advanced types---------------------------------------------------------------
+
+83. Intersection types:
+- Operator used: '&'
+- In case of objects and classes, intersection type sets the resultant object to contain all the properties of the two or more objects or classes which are intersected.
+- But in case of union types, the intersection type sets the resultant variable of type which is common in two more more unions which are intersected.
+- In case of single single types, if two item types are equal then it wil give the same item type. But if they are different then the result will be null;
+Ex: type Type1 = string;
+type Type2 = number;
+type Type3 = number;
+type Type4 = Type2 & Type3; // Number
+type Type5 = Type1 & Type2; // never
+
+
+84. More on type guards
+- Type guards is the method of ensuring that whether a particular property or method exist before using it. 
+- There are various ways of doing it.
+- In case of variables we can check with of help of 'typeof' operator.
+- In case of objects we can check with the help of 'in' keyword or 'instanceof' keyword.
+- 'in' keyword will check whether the property exist or not in the particular object.
+-'instanceof' will check whether the object of that particular class or not.
+- instanceof operator will not work in case of interfaces. As we cannot create instances or objects of interfaces.
+
+85. Discriminated union
+- It is used to type guard union types also.
+- Discriminated union works for type guarding the interfaces also. 
+- If there are two unions of any types like interfaces or classes or objects, we can typeguard by setting a property called 'type' for each type and set the type of the 'type' property as literal type. And in case of type checking we can access the property type for each unions and do various tasks based on the value of the type property.
+
+86. Type Casting
+- To convert one type to another type.
+- There are 2 ways 
+- In one way we can use the syntax: '<type_to_be_casted>' before the element or in another way we can write 'as "type_to_be_casted"'.
+- To show that particular element is not null we can add '!' after the element.
+- We can skip '!', if we are using typecasting. But it is preferred to use '!' to show that it will never be null.
+
+87. Indexing properties
+- If we want to have a property which can have multiple properties of a particular type, we can write it using indexing properties.
+- Syntax: 
+type Type1{
+	[prop_name: type_of_prop]: value_type;
+}
+- Here we also can write other normal property value pairs, but that should match the above type. All the prop should be of the defined type and value should be the defined type.
+
+88. Function overloads
+- When we are writing a function that takes a particular arguement of multiple types, then the compiler is not sure of what would be the return type (if not explicitely set). 
+- Then we can typecast the result that we get from the function into the intended type.
+- But that is not feasible if we want typescript should analyze the code the itself and infer the type. For it to happen we can use function overload. 
+- syntax:
+function_name(parameter: type1):return_type1;
+function_name(parameter: type2): return_type2;
+.
+.
+.
+
+89. Optional chaining
+- If we are not sure any property exist in any particular object or not, we can use optional chaining instead.
+- Syntax: '?.'
+
+90. Nullish Coalescing
+- If we want to have a fallback value for value for only null or undefined type, then we can use nullist coalescing opertor.
+- Syntax: 'var =  val1 ?? val2'
+- If val1 is either null or undefined then only val2 will be stroed.
+- But in case of fallback using '||' or operator it will consider other falsy values like empty string'' also. It will store the val2
+
+
+--------------------------------------------------------------------------SECTION 7: Generics---------------------------------------------------------------
+
+94. Built in generics and what are generics ?
+- When one data-type deals with another data-type, it is called as a generic type.
+- Syntax: 'Type1<type2>'
+- Ex: Array<number> // It is exactly same as number[]
+Ex: Promise<string> // It defines that the resolve method will return a string in the particular promise type.
+- In case of array the type2 defines the type of the elements present in the array.
+- In case of promises, type2 defines the return type of the resolve function of the promise
+
+95. Creating a generic function
+- In generic function, inside the angular braces we can specify that types are not same for every function call and typescript should infer the type based on the function calling. And the return type also depends on the functionality of the function.
+- Syntax:
+function<T, U..>(a: T, b: U)
+here T is the type of 1st parameter(a) and U is the type of 2nd parameter(b) that typescript will infer from the arguements passed.
+- From the function defination typescript only knows that T and U are different types. It might contain same types.
+
+96. Working with constraints
+- In case of generic functions, if we want type of the generic one to be of a particular type, then we can set the generic type by using the keyword 'extends'.
+- syntax: function<T extends type_name>(a: T){//body of function}
+
+97. Another generic function 
+- In case of generic function if it extends to an interface, then we can pass an object that should atleast contain the properties that is present within the interface.
+- Ex: 
+interface Lengthy{
+    length: number;
+}
+
+function describeLength<T extends Lengthy>(element: T): [Lengthy, string] {
+    if(element.length === 0)    
+        return [element, 'No length'];
+    return [element, `Length is ${element.length}`];
+}
+
+const len = describeLength({name: 'Sonali', age: 21, length: 3});
+console.log(len);
+
+98. The 'keyof' constraint
+- keyof constraint can idenify that the parameter should be a key of a particular object
+- Syntax: function function_name<T extends object, U extends keyof T>(para1: T, para2: U){//body}
+
+99. Generic classes
+- In classes also we can use generic types. 
+- Syntax: class class_name<T> {}
+- Syntax during obj creation: const obj = new class_name<type>(constructor arguments);
+- Generic types we can use inside the entire class throughout.
+- Inside the method of the class also we can use the generic type.
+
+
+101. Generic utility types
+- Partial<type> = {}; // It returns a object that contains all the required properties as optional
+- Readonly<type> = {}; // It will certainly convert the value to read only type. The value cannot be changed. Even pushing into the array is not allowed.
+
+102. Generic types vs union types
+- When we want to keep a type same for a particular instance, then we should use generic type.
+- If the type  we want to change for every function call, then we should use union type.
+- class A<string | boolean | number> // during object creation whatever type will be set will be there for entire instance
+class A{
+	hobby: string | boolean | number[]
+} // hobby is an array that can store mixed type of string and boolean and number.
+class A{
+	hobby: string[] | boolean[] | number[]
+} // hobby is an array that is of either string or boolean or number type.
+
+
+--------------------------------------------------------------------------SECTION 8: Decorators---------------------------------------------------------------
+
+105. A first class decorator
+- Class decorators are basically a function which is attached to a class.
+- Syntax used:
+@decorator_name
+class class_name{}
+- Decorators naming convention should start with a capital letter.
+- Class decorators take atleast one arguement, that should be of function type.
+- Decorators are called during the class declaration, not during class instantiation or object creation.
+
+106. Working with decorator factory
+- Decorator factory is just a higher order function that returns a decorator.
+- The benefit of using decorator factory is that we can pass arguements that will be used inside decorators.
+- Syntax used:
+function decorator_name(){	
+	return function(var_name: Function){//body}
+}
+
+@decorator_name()
+class class_name{}
+
+NB:
+If there is a compulsory arguement which is not needed inside the function called, then we can write the parameter name as '_' which will tell the typescript compiler that this parameter is not needed inside the function. And it will not throw any error.
+
+
+107. Building more useful decorators:
+- We can create object of the class to which we have attached our decorators inside the decorator. For this to happen, we can declare the function in the parameter as any type and we are free to create objects of the class.
+Ex:
+function decorator_name(){
+	return function(function: any){
+		const obj = new function(); // object of the class on which the decorator is attached;		
+	}
+}
+
+108. Adding multiple decorators
+- We can add multiple decorators in one class.
+- The order of execution of the actual decorators(which is inside of the higher order function) will be bottom-up.
+- But the order of function calling of higher order decorator function will be top-bottom as usual as they are just normal function call.
+
+109. Diving into property decorators
+- It is not necessary that the decorators will be attched to the classes only, the decorators can be attached to the propeties inside the class.
+- In case of property decorators, the decorators will be called when javascript will start creating the property of the class.
+- Syntax: 
+class class_name{
+	@decorator_name
+	property: type;
+}
+- In case of property decorators, the decorators contain 2 parameters. 
+- First arguement is the target that defines which type of property is it. In case of static property, the target will be the constructor function(or class) and in cases of instance property, the target will be prototype.
+- Second arguement is the property name, on which the decorator is attached.
+- As there is multiple type chances for the first parameter, so we should set the type as any of the first parameter. But for the second parameter we can set the type as string or symbol as the property can either be a string type or a symbol type.
+
+110. Accessor and parameter decorators
+- Decorators can also be used in other places inside a class like setters or getters, methods and parameters.
+- In case of setters and getters, the decorator takes 3 arguements. First one is the target that is either prototype of constructor function of type any, second one is the property name of type string  or symbol type and the 3rd one is the description of the property of type PropertyDescriptor.
+- In case of methods, it takes 3 arguements. First one is the target, second one is the method name and the third one is the descriptor that descibes the property of type PropertyDescriptor.
+- In case of parameters, it takes 3 arguements. First one is the target, second one is the parameter name and the third one is the position of the parameter which is a number type.
+
+111. When do decorators execute?
+- Decorators execute during class creation, not during object creation. 
+- With the help of decorators we can do meta programming. We can store meta data about property of a class somewhere else in different kind of data structures.
+
+112. Returning (and changing) a class in class decorator
+- The return type of a decorator is a class, that will replace the class on which the decorator was attached.
+- syntax:
+function<T extends new(...args: any[]) => {}>(originalClass: T)
+{
+	return class extends originalClass{
+		constructor(...args: any[]){
+			super(...args);
+			//body
+		}
+	}
+} 
+- Class decorator have only one arguement i,e,. the target.
+
+113. Other decorator return types:
+- We can set return types of the method decorators and accessor decorators.
+- We can also set return types of the property decorators and parameter decorators, but the typescript complier will ignore this so we should not specify any return type in case of property decorators and parameter decorators.
+- In case of method and accessor decorators, the return type is  of PropertyDescriptor type.
+- A PropertyDescriptor is generally a object that has some extra descirption about a property. 
+
+- In case of accessor decorator, the PropertyDescriptor has 4 properties. Those are 
+enumerable: true or false, 
+configurable: true or false, 
+set: setter function, 
+get: getter function.
+
+- In case of method decorators, the PropertyDescriptor has 4 properties. Those are
+enumerable: true or false,
+configurable: true or false,
+value: the method on which the decorator is attached
+writable: true or false
+
+- Enumerable defines whether the particular property should be included in case of loops or not. Like in for in loop which properties should we loop through. For functions it would be by defalut false otherwise always true by default.
+
+- Configurable defines whether the particular property is changable or not. Whether the property can be deleted or not. By default true.
+
+- Writable defines that whether the property is modifiable or not. Whether the values should be assignable to other values or not. By default true.
+
+
+114. Example: Creating an 'autobind' decorator
+- Example of implementation of decorator can be at the place where we want to bind the scope of this keyword. Instead of setting the scope at each obj level, we can set the scope of methods inside the decorators.
+- In method or accessor decorators we can return a descriptor of PropertyDescriptor type that contains the details about the method. Inside the descriptor we can define either get() or value(). But can't both.
+- Get method can't be used with value() or writable property. Value method can't be used with get() but can be used with writable property.
+- Get method returns the value of the property while value contains the value of the property.
+- In value() we can redefine the function again. That function will be executed when the object of the class calls that method.
+- In get() we can make some modification in the original function like attach the scope of the this keyword and return the function. And that returned function will be called when the objects of the classes will be created.
+
+115. Validation with decorators: First steps
+116. Validation with decorators: finished
+- Decorators are also used for validation of datas. 
+- Here is an example where we are validating input field data that whether they are empty or not. If empty showing an alert to the user.
+- For this we can attach a decorator to each property of class that we want to validate and create a validate function that will validate each decorator.
+- We can maintain an object that contains all the decorators of a class.
+- In validator function we iterate through each decorator value in each class perform certain actions to validate the datas.
+- We will return true or false for the each object of data. Validator will be called for each object created under the class.
+
+--------------------------------------------------------------------------SECTION 9: Drag and drop project---------------------------------------------------------------
+
+- In case of document fragment the code is not included inside the dom. So we can't use the firstElementChild and others to get the elements inside. So we can use .content() to get the elements inside and copy the content using document.importNode(fragment, whether should deep clone or not).
+
+- For drag and drop events there are the following event listeners.
+dragStart - fires when the drag starts
+dragEnd - fires when the complete drag stops
+dragEnters - fires when the drag element enters the currentTarget
+dragLeaves - fires when the drag element leaves the currentTarget
+drop - fires when the element is dropped at the currentTarget
+
+- The event is of type 'DragEvent'.
+- To get the data at dropped location, we need to specify what data to transfer from source to destination. we can do this by using 'dataTransfer' attribute.
+- Syntax: event.dataTransfer.setData('text/plain', data_to_store);
+- To unwrap data at the dropped location, we can use event.dataTransfer.getData('text/plain');
+- event.dataTransfer.effectsAllowed - It provides information about which kind of event is it like move or copy etc. And the browser applies effects accordingly.
+
+----------------------------------------------------------------------SECTION 10: Modules and Namespaces---------------------------------------------------------------
+141. Writing module codes: your options
+- There are more importantly 2 options. 
+- First one is namespace and the second one is js es6 imort and export.
+
+142. Working with namespaces
+- We can wrap a particular piece of code in one namespace, so that that code is now available within that namespace. If we want that code in another file then we have to wrap the code inside a namespace in the specific file and use the keyword export infront of the items that we want to export to other files.
+- Then inside the file where we want to access that particular file, we need to mention the path using the 
+syntax: /// <reference path = "path_to_the_namespace_file" />
+- We will wrap the entire code or the particular code that requires that external file, inside the file where we want to access using the same namespace. 
+- Now the exported items are available in that location.
+- If we want the application to run smoothly as it was running before, we need to bundle the transpiled js files into a single file. Because ts compiler will compile the the individual files and will merge the info from multiple files. But the browser won't be able to merge the information from different files. So for that we have to mention a feature in tsconfig file called the outFIle: that store the location of the js file in which ts will compile all the different files ts code into a single file.
+
+143. Organizing files and folders
+144. A problem with namespace imports
+- In case of namespace imports, if we have imported the required file in some other files, then typescript complier won't throw any error during compilation. Any how it will not create any issue. But it is recommended to import the files into the required location. 
+
+146. Using ES modules
+using default and named export and import
+
+147. Understanding varioud import and export
+- We can use alias name whiile importing named import.
+- Syntanx: import {original_name as new_name} from 'location'
+
+148. How does code in modules execute
+- In case of es6 modules, it is necessary to import the file which contains the particular code required in that location. Even if the same file is imported in other files inside the folder, it won't work. We need to import it all again.
+
+- But during runtime if the modules are imported once in a file, and if other file wants to import the same, then the same imported file will be referenced in the second file also. The browser won't import it again.
+
+- The es6 export and import will work in modern browsers. It won't work in case of older browsers. And also in case of multiple files there will be multiple http request which will slow down the loading of page because there will be certain time required to download the file and complete the set-up. Hence therefore we can create multiple modules and work with it while developing. But in production mode, it is recommended to keep all th e modules to be transpiled into a single file.
+
+
+----------------------------------------------------------------SECTION 11: Using webpack with typescript-------------------------------------------------------------
+
+152. What is webpack and why do we need this ??
+- In case of local development multiple http request is not an issue as the file sizes are small and the we are developing in our local machine. But in case of real time server fetching for multiple files and downloading and doing all the setup might slow down the website loading time. Hence it is recommended to use a bundler that can bundle the codes from multiple files into a single file and can also minify the code (shorten the naming conventions, eliminate dead code) by optimizing them, that can reduce the file size and so the time require to download the files.
+
+- Webpack is a bundler that performs the above actions very well. It reduces the number of http requests to the server by combining the files into a single file. It also optimizes the code. It comes with an inbuilt development server, the can perform both bulding the code and and also can provide us a server that can restart our project everytime something changes in our code, so we donot need to use any external development server.
+
+153. Installing Webpack & important dependencies
+- webpack - to transpile ts files into js file and to bundle all js files into a single file
+- webpack-cli - to run webpack commands in our project
+- webpack-dev-server - gives us a development server to work with and looks for any changes made to any file and everytime reload the browser whenever some change happens
+- ts-loader - It works with webpack and tells webpack how to convert ts files into js files
+
+- It is recommended to install typescript to every project even if installed globally. To ensure that the particular project is specific to that particular version of typescript and if the version of globally installed typescript changes then our project won't break.
+
+
+154. Adding entry and output configuration
+- webpack.config.js - file which webpack will look after by default to get to know what webpack should do with the project exactly. It's a js file and uses node.js features. It exports a object that will contain some fields.
+- entry point - the file from where our entire project starts
+- output - object that contains information about the output file. Here the filename key refers to the name of the file that will be the bundle of all the js files. This object also have another key named as path that stores the location of the output file or bundle file. Another key named as publicPath that stores the folder where the file is present.
+- While working with webpack we shouldn't import the files with extension as webpack will by default add extension during runtime. If we will mention explicitly extensions then we will get double extensions after filename that will raise errors.
+- By default the woking of webpack is to only bundle files into a single file. If we want webpack to perforom some extra functionalities then we need to mention it in the webpack.config.js file like compiling ts files to js files etc.
+
+155. Adding typescript support with the ts-loader package
+- To tell webpack to compile the ts files into js files, we need to add an extra field to the exported object in the config file called 'module'.
+- Module simply refers to the files in the folders
+- To tell webpack how to operate the files, inside the module field we can mention an array of rules that can contain various rules on how to handle different types of files.
+- The array item will be an object that will have 3 properties, those are:
+----> test property: that contain a regular expression that tells typescript that that particular rule is for the file that contains this particular extension, syntax: /\.ts$/(webpack will search for the files that will have .ts extension and apply that particular rule to that type of files)
+----> use property: that specifies what to do with that file, here we can mention loaders like ts-loader that will take care of ts files and the loader knows how to handle those files.
+-----> exclude property: ts-loader will automatically take tsconfig.json file to get the configuration. So we don't need to mention any special config file for the loader except exclude property. So we should that in here.
+
+- We can add another property in the exported object that is 'resolve' which is an objecct that has a property called extension which is an array that holds all the extensions that typescript should handle. By default webpack only works with js files. So we need to specify webpack that it should look after both .js files and .ts files. And bundle the code and all the imported files will not only be .js files. Inside .ts file the imported files will be of .ts extension and in .js files the imported files will be of .js extension.
+
+- We can add another property in the exported object that is 'dev-tools' that specifies webpack that there will be source-map files and webpack should bundle carefully the files.
+
+157. Finishing the setup and adding webpack-dev-server
+- We can add another property in the exported object that is 'mode' that will be either 'production' if the application is in production phase or 'development' if the application is in development phase. It will give more meaningful errors wrt to the modes.
+
+158. Adding a production workflow
+- We can add another property in the exported object that is 'plugin' which will be applied to the entire project. Rules will be applied to specific files but plugins will be added to the entire project.
+
+
+-----------------------------------------------------------------Section 12 - 3rd party libraries and typescript---------------------------------------------------------
+161. Module introduction
+- There are two kinds of libraries in typescript. One is normal library which is also available in javascript. And another library is only specific to typescript. Like if we want to have only to have a single file inside the dist folder means everytime the compiler runs all the older files will be deleted and the only new file will be there. For this to happen we can install a package called 'clean-webpack-plugin' and mention it in the plugin by instatiating the package.
+
+- If we want webpack to look for another config file other than webpack.config.js the we can mention it in the package.json file in the build property, as 'webpack --config webpack.config.prod.js'. And webpack will look for this particular configuration in place of the default file.
+
+162. Using javascript libraries with typescript
+- The javascript packages which uses only js files and donot contain any in-built way to convert those .js files to .ts files, then in that case to use those packages we can use an external package instead of converting the code by ourselves. The package name is `@types/<package_name_which_is_to_be_converted_from_js_to_ts>`
+- This module contanis .d.ts files (declaration ts files) that contains all the types of the codes of the original module and how to convert them to ts files.
+- And then we can simply use the js modules without any difficulty.
+
+163. Using 'declare' as a last resort
+- To use a variable or object or class which is declared in other files in a file, we can use using 'declare' keyword.
+- Syntax:
+for variable =>> declare var/let/const name: type
+for class =>> declare class class_name {//only mention the variables, constructor and functions with their types}
+for function =>> declare function function_name(): return_type;
+
+
+- The name should be exact same as in the other file otherwise it will throw us error. 
+- If it's declared const in the source file and we are declaring it using let it will not throw error till we have not manipulated the value. Once we change the value of declared variable it will throw error.
+
+164. No types needed: class-transformer
+- class-transformer is an external module that helps to convert a normal object to a object of a particular class using plainToClass method of the module.
+
+165. Typescript-embracing: class-validator
+- Class-validator is an external module that contains different kinds of validation criteria that we can attach as decorators in class using '@' as we were already using.
+- We need to call a function validate() inside the arguement we can pass an object of the class. THe method will return us a promise that will validate the object against all the decorators and returns an array of error messages if exists.
+
+
+alphabets - value
+a, h, i, j, n, s, w - 1
+c, g, k, o, r, u - 2
+b, e, p, q, t, x - 5
+d, f, m, l, v, y, z - 8
+
+
+
+---------------------------------------------------------------------------------------Learnings----------------------------------------------------------------------------------------
+.toString() - convert to string
++string_name - converts it to integer
+difference between for and foreach loop is: for loop is applied for a particular number of time or till the condition becomes false but foreach loop is applied for all the items inside the iterable item.
+- <!DOCTYPE html> - says the browser the following file is a HTML file having version HTML5
+- We can insert value into the array using push method which will modify the array and also we can use .concat() method which can insert multiple items into the array and return a new array. It will not modify the original array.

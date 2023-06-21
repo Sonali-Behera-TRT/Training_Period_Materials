@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Type Ahead 👀</title>
+		<link rel="stylesheet" href="style.css" />
+		<link rel="icon" href="https://fav.farm/🔥" />
+	</head>
+	<body>
+		<form class="search-form">
+			<input type="text" class="search" placeholder="City or State" />
+			<ul class="suggestions">
+				<li>Filter for a city</li>
+				<li>or a state</li>
+			</ul>
+		</form>
+		<script>
+			const endpoint =
+				"https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json";
+
+			const input = document.querySelector(".search");
+			const list = document.querySelector("ul");
+			const cities = [];
+
+			async function fetchData() {
+				const response = await fetch(endpoint);
+				const data = await response.json();
+				cities.push(...data);
+			}
+
+			function findMatches(key, cities) {
+				const regex = new RegExp(key, "gi");
+
+				const foundMatches = cities.filter((item) => {
+					return item.city.match(regex) || item.state.match(regex);
+				});
+				return foundMatches;
+			}
+
+			function numberWithCommas(x) {
+  				return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			}
+
+
+			async function displayItems() {
+				await fetchData();
+				const key = this.value;
+				const foundMatches = findMatches(key, cities);
+				const myHTML = foundMatches
+					.map((item) => {
+						const regex = new RegExp(key, "gi");
+						const cityName = item.city.replace(
+							regex,
+							`<span class="hl">
+								${key}
+							</span>`
+						);
+
+						return `
+				<li>
+					<span class="name">${cityName}, ${item.state}</span>
+					<span class="population">${numberWithCommas(item.population)}<span>
+				</li>
+				`;
+					})
+					.join("");
+				list.innerHTML = myHTML;
+			}
+
+			input.addEventListener("input", displayItems);
+			input.addEventListener("change", displayItems);
+		</script>
+	</body>
+</html>

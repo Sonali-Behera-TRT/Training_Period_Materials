@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="../base.css" />
+	</head>
+	<body>
+		<style>
+			.go {
+				margin: 5rem;
+				background: white;
+				padding: 5rem;
+				width: 25rem;
+				height: 25rem;
+				transition: all 0.2s;
+				text-align: center;
+			}
+
+			.circle {
+				border-radius: 50%;
+			}
+
+			.red {
+				background-color: red;
+			}
+
+			.purple {
+				background-color: purple;
+				color: white;
+			}
+
+			.fadeOut {
+				opacity: 0;
+			}
+		</style>
+		<div class="go">Click me!</div>
+		<script>
+			function wait(ms = 0) {
+				return new Promise((res, rej) => {
+					setTimeout(res, ms);
+				});
+			}
+
+			const go = document.querySelector(".go");
+
+			function animate(event) {
+				const el = event.currentTarget;
+				el.textContent = "Go!";
+
+				wait(2000)
+					.then(() => {
+						el.classList.add("circle");
+						return wait(500);
+					})
+					.then(() => {
+						el.classList.add("red");
+						return wait(250);
+					})
+					.then(() => {
+						el.classList.remove("circle");
+						return wait(300);
+					})
+					.then(() => {
+						el.classList.remove("red");
+						el.classList.add("purple");
+						return wait(500);
+					})
+					.then(() => {
+						el.classList.add("fadeOut");
+					});
+			}
+
+			async function animate2(event) {
+				const el = event.currentTarget;
+				el.textContent = "Go!";
+
+				await wait(2000);
+				el.classList.add("circle");
+
+				await wait(500);
+				el.classList.add("red");
+
+				await wait(250);
+				el.classList.remove("circle");
+
+				await wait(300);
+				el.classList.remove("red");
+				el.classList.add("purple");
+
+				await wait(500);
+				el.classList.add("fadeOut");
+			}
+
+			go.addEventListener("click", animate2);
+		</script>
+	</body>
+</html>

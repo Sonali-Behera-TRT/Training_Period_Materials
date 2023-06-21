@@ -1,0 +1,1 @@
+{"mappings":"AAAA,SAAS,OAAO,MAAM,EAAC;IACnB,QAAQ,GAAG,CAAC;AAChB;AAEA,OAAO;AACP,OAAO","sources":["src/index.js"],"sourcesContent":["function Slider(slider){\r\n    console.log(slider);\r\n}\r\n\r\nSlider('slider');\r\nSlider('dog-slider');"],"names":[],"version":3,"file":"index.579125c3.js.map","sourceRoot":"/__parcel_source_root/"}

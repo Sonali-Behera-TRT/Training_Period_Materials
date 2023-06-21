@@ -1,0 +1,80 @@
+body {
+  font-family: sans-serif;
+  background-color: #000;
+}
+
+/* Chat App container */
+
+.container {
+  background-image: url(./../public/background.webp);
+  background-size: 225px;
+  height: 80vh;
+  width: 60vw;
+  margin: auto;
+}
+
+/* Heading of the application */
+
+.header h1{
+  text-align: center;
+  font-family: 'Dancing Script', cursive;
+  padding: 2rem;
+  background-color: #023020;
+  color: #fff;
+  font-size: 3rem;
+}
+
+/* messages container */
+
+.messages-container {
+  height: 60%;
+  overflow-y: auto;
+}
+
+.left{
+  float: left;
+  border-radius: 10px 10px 10px 0;
+}
+
+.right {
+  float: right;
+  border-radius: 10px 10px 0 10px;
+}
+
+.message {
+  line-height: 1.5;
+  clear: both;
+  background-color: #000;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  margin: 5px 2rem;
+}
+
+/* send form container */
+
+.send-container form{
+  margin: 2rem;
+}
+
+.send-text {
+  width: 80%;
+  padding: 1rem;
+  border-radius: 50px;
+  border: 2px solid black
+}
+
+.send-container img {
+  display: inline-block;
+  margin-left: 0.5rem;
+}
+
+/* new user notification message */
+
+.new-user-notification {
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  border-radius: 10px;
+  width: 50%;
+  margin: 5px auto;
+}

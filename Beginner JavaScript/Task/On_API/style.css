@@ -1,0 +1,28 @@
+table,
+th,
+td {
+	border: 5px solid white;
+	text-align: justify;
+	padding: 2rem;
+	color: white;
+}
+
+table {
+	border-width: 0;
+	margin: 5rem;
+}
+
+th {
+	background-color: #00171f;
+	text-align: center;
+	color: yellow;
+	font-size: 1.2em;
+}
+
+tr:nth-child(odd) {
+	background-color: #003459;
+}
+
+tr:nth-child(even) {
+	background-color: #355070;
+}

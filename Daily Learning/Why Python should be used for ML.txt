@@ -1,0 +1,15 @@
+Why Python should be used for Machine Learning ?
+
+--> Usability: Python code is simple and easy to read. Machine learning algorithms are complicated. As a result, developers will be able to express concepts more readily and clearly utilising Python's basic syntax.
+
+--> Python provides a number of modules and frameworks that are specifically developed for machine learning, data analysis, and data visualisation. These libraries are widely used by the machine learning field and have comprehensive documentation and community support.
+
+When opposed to Python, Javascript contains libraries and frameworks that are mostly focused on web development. It also includes various machine learning libraries. However, these are not as comprehensive as Python.
+
+--> Python has a large community of active machine learning practitioners, researchers, and developers who create and maintain numerous machine learning libraries, tutorials, and forums to help newcomers learn, get help, and stay up to date with the latest developments in this field. 
+
+However, while javascript has a vibrant community, it may not have the same depth of resources and knowledge, particularly in machine learning.
+
+--> Python may be integrated with other programming languages such as C, C++, and Java, which can aid improve performance while executing some machine learning tasks. 
+
+However, Javascript is built for browser-based scripting and does not have the same level of optimisation and performance-focused libraries for machine learning applications.

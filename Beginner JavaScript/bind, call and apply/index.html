@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			const bill = {
+				total: 1000,
+				calculate(taxRate) {
+					return this.total + this.total * taxRate;
+				},
+				describe(mealType, drinkType, taxRate) {
+					console.log(
+						`Your meal of ${mealType} with a drink of ${drinkType} was ${this.calculate(
+							taxRate
+						)}`
+					);
+				},
+			};
+
+			const total1 = bill.calculate.bind({ total: 1000 }, 0.13);
+			console.log(total1());
+
+			const total2 = bill.calculate.call({ total: 1000 }, 0.13);
+			console.log(total2);
+
+			const total3 = bill.calculate.apply({ total: 1000 }, [0.13]);
+			console.log(total3);
+
+			const describe1 = bill.describe.bind(
+				bill,
+				"Naan & butter panner masala",
+				"thumps up",
+				0.13
+			);
+			console.log(describe1());
+
+			const describe2 = bill.describe.call(
+				bill,
+				"Naan & butter panner masala",
+				"thumps up",
+				0.13
+			);
+			console.log(describe2);
+
+			const describe3 = bill.describe.apply(bill, [
+				"Naan & butter panner masala",
+				"thumps up",
+				0.13,
+			]);
+			console.log(describe3);
+		</script>
+	</body>
+</html>

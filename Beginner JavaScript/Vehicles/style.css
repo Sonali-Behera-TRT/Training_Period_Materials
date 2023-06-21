@@ -1,0 +1,124 @@
+body {
+	padding: 20px;
+	font-family: sans-serif;
+	background-color: #0d1137;
+}
+
+/* tabs design */
+
+.tabs {
+	display: grid;
+}
+
+[role="tablist"] {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	grid-gap: 20px;
+}
+
+[role="tab"] {
+	padding: 1rem;
+	font-size: 1.5em;
+	background-color: #e52165;
+	border: none;
+	box-shadow: inset 0px 0px 10px #a53e76;
+}
+
+[role="tab"]:hover {
+	box-shadow: 0 0 10px #f4c2c2;
+	transition: box-shadow 0.5s;
+	cursor: pointer;
+}
+
+[aria-selected="true"] {
+	background-color: #fff;
+	color: #000;
+	box-shadow: none;
+}
+
+/* tab panel or cards design */
+
+[role="tabpanel"] {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	grid-gap: 20px;
+	padding: 1rem;
+	background-color: #fff;
+	padding: 2rem;
+}
+
+[role="tabpanel"] > div {
+	background-color: #dcdcdc;
+	border-radius: 10px;
+}
+
+[role="tabpanel"] > div:hover {
+	box-shadow: 0 0 10px #000;
+	transition: box-shadow 0.5s;
+	cursor: pointer;
+}
+
+[role="tabpanel"] p {
+	text-align: center;
+	font-size: 1.5rem;
+}
+
+[aria-labelledby="dashboard"] {
+	padding: 5rem;
+	text-align: center;
+}
+
+.invisible {
+	display: none;
+}
+
+/* modal part design */
+
+.modal-outer {
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+	background-color: rgb(255 182 193 / 0.5);
+	opacity: 0;
+	pointer-events: none;
+}
+
+.modal-outer.open {
+	opacity: 1;
+	pointer-events: all;
+}
+
+.modal-inner {
+	background-color: #fff;
+	min-height: 200px;
+	min-width: 400px;
+	max-width: 600px;
+	max-height: 70vh;
+	padding: 3rem;
+	text-align: center;
+}
+
+.modal-inner div {
+	overflow: auto;
+	line-height: 1.5rem;
+	text-align: justify;
+	height: 10rem;
+}
+
+.modal-button {
+	background-color: #e52165;
+	color: #fff;
+	border: none;
+	font-size: 1rem;
+	padding: 1rem 1.5rem;
+	margin-top: 1em;
+}
+
+.modal-button[disabled] {
+	opacity: 0.2;
+}
