@@ -1,0 +1,26 @@
+Deep Learning
+
+- CNN - Convolutional neural network
+- Pretrained model - The model which was already trained with predefined dataset and weights. Ex - resent18, resnet34, resnet50 etc. Here the numbers represent the number of layers in the model. More the number of layer, it will take more time to train the model and more the chances of overfitting.
+
+- Overfitting - If we train a model with less datasets with more time, then there is more chance that the model will memorize the picture with label rather than predicting. Error rate will be more for validating set. 
+
+- Error rate is the percentage of the image that the model couldn't predict correctly.
+
+- Epoch - Number of time the model watches the datasets.
+
+- Model takes in input and parameters. In case of cat or dog example input is the image of cats and dogs. Parameters is the weight which will be automatically changed in each epoch based on the performance of the input. 
+Here the output is the prediction and prediction determines the performance. Based on the performance the weights will be changed to improve the performance. 
+
+- FineTune - In case of pretrained model, where the model is trained with different sets of dataset, there we remove the last layer of the model which generates output specific to input dataset. In place of that layer we put one or multiple layer with random weights which we call it as head. 
+In the first epoch the head will be adjusted to work with the new dataset. And then in the requested epochs during the fitting time of the model, weights will be changed based on performances in less time as the weights will not ne much different from the weights with which the model is trained. This is called finetuning - Training a pretrained model with a new personalized dataset. 
+
+- It will be a complete automation process if the weights can also be configured automatically in each epoch, through a process called stochastic gradient descent(SGD)
+
+- untar_data(URLs.PETS) - It downloads a standard dataset from the fast.ai datasets collection (if not previously downloaded) to your server, extracts it (if not previously extracted), and returns a Path object with the extracted location
+
+- seed: 42 - IT makes sure that everytime the validation set remains same.
+
+- accuracy = 1 - error_rate
+
+- Segmentation - If the model able to identify each and every pixel of the image, then it's called as segmentation.

@@ -1,0 +1,347 @@
+ Code Basics
+- Deep learning relies on huge amount of data.
+- It works on neural network.
+- Neural network consists of different layers. The first layer is called as input layer which deals with the input variables or features or independent variables. There will be few hidden layers. And the last layer is called output layer which will give the output.
+- In each layer there will be multiple neurons working parallelly with their individual subtasks. And there result will be passed into the next layer. The neurons in the later layer will be taking input these output and performing their task on the input and give ouput to it's later layers and so on.
+- A neuron is a function which performs certain things.
+- Working of a neural network:
+First of all, in each layer, each neurons will be assigning random weights to their part of feature and giving their output to the next layer and so on. Then finally the output layer will be giving an answer and matching the predicted answer with the original answer. If they do not match they will take the feedback from the original result. This feedback is a backpropagation feedback loop. This loop will continue until the neurons at each level ablt to assign correct weights to the features and giving the correct output.
+- The speciality of neural network is the neurons will automatically define their subtasks. We donot need to explicitly specify their subtasks. We just need to mention the input layer and number of hidden layers and the output layer. 
+
+- Tensorflow, pytorch and keras are 3 different deep learning framework. Tensorflow is by Google, pytorch is by facebook. There is another framework known as CNTK which is by Microsoft yet not so popular. Keras is not a direct framework instead it is a combination of frameworks like Tensorflow, CNTK and Theano. Before, it was getting very difficult to implement these frameworks directly. But now keras provides us a nice wrap-up using which we can implement it very easily.
+- Now Tensorflow comes with a component named as keras. So we don't need to explicitly install keras, if we want to use this. We can import it from tensorflow framework.
+
+------------------------> Activation Funtion
+- Activation function decides whether the particular neuron should activate or not. There are different mathemetical activation functions are there. Like:-
+---> Step function : It is useful for binary classifictaion problems. It gives 1 if the value is greater than a certain value. And gives 0, if the value is less than a certain value. For multiclass classification it can create same output for multiple different classes.
+
+---> Sigmoid function: Sigmoid function converts any value within the range of [0, 1]. Both are inclusive. The formula for sigmoid function is 1 / (1 + e ^(-z)). It is most popularly used for output layer.
+
+---> tanh function: It converts any value within the range of [-1, 1]. Both are inclusive. The formula for tanh function is ((e ^ z) + (e ^ -z)) / ((e ^ z) - (e ^ -z)). It is preferred in inner layers.
+
+---> relu function: It converts all the negative numbers to 0 and positive numbers are kept same. It is most popularly used for hidden layers.
+----> leaky relu funtion: It is same as relu except it converts the negative numbers into 0.1 * negative number. 
+
+- There is one problem with tanh and sigmoid function called as vanished gradients. It means for two consecutive points of x, the slope of graph becomes zero(0) as the difference between y becomes 0 as y value became same.(slope = dy/dx). As a result of this problem the learning rate become super slow. To avoid this problem, relu function is used. Although it can have the same issue for negative values, as for the negative value of , the y value will be same(0). So leaky relu was discovered, To deal with the vanishing gradient problem of relu function.
+
+- It is not defined clearly that which activation function to use where. It's all trial and error basis.
+
+
+-------------------------------> Derivatives
+- For linear graph, slope is constant which is delta y / delta x which is change is y divided by change in x.
+- But in case of non-linear graph, the slope is not constant. Here the slope is calculated with the help of derivative.
+-Formula:::::
+(x)^n = n(x)^(n - 1) dx/dx
+const = 0
+ax = a dx/dx
+e^x = e^x dx/dx
+a^x = a^x lna dx/dx
+lnx = (1/x) dx/dx
+logx base a = (1/xlna) dx/dx
+sinx = cosx dx/dx
+cosx  = -sinx dx/dx
+tanx = sec^2x dx/dx
+sin^(-1)x = 1/root over of(1 - x^2)
+cos^(-1)x = -1/root over of (1 - x^2)
+tan^(-1)x = 1 / (1 + x^2)
+d(f + g)/dx = df/dx + dg/dx
+d(fg)/dx = fdg/dx + gdf/dx
+d(f/g)/dx = (gdf/dx - fdg/dx) / g^2
+
+
+
+--------------------------------------> Loss or cost function
+- Loss is defined as the individual error between the original value and the predicted value. Cost function is the total error between the original value and predicted value of the dataset. Cost function is the summation of loss of individual loss value.
+- There are various ways out there to calculate cost function like::
+---> Mean squared error - Here we first calculate the difference between the original value and predicted value i,e,. loss of each item and then we square the difference and add all the squared differences. Then we calculate the mean. Squaring the difference has some utility in python deep learning.
+
+--> Mean Absolute error - Here we first calculate the absolute difference between the original value and predicted value i,e,. loss of each item and then we directly add the absolute difference and calculate the mean out of it.
+
+--> Log loss or binary cross entropy: The formula of binary cross-entropy is (-1/n) * summation from i = 0 to i = n[y_original_i*log(y_predicted_i) + (1 - y_original_i)*log(1 - y_predicted_i)]
+- This is preferred in case of logistic regression.
+
+
+-----------------------------> Gradient Descent
+- Gradient descent is a method which helps to determine the perfect weights for the input unit. Here we first take random weights in the network. Then we calculate the predicted value and then calculate the errors. Then we run a feedback backpropagation where we adjust our weights based on the error and this process continues till we get the best weights.
+- weight = weight - learning_rate * partial derivative of error wrt the input parameter
+
+------------------------------------------------> Stochastic Gradient Descent vs Batch Gradient Descent vs Mini Batch Gradient Descent
+
+- In batch gradient descent, we go through all the training samples for one forward pass and then adjust weights. It is good for small datasets.
+- In Stochastic gradient descent, we go thorugh one randomly selected training sample for one forward pass and then adjust weights. It is good for larger datasets because of less computations.
+- In min batch gradient descent, we go through a batch of randomly selected training sample for one forward pass and then adjust weights.
+
+
+-----------------------------------------------> Chain rule
+- Chain rule helps us to find out what is the impact on the result by a slight change in the parameters. We can calculate this with the help of chain rule.
+- Suppose there is a neural network of one input layer, one hidden layer and one output layer. Neurons in the input layers are a, b, c, and d. Neurons in the input layer having equation x = a^2 + 7b and y  = c^3+d. The output layer equation is z = 4x + 3y
+- So using the chain rule, we can calculate change in z wrt change in x which will be equal to product of change in z wrt to x multiplied by change in z wrt to y.
+
+
+-----------------------------------------> Precision, Recall, F1 score, true positive
+- Accuracy is the division of total correct prediction and total predictions
+- Precision is the division of total correct prediction and total predicted positives or total predicted negatives
+- Recall is the division of total correct prediction and total truth positives or total truth negatives
+- True positive means actually the event is true and the prediction is also true
+- False positive means actually the event is not true but the prediction is true
+- False negative means actually the event is not true and the prediction is also not true
+- True negative means actually the event is true but the prediction is not true
+- precision = TP / (TP + FP)
+- recall = TP / (TP + TN)
+- F1 score = 2precision * recall / (precision + recall)
+
+---------------------------------------> Dropout Regularization
+- When we overtrain our model, there is change of overfitting of our model. Our model will try to memorize rather than regularization of data. Here the model will work fine with the training set dataset. But it will be bad with new datas like test set datasets. Here overtrain means might be more epochs for small datasets.
+- Underfit means when our model doesn't cover all the variations of the datasets. 
+- To overcome overfitting in deep learning there is a concept of dropout regularization. Where we randomly dropout some neurons in the hidden layer. So the chances of biasness will reduce and neurons will not learn redundant details of the input. And this dropout will be random and will be changing in every epoch. So the chances of overfitting will reduce. 
+
+
+----------------------------------> Data cleaning ways using pandas
+--> df.columns - returns list of column names
+--> df.isna() - returns a dataframe of the given dataframe values as true or false if there exists any null values or not.
+--> df.isna().sum() - returns each column name and total number of null values in them
+--> df.isna().any() - returns each column name and if there exists any null value or not.
+--> df[column_name].unique() - returns list of all the unique values of that particular column
+--> df[column_name].value_counts() - returns each unique value and there number of occurance in the particular column
+
+
+-----------------------------> Handling imbalanced datasets
+Dataset is said to be imbalanced if we don't have equal distribution of resultant classes in our dataset. Suppose in dog v/s cat classification problem, we have 90% of dataset contains dog image and only 10% dataset contains cat images. 
+- In this kind of dataset, our accuracy might be higher. But it is of no use.
+- Example of such datasets are - churn prediction, cancer prediction, faulty device prediction. As number of churns or cancer patients or faulty devices will be very less compare to the dataset.
+- So we should be more considerate about f1 score which kinda tells us about individual performances.
+- There are 5 different ways to handle imbalanced datasets. Like
+---> Under sampling of majority class - We cut down our majority class samples to number of minority class samples. But here we wastes a lot of datas.
+--> Over sampling of minority class - Here we increase the minority class samples to number of majority class samples by randomly copying the minor class samples.
+--> SMOTE(Synthetic Minority Over-sampling TEchnique) - In this technique, using k-nearest neighbour technique, the algorithm generates some new samples of minority class to increase it's number to the majority class. The model doesn't get any new information because of new datas.
+Syntax:
+pip install imbalanced-learn
+from imblearn.over_sampling import SMOTE
+smote = SMOTE(sampling_strategy = 'minority')
+
+--> Ensemble method: Here we create batch of sample where the number of majority class and minority classes are same. And then train the model individually using different batch of samples. And we consider the majority vote as in ensemble technique.
+--> Focal loss: It is a technique where the model penalizes the majority class samples during loss calculation and gives more weightage to minority class samples.
+
+--------------------------------> Computer Vision
+- Computer visioin refers to image classification, object detection, video processing etc.
+- It has various real-world application. Like google photos can classify pictures based on persons or object like cake, Object detection is used in driverless cars like Tesla. It is also using in farming where the model can predict the price that the farmer might get based on the health of fruits and qunatity of fruits. It is also getting applied in medical grounds and shops like amazon go. 
+
+-------------------------------> Convolutional Neural Network or CNN
+- Image classification mainly uses convolutional neural network or CNN which is more powerful than ANN because 
+--> ANN has more computations to do, which can make the system slow as the computation will take more time
+--> ANN can't classify images if the position of images will change. It detects images based on positions. But CNN can detect images and classify them irrelevant of their positions.
+
+-------------- How CNN works ???
+- CNN exactly works like how human being classifies images. First of all it will identify the feature of the images that help us to tell that yes this is this image. Like in case of koala image, human brain first identifies it's small eyes, nose and ears, hands and legs which we call it as features which classifies as animal as koala or not. And then it will classify them
+- Next in the second step for each feature it will create a filter which will be a matrix. Then it will create a window of the filter size to do some convolution operations. It will multiply the filter with the window values and take it's mean and store it in a matrix which is called as feature map. 
+- Then it will stride the window one step or two step and calculate the mean and store it in the feature map.
+- Then we use relu() function which will simply converts all negative values to 0 and positive values as it is. This is important for non-linearity.
+- Like wise it will calculate the feature map for each features. And it will stack those feature maps one on another.
+- If there exists any value in the feature map where the value is 1 or close to 1, then it confirms that the feature is present in that picture. 
+- Even if the position changes, the feature map will change. But there will be still a value close to 1 if the feature is there in the picture. Here we overcome the 2nd drawback of ANN.
+- But still the computation will be more. To reduce the computation, there is a concept called pooling layer which will help in reducing the feature map. There are 2 pooling methods. One is max-pooling and another is average pooling. 
+- In max pooling we will consider a window suppose 2x2 of feature map and we will take the max of the values present in the window and store it and then we will stride our window by one or two steps as we want and again find max value and store it. Like wise we will do it for all the feaure maps. Then we will get our reduced versions of feaure map which deals with the 1st drawback of ANN.
+- In avg pooling, we take the avg of values present in the window and store in the reduced map. 
+- Reducing size helps us to reduce dimensions and computations, reduce overfitting as there are less parameters, model is tolerant towards variations and distortions as it will only focus on main features and ignores the noises or distortions. 
+- convolution opearation + RELU + max polilng, these things might continue for several time. 
+- This all comes under feature extraction process.
+
+- THen comes the classification part. As like ANN, we will flatten our reduced feature map and then we will create our neural network and we will train our model will the datasets.
+
+
+------------------------> Padding, Stride
+- After convolution operation the feature map that we get became (a - c + 1) X (b - d + 1) where aXb is the dimension of our image and cXd is the dimension of filters.
+- We use only 1 time the corner cell present in the image which seems very inactive. While the intermideate cells come very often which can be referred as active. So, we can use padding of one row above and below and one column at left and right to make active the corner cells. The newly added cells will contain value as -1. 
+- So without padding, it is called as 'valid convolution', But with padding, it is called as 'same convolution' as the dimension of feature map become same as the input image dimension(without padding)
+
+- Stride is the window size with which we move through the image. Default size is (1, 1). We can keep it as anything. (1, 1) means the next window will skip one row or one column to move.
+
+
+------------------------------------> Data Augmentation
+- CNN doesn't have any way to identify zoomed images or flipped images. So the performance might decrease in these cases. To handle this we have to provide some rotated, zoomed or fllipped images to the model while training. This process is know as data augmentation, building new samples, out of existing samples which are zoomed, cropped or flipped or ratated.
+- For doing data augmentation keras has a library named
+keras.layers.experimental.preprocessing.RandomFlip('horizontal', input_shape = ())
+keras.layers.experimental.preprocessing.RandomCrop(height, widht of cropped image)
+keras.layers.experimental.preprocessing.RandomZoom(0.1) // image will be 10% zoomed randomly
+keras.layers.experimental.preprocessing.RandomRotation(0.1) // image will be 10% rotated randomly
+
+
+------------------------------------> Transfer Learning
+- Transfer learning is a research problem in machine learning that focuses on storing knowledge gained while solving one problem and apllying it to a different but related problem. For example, knowledge gained while learning to recognize cars could apply when trying to recognize trucks.
+
+
+---------------------------------------> Image segmentation v/s image classification v/s object detection
+
+
+
+- When we classify an entire image like dog image or cat image, it is called as image classification
+- When we detect objects present in each image and create rectangle boxes around it, it is called as object detection or object localization.
+- When we classify each pixel in the image and classify it accordingly, it is called as image segmentation
+
+
+-------------------------------------------> Popular datasets for computer vision
+--> ImageNet
+--> Coco
+--> Google Open images
+
+--------------------------------------------> Sliding window object detection
+- For object detection in earlier days sliding window was used. In sliding window, we will take cropped images of our object that we want to detect and train our model to classify the particular object. Then we will take a window and then we will ask our model whether the object is there is in the window or not. And we will gradually move the window till it reaches the opposite end of the picture. Like wise it will identify all the occurances of the object in the entire object.
+- It is dependent upon the proper window size selection. If the window size will be less than the object size, then it will not detect the image. So we can choose the window based on trial manner from small to large. But it will take too much computation.
+
+- So to reduce this much computation, a new technique came known as R CNN. Which is a kind of reduced cnn, it will not go through the entire image. It will only search the object in reduced part or in some part of the image. 
+
+- Then cam fast R CNN method which is faster than R CNN. THen came faster R CNN which is faster than fast R CNN. But then cam YOLO method, which is now the fastest method for object detection in computer vision area getting heavily used now-a-days. 
+
+- YOLO stands for 'You Only Look Once'
+
+
+---------------------------------------> YOLO
+- In this algorithm, the image is divided into 3X3 or 4X4 or any desired dimension matrix and for each cell we create an output vector which will have 7 items like 1st item suggest if the cell contains any object or not. If it contains then the value will be 1 otherwise value will be 0. Then next 2 values will be co-ordinate of center of the object. Next item will be width of the object bounding-box and next item will be height of the object bounding box. The second last item will be probability of the object to be as one category and last item will be probability of the object to be as another category.
+
+- Like wise for each image, we will create let's say 4X4X7 sized vector. Here our input will be the image and the output will be the vector.
+
+- If the object is present in more than one cell, then the cell which contains the center of the object will be considered to contain the object. 
+
+- But there are some problems in YOLO algo like if our algo draws multiple bounding line for the same object. To avoid this issue, there is a concept called IOU(intersection over union). Here we will take two bounding boxed and we will take the intersection area and union area and calculate the ratio. If the ratio is more than let's say 0.6 or 0.65 then we will consider those two cell to point a single object. And we will remove the bounding box with lower probability and keep the higher probability bounding box. Here we can't consider bounding box with higest probability as there might be more than one occurance of same object. So IOU is better.
+
+- Another problem is if one cell contains center of more than one objects. In that case we have change the size of the output vector. One object's vector or the vector with 7 items is called as one anchor box. So the cell with 2 centers, the ouput vector will contain 2 anchor boxes means vector will have 14 items. Likewise if any cell will contain 3 centers, then the output vector will have 21 items or 3 anchor boxes.
+
+- YOLO is heavily getting used for computer vision problem. It is super fast and it can even detect images within a video in play mode.
+
+- YOLO commands
+
+conda activate yolo7 - activate the yolo7 enviornment
+python detect.py --weights <model_name> --conf 0.4 --img-size <image_size> --source <image_file_name>
+
+
+---------------------------------------------------> RNN (Recurrent Neural Network)
+- For image processing, CNN is mostly used. But for natural language processing(NLP) RNN is widely used. 
+- RNN deals with different kind of things like auto suggestion or auto complete, language translation, sentiment analysis means giving ratings based on explanation of any movie or anything, NER(Named entity recognition) means recognizing named entities like any named person, animal etc.
+------> Problems with simple neural network
+1. Simple neural network works with constant number of neurons in each layer. But for language processing we can't exactly specify how many words are there in the statement. So we can't exactly specify the exact number of neurons. If we want to take highest number of neurons so that it can fit any sentence for processing and the leftout neurons will be dealing with input 0, this will still work. But it is not recommended.
+
+2. There will be too much computation which is not affordable.
+3. Language models are called sequenced models as it depends on sequence of words in a sentence. As changing is sequence of words in a sentence might change the whole meaning of the sentence. But in normal NN, there is no sequence as they deal with features and changing in sequence of feature doesn't change the output. 
+4. No parameter sharing
+
+--------> How it works
+- RNN deals with individual words of one sentence. There might be one or multiple hidden layers. Lets consider a RNN with one hidden layer. We will first give input first word of the sentence(ofcourse in onehotencoded manner), it will generate output with random weights and it will store this processed word. Then it will process the second word which will be processed in sequence of this stored word and generate output with the random weights and then it will generate output and store both these words. It will continue till it has processed each and every word in the sentence. THen it will calculate the loss by comparing with the actual value with predicted value in each word and then total loss. As we do in gradient descent, it will take this feedback and adjust the weights accordingly. 
+- This process will continue for all the sentences in the dataset and weights will be adjusting. The completion of all the items of the dataset is completion of one epoch. We can run this for as many epochs we want. At the end the weights will be completely set. Our model is ready to use.
+- Model has actually two parts. One is encoding part and another is decoding part. Encoding part is used to encode the input statement in own way and derive the encoded output. Then decoding means translation of this output into desired language. 
+
+---------> Types of RNN
+- THere are different kind of RNN
+1. Many to one - Sentiment analysis - it will be taking all the words as input and genrating a single number as output
+2. Many to Many - Translation - It will be taking all the words as input and generating multiple words sequntially as output
+3. One to many - generation - It will be taking one word as the topic name and generating multiple words sequentially as ouput. Ex - music generation, joke generation etc. 
+4. One to One - Normal NN like classification an image into a particular category etc.
+NB: sometimes it can be without any input like generate a random joke or random poetry etc. 
+
+---------> Vanishing gradient problems
+- Our weights are changing by the formula = weight - learning rate * gradient (By gradient descent we know). Gradient defines how much our result changes by changing in this particular weight. It is calculate using chain rule. In chain rule, we calculate the intermideate gradients. If these gradients will small in number then when we multiply these number, the result will be very small. So if we consider very deep neural network, the impact of earlier layers like first or second layer will be very less in the result. This can create trouble in RNN. 
+- Suppose there are two sentences like 'Today, due to my current job situation and family conditions' and 'Last year, due to my current job situation and family condition', the model outputs 'I need to take a loan' and 'I had to take a loan' respectively. So the difference between the output is 'need' and 'had' which completely depends on the first word 'Today' and 'Last year' as the rest words are same in both the sentences. In RNN, the output might depend on each and every word of the sentence. But in case of vanishing gradient problem, the effect of earlier words will be very less on the output. So the result might not be correct. Due to this short memory of RNN, there are two different special kind of RNNs are there called LSTM and GRU.
+- THere is another issue called exploiting gradient which is completely opposite of vanishing gradient where the intermideate gradients are very large, so the resultant gradient will be even more larger. THis might also create issue. But vanishing gradient is more prominent in RNN. As it can be create in one layer also. As in RNN, we are looping that one layer for each and every word of the word. So the gradient in first iteration will be vanished till we complete the last iteration.
+
+
+--------------------------------------------------------> LSTM (Long Short Term Memory)
+- The problem with RNN is, it has short term memory. But in case of lstm, it has both long term and short term memory. In short term memory it will store some data and it long term memroy it will store the useful words and remove useless words. 
+- In LSTM it will have a module which will be looping and it will contain 4 hidden neural layers. Among which 3 are sigmoid and one is tanh. There are 3 gates. One is input gate, forget gate and output gate. THese gates will help in exchange of information or datas.
+- Forget gate will help in forgetting some of the existing cell values. Input gate will help in adding some new data to cell value. And output gate will help in generating output values for each word in each loop.
+- First we will calculate the weighted sum = (prev_hidden_layer_value * weight) + (current_word * weight) 
+- We will use sigmoid function to the weighted sum which will decide which values will be forgetting from the cell value through the forget gate.
+
+- Then we will again take another sigmoid layer and the tanh layer which will generate a value between [-1, 1] and we will multiply both of these values which will tell us which cell value will be replcaed and which new values will be added. At this step only, we will forget some of the old cell values and insert some new values. now our cell state is changed.
+
+- Then time comes for the last sigmoid layer which will generate what changes to make with the cell value to generate the output which will be multiplied with the tanhed value of the cell value. and we will output our result for the current word. 
+
+- THis is the complete one loop. We will continue this loop for each and every word in the sentence.
+
+------------------------------------> GRU(Gated Recurrent Units)
+- It is the updated version of LSTM. It has only 2 gates. One is reset gate and another is update gate. Both uses tanh activation function. 
+- It is computation wise more efficient and getting more popular. 
+
+--------------------------------------> Bidirectional RNNs
+- Suppose there are two sentences 'Sonali loves apple, as it keeps him healthy' and 'Sonali loves apple, as it is the top company in the market'. So here in first sentece apple refers to fruit and in second one apple refers to company. But if we use simple RNN where the result depends on the previous words then it will be difficult to know exactly what it is referring as the previous words are same in both the sentences.
+
+- So we should take help of bidirectional RNN. Where the sentence will be evaluated from starting to ending and from ending to starting and result at each word stage is dependent on the resullt of both direction loops. So now we can predict which entity does apple refer to.
+
+------------------------------------> Word embeddings
+- Machines doesnot understands words. So we need to convert the words into numbers. There are different ways
+1. Random numbers: We will collect few words and give random numbers to them. But we can't extract similarities between the words in this method. So it is not recommended.
+2. One Hot Encoding: We collect the words and we create vectors of 0 or 1. For a particular word we will keep a particular index value as 1 and rests will be 0. But this is also not effective. As we might need to store a millions of words so we can't create vector of million size for a single word.
+3. Word embeddings: We will collect features in words. Like suppose for Dhoni and Kohli, the feature vector might contain some feature like sportsperson, country, have 2 eyes, fit, have government. We can create feature vectors for each word and store value for each field. For Dhoni and Kohli, the feature vector will be nearly same. So we can conclude like these two words are referring to persons. While the feature vector for Australia will be different. So we can distinguish between words. 
+- THere are two different kind of word embeddings. -> TF-IDF and ->Word2Vec
+
+--------------------------------------------> Supervised word embedding
+- In case of supervised embedding, we train a model and as a sideeffect we get the embedding matrix. 
+- We will first convert each words in the dataset into a random number using one_hot present keras.preprocessing.text. 
+- Then we will create a model where the first layer is the Embedding model (keras.layers.Embedding()) and then flatten the matrix using keras.layers.Flatten() and then we will apply a dense layer and normally compile and fit with our dataset. 
+- After training, we will have the matrix of weights in different epoch of the first layer (Embedding) which we can consider as embedding matrix or feature matrix.
+- This method is not used now-a-days. 
+- There are other methods which use self supervised word embedding
+
+------------------------------------------------> word2vec
+- In word2vec embedding method, we create vocab of our dataset which is all unique words present in our dataset.
+- Then we will create a vector for our vocab 
+- We will take a window and for n - 1 words of the window we will predict the  one word. Here n is the number of words there in the frame. Here are x are those n - 1words and y is the one word.
+- Like wise we will train our model where the input will be those n - 1words, in the hidden layer suppose there are 4 neurons with random weights initially and it will output our vecotor with different values and we will compare it with the y value and take feedback loop and again train for next window of words. Like wise it will continue till all the window and for desired epochs and at last, we will have 4 defined weights for those 4 neurons. THese weights are feature for a word, similar words will have similar weights. It is called side-effect. Similar words are those words whose values are similar.
+- Word2vect use 2 algorithm.
+-> CBOW (Continous Bag Of Words) - Here for many words, we derive a single word. Here the weights are between hidden layer and output layer.
+-> Skip Gram - Here for single words, we derive next coming words. Here the weight lies between input layer and hidden layer
+
+- Python NLP library is gensim
+
+
+----------------------------------------------> Input Pipeline
+- Pipeline is a way where we can do ETL(extract, transform and load) in a single line.
+- We can do this using an API called tf.data.Dataset where all the elements are tensors in nature.
+- It can perform shuffling, batching.splitting and many more things.
+- .shuffle(buffer) - It will shuffle the tensor by considering a window of buffer length and will selcect a random value from this and then window will move to 1 step right and again take a random item. Like wise it will cover the entire tensor.
+- .batch(n) - It will convert 1D tensor to 2D tensor by creating batch of 2 items means in each row there will be 2 items.
+- .map(func) - It will apply func to each and every value in the tensor and store the return values in another tensor and return it
+- .filter(func) - It will apply func to each and every value in the tensor and the values which will return true will only be filtered and returned from this function/
+- .list_files(path) - return a tensor of all filepaths present in the path.
+- .take(n) - return first n items from the tensor
+- .skip(n) - skips first n items from the tensor and returns the rest items.
+- .from_tensor_slices(list_name) - Creates a `Dataset` whose elements are slices of the given tensors (or list).
+
+- .prefetch(AUTOTUNE) - if we use this, then we will optimize the use of pipeline. Generally what happens that during processing of one batch in CPU, the GPU will sit ideally and after the task done by CPU, GPU starts working(CPU sits ideally this time). Then after GPU done working CPU again starts processing next batch. This wastes some time in this process. Using prefetch we can parallely run processing and training side by side. AUTOTUNE means that tf will automatically decide how many batches to process while the training process is running in GPU.
+
+- .cache() - It also optimizes the use of pipeline. Typically in every pipeline, in one epoch the file gets loaded and batch batch every file goes through processing and training. Then in next epoch again the file loads and batch batch files go through processing and training. So the processing is a repeating process which hampers the performance. So using 'cache',only one time the file will be processed and for next time it will only go through repeated training but not through processing.
+
+
+-----------------------------------------------------> Transformer
+- Transformer is a model that can handle different kind of NLP related tasks like translation form one language to another language etc.
+- Transformer consists of stacks of encoders and decoders. 
+- There are 6 total encoders and 6 total decoders.
+- Inside one encoder there is a self attention layer and one fast forward neural network layer.
+- Inside one decoder there is a self attendtion layer, one encoder decoder attention layer and one fast forward neural network layer.
+
+- First all the words in the sentence get transformed into embedding vectors and then get added with position vectors which stores the position of each word in the sentence. Then this acts as input to the lowermost encoder's self attention layer. Here along with the current word, this layer will try to take other important words from the sentence which is important to explain this current word. So there are 3 pretrained weights matrix called as query, value and key matrix which will be multiplied with the input positioned vector and we will get our respective query, value and key matrix. There will 8 set of these matrices as there are total 8 sets of weights available. THen we will concatenate these 8 matricess into a single vector and multiply with the weight vector and we will get our simplied single vector.
+
+- Then we will multiply query vector of one word with query vector of one by one each word to get the context. Then we will divide the number by 8. And we will take softmax of the calculated value and then multiply with the weight to get the weighted sum or score. The motive behind calculating weighted sum is to ignore the unneccesary words. As unnecessary words will have negligible score and by multiplying it with the weight it will be nearly 0. This process will be repeated for each and every word in the sentence.
+
+- Then the output from self attention layer will go into fast forward neural network and then the output will go to next encoder. 
+- When the output comes out of the topmost encoder, then it will go to the decoder and the decoder will give output the translated words.
+
+- Then in decoder part, the words will pass through the decoder one by one. Then the decoder will randomly put weights and then they compare the desired output with the actual output. THen adjust the weights in backward propagation. 
+- Now during testing phase, the decoder will predict the output words one by one. By selecting the maximum value out of the output vector and the word pointing to the particular position.
+
+- This is how transformer works.
+
+
+----------------------------------------------------> BERT (Bidirectional Encoder Representations from Transformers)
+- BERT is also another model used for NLP related tasks which is build on the top of transformers. BERT is of 2 different kind. One is BERT base and another is BERT large. BERT base has 12 stacked encoders while BERT large has 24 stacked encoders. 
+- BERT not only finds the semantics or similarities between the words but also finds the meaning of the words wrt to contexts. Like there can be multiple meaning of a single word possible wrt to place and context. So, BERT will classify the words based on contexts.
+- It uses masked language model where it masks 15% of input words and try to predict it in output and in this process, it get's it's weight as a side-effect. It uses another way known as next sentence prediction.
+- In BERT for each word it outputs a vector of 768 length. 128 is the max word that can be in a sentence. 
+- One sentence is prefixed by CLS(classifier) and postfixed by SEP(separator) and padding upto 128 characters.
+Suppose one sentence has only 3 words then in the vector of 128(as the default size is 128 of a sentence). FIrst 1 is for CLS and next 3 1's are for 3 words of the sentence and then next one is for the SEP and then rest 123 places will be filled by 0s.
+- preprocess_model - convert the text into a dictionary of 3 key value pair: 'input_mask', 'input_word_ids', 'input_type_ids'
+where input_mask is the input texts with cls and sep between each texts.
+input_word_ids is the vector of input texts replaced with their ids which was mentioned in training time
+
+- bert model - takes input the dictonary given by preprocessed model and gives output a dictionary of 4 items: 'default', 'encoder_outputs', 'pooled_output', 'sequence_output'
+where 'pooled_output' is the feature vector for each sentence or word
+sequence_output is the output of the last encoder
+encoder_outputs is the output of the all the 12 or 24 encoders according to the bert model used.

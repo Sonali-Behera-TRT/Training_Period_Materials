@@ -13,7 +13,7 @@ def get_location_names():
         'locations': util.get_location_names()
     })
 
-    
+    response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
 @app.route('/get_estimated_price', methods = ['POST'])

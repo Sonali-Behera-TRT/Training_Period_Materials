@@ -1,0 +1,3 @@
+fastbook
+scikit-image
+timm

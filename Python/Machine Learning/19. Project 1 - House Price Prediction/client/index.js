@@ -3,9 +3,9 @@ const forms = document.querySelectorAll("form.form");
 const estimatedPrice = document.querySelector('#uiEstimatedPrice h2');
 
 async function getLocations() {
-  // const url = "http://localhost:5000/get_location_names";
+  const url = "http://localhost:5000/get_location_names";
 
-  const url = "/api/get_location_names";
+  // const url = "/api/get_location_names";
   const response = await fetch(url);
   const data = await response.json();
 

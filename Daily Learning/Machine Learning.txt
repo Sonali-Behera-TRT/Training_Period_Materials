@@ -1,0 +1,334 @@
+------------> Machine Learning
+
+- It is the method where a machine can perform like human being,
+
+- Machine learning is a subset of Artifical Intelligence. Machine learning is a wider area that includes deep learning and mathematical model.
+Deep learning is the area where the machine learns by the data it is provided and predicts for the new unseen data.
+
+------------> Linear Regression with single variables
+
+- It is the method of plotting a linear graph between the dependent and independent variables(feature) using the equation y = mx + c where m is the slope or gradient or coefficient and c is the intercept and x is independent variable or feature and y is the dependent variable. 
+
+- If the relationship between two variables is linear, then the graph can be of linear regression type.
+
+- Using linear regression we can plot the graph and the model can learn by the graph and predict for some new datas.
+Like house price based on size or per capital income in a population
+
+
+------------> Linear regression using multiple variables
+
+- It is the method where our dependent variable is dependent on more than one independent variables and the relationship between dependent variables with all independent variables should be linear in nature.
+
+- Before training our data to the model, we should first preprocess the data to clean it. If there is any blank field there in the dataset, we should fill the data with either '0' or take mean or median of the rest of tehe column values and set the particular cell with that value using 'fillna()' method. 
+- column_name.fillna(value)
+// It replaces the cells with NA or NAN values with the value provided in the arguement.
+
+
+------------> Gradient Descent and Cost function
+
+- Cost function is the difference between value predicted by the model and the original value. There are a different method used to calculate the cost function. But MSE(mean square error) is the most popularly used one. 
+- mse = summation of (y_original - y_predicted)^2 from 1 to n divided by n
+
+Here y_original is the original value of dependent variable
+y_predicted is the predicted value of dependent variable
+n is the number of items in the independent variable array
+
+- We can plot multiple lines as predicted by our model. But we should consider only that model which has minimum cost function.
+
+- For choosing the particular line, we have to choose random m and b values, so that we would get the line and calculate the cost function. Out of these lines, the line having minimum cost function will be finilized. Gradient descent method is helpful in making easier to choose the line out of many lines. In this method, we will start with m = 0 and b = 0 and learning_rate = 0.01(lets assume), number_of_iterations = 1000(say) and calculate the cost function. Then in the next step we will change these values 
+m = m - learning_rate * partial derivative of mse wrt m
+b = b - learning_rate * partial derivative of mse wrt b
+We will calculate cost at each step. 
+
+If we found that in these iterations the cost function value is decreasing and for the last iterations these values are getting same, then we will be getting our finilized m and b value.
+
+- As the graph is a reverse bell shaped curve. So first the cost function will decrease to the minima and then it will increase. We need to find out the minima one. 
+
+- For this we have to mess around the iteration numbers and learning_rate, so that we'll get the minimum one.
+
+
+------------> joblib and pickle
+- We can save and import our model with the help of pickle and joblib libraries. 
+- We need to import any one of the above mentioned libraries.
+import pickle 
+(or)
+import joblib
+- In case of pickle,
+We have to open a file in write mode then we can dump our model into the file. If the file doesn't exist then it will create a new file.
+Syntax: 
+with open('new_file_name', 'wb') as f:
+	pickle.dump(model_name, 'new_file_name')
+
+// It will create the file with the model as the content
+
+- Then we can load the content of the file or the saved model into a new variable through which we can predict.
+Syntax:
+with open('model_file_name', 'rb') as f:
+	variable_name = pickle.load(f)
+
+// Now we have imported successfully our model into the variable and we can predict for new values using the variable_name.
+
+variable_name.predict([[new value]])
+// We can predict for the new values using the variable
+
+- Using joblib the process remains the same. But in case of joblib we don't need to open the file to dump or load the model. We can directly do that. 
+import joblib
+joblib.dump(model_name, 'file_name')
+variable_name = joblib.load('file_name')
+variable_name.predict([[new value]])
+
+- Both joblib and pickle works the same. But the one difference is joblib works better in case of long arrays and also it has less syntax to write in terms of file opening for dumping and loading.
+
+
+------------> 6. Dummy Variables and One Hot Encoding
+- In case of text datas, the numeric model can't handle textual datas. For this we can convert this textual datas into numbers. But there might be a chance that our model might infer wrong relationships between the datas. So there is a concept of categorical variables.
+
+- The variables which represents any categories are called as categorical variables. Like male, female, green, red, blue, bird, cat, dog etc. This category is of two types. One is nominal and another one is ordinal.
+
+- The nominal categories are the categories where there is no relationship or order between the variables like male and female, or green blue and red, or dog and cat.
+
+- The ordinal categories are the categories where there is a kind of relationship or order between the variables like high medium and low, or graduate masters and phd, or satisfied neutral and dissatisfied.
+
+- In case of textual datas, we will convert the individual values of that particular column into dummy columns where the entries will be True or False according to if the row belongs to that particular category or not. Then we will remove the textual column and any one dummy column as there might be chance of dummy variable trap. 
+
+- When we can derive one variable from other variables, they are known to be multi-colinear. If we know two variables, they we can infer value of the third variable i,e,. var_1 = 0 and var_2 = 0. Therefore these state variables are called to be multi-colinear. In this situation linear regression won't work as expected. Hence we need to drop one column.
+
+- There are two ways to create dummy columns. One is through the pd.get_dummies(column_name) and another method is by using OneHotEncoder() of sklearn.preprocesssing.
+
+- In pd.get_dummies(column_name), it will return us a data frame containing dummy columns for each single value of the particular column_name provided in the argument.
+
+ - Then we need to concatenate the dummy columns with the actual dataframe using pf.concat([dataframe1, dataframe2], axis = 'columns')
+// It will merge the two tables.
+
+Then we have to drop the textual column as well as any of the dummy columns
+Syntax: merged_table_name.drop(['textual_column_name', 'dummy_column_name'], axis = 'columns')
+// It will remove the columns from the table.
+
+- Now we have to separate the dependent variables and independent variables or features. 
+x = final_table_name.drop('dependent_column_name', axis = 'columns')
+// It will create the independent data frames.
+
+- y = table_name.dependent_column_name
+// It will create the dependent series.
+
+- Then we can create a LinearRegression() model and fit our data using the syntax
+from sklearn import linear_model
+model = linear_model.LinearRegression()
+model.fit(x, y)
+model.predict([[new_value]])
+
+- model.score(x, y) // It will score the model by predicting each and every value in independent dataframes i,e,. x and comparing it with original value i,e,. y.
+
+- Using the second method, 
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import LabelEncoder
+
+- First we have to create the object of the class LabelEncoder 
+Syntax: le = LabelEncoder()
+
+- Then we have to transform the textual column into numbers using the LabelEncoder()
+Syntax: dfle = le.fit_transform(particular_textual_column_name)
+
+- Then we have to create the dummy columns using the ColumnTransformer
+Syntax: ct = ColumnTransformer([('name_of_the_transformer', OneHotEncoder(), [0])], remainder = 'passthrough')
+
+// ColumnTransformer's 1st argument is a list that contains all the columns that should be transformed in the form of tuples. The tuple should have 3 values. First one is the name of the transformer that can be practically any name but should be a string. The second one is the OneHotEncoder() object, then the third one is the position of the column in the dataframe. 
+
+- Then we can use ct to create dummy columns using 'fit_transform()'
+Syntax: ct.fit_transform(dfle)
+
+- THen the rest steps are same, we have to distinguish between dependent and independent variables and should fit the data to our model. Then our model is ready to predict for new values.
+
+
+--------------> Training and Testing Data
+- We should split our dataset into training data and testing data. So that our model will be more accurate by predicting on the datas which it has not seen before.
+
+- We can do the same using train_test_split() available in sklearn.model_selection library.
+
+Syntax:
+from sklearn.model_selection import train_test_split
+
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state = 10)
+// It will split the dependent and independent variables in 20:80 ratio. Random_state means it will keep same the test set and train set all the time.
+
+--------------> Logistic Regression
+- It is used for classification type.
+- There are two type of output. One is continous one and another is categorical one. The model's that were working till now, all are continous in nature. But in the last case where we are predicting whether the employee will left or not, it is the example of categorical one. In case of categorical one, linear regression won't be effective. In this case we should always use logistic regression model, where the graph is a sigmoid curve (S-shaped). Sigmoid curve always converts a value to within the range of 0 to 1. 
+Formula: f(x) = 1 / (1 + e^(-x))
+
+- Categorical values are of 2 types. One is binary classification and another is multiclass classification. In binary classification the result is classified into two fields. In case of multiclass classification, the result is classified into more than two fields. 
+
+
+-----------> Decision Tree Classification
+- It is used for classifcation type.
+- Decision Tree Classifcation is an algorithm of classifying input datas to get the discrete categorical value. It depends on the order of classfication. The order of classification should minimize the randomness which will increase the quality of classification.
+- Here in the algorithm we create a decision tree starting from the independent columns taking one at a time, so that at the end we can predict the destined dependent column values.
+
+- For this we need to import tree from sklearn and create our model using the tree.DecisionTreeClassifier()
+Syntax:
+from sklearn import tree
+model = tree.DecisionTreeClassifier()
+
+
+----------> Support Vector Machine(SVM)
+- It is a classfication algorithm majorly used for classifcation. It draws best possible decision boundry among the data points, so that it can clearly distinguish the classes. And predict correctly for the new data.
+- SVM generally takes care of the extreme cases. Like the prediction of cat or dog when the cat bears some of the features of dogs.
+- The best decision boundry is called as hyperplane.
+- The datapoints which are close to the hyperplane along with the extreme cases which helps in plotting the hyperplane are called as support vectors. As it supports the hyperplane. That is why the name of the algorithm is support vector machine.
+- The distance between the hyperplane and the vectors or datapoints should be maximum. And this distance is called as margin.
+- As we can draw many decision boundry, so the decision boundry having maximum margin should be considered as hyperplane.
+- The hyperplane's dimension is dependent on the number of features. If there are two features, then the hyperplane is a straight line. If there are three features, then the hyperplane would be a plane.
+- SVM is of two types
+-> Linear SVM: When the vectors or data points can be easily separable into different classes using a single straight line, it is called as linear SVM
+-> Non-Linear SVM: When the vectors can't be separable into the classes using a straight line, it is called as non-linear SVM. In this case we need to consider a third dimension(z) which is z = x^2 + y^2. In we look in 3D, the hyperplane will be a plane. But if we look in 2D, the hyperplane will look like a circle.
+
+- SVM model depends on some parameters like gamma, kernel, regularization(c). Increase in gamma, increases the model score or performance or accuracy. Increase in c value, increases the model performance. 
+- Kernel is basically a function that helps in classifying the datas. There are differenent kind of kernel functions. Like 'linear' which is useful in case of linear SVM and 'rbf' known as radial basis function which is useful in case of non-linear SVM. 
+- Kernel function is dependent on gamma and c. Gamma is known as the width of the kernel function. Kernel function is the function that finds the similarities between the data points. 
+
+- Higher value of gamma and c can work with more complex datasets.
+
+
+----> Random Forest Classifiction
+- It is a classifier which divides the datasets and features into smaller random samples and then creates decision tree for individual sample and consider the maximum prection out of all the models. 
+- It can overcome overfitting. 
+- It is present in the 'ensemble' library.
+- It takes an arguement i,e,. n_estimators which represents the number of samples should be created.
+
+Syntax: from sklearn.ensemble import RandomForestClassifier
+model = RandomForestClassifier(n_estimators = 100)
+
+
+-----------> K Fold cross validation
+- When we divide our dataset into training data and testing data, so that we can train our model using training data and test using testing data, to avoid overfitting, this method is called as cross-validation.
+
+- But this is not enough. The division might be wrong. Like for one kind of division the accuracy of model is more than other kind of division, in this case kfold cross validation comes in handy.
+
+- In K Fold cross validation, we divide our datasets into k parts. The model finds the score for k times and in each time out of k part of the dataset, k - 1 part will be used as training set and 1 set will be used as test set. In each iteration the training set and dataset combination will be changing. Hence covering each and every kind of partition of the data. It will return a list of score in each fold.
+- We can take mean of the list and predict which is the mean performance of our model.
+
+- Syntax:
+from skelarn.model_selection import cross_validation_score
+cross_validation_score(estimator, x, y)
+
+-----------> K Means Clustering
+- K means clustering is a model in unsupervised learning, where it divides the datset into k number of clusters and finds and relationship, pattern present in the data.
+
+- First of all, it takes any random points as center for the clusters. Then it finds the distance between the datapoints and the center. The distance which comes small, the datapoint comes in that cluster. And then the center transfers to the center of the formed cluster. This process continues, till there is no change in the position of the datapoints. 
+
+- Syntax: 
+from sklearn.cluster import KMeans
+km - KMeans(n_clusters=3) // Means there will be 3 clusters formed
+km.cluster_centers_ // returns the list of coordinates of centers of each cluster
+
+- If we are not sure of number of clusters then we can use a method called as 'sum of squared error(SSE)'. Here we takes a range of k from 1 to let's say 10. Then for each k value we creates a kmeans model and fit with the train dataset. We maintain a list and where we append each time the sum of squared error into the list which is the sum of SSE of each cluser and SSE of each cluster is the sum of square of difference between postion of each data point and center of the cluster. Then we plot a graph between SSE and k. Here we consider an approach called elbow method.
+
+- Syntax:
+
+sse = []
+k_range = range(1, 10)
+
+for i in k_range:
+    km = KMeans(n_clusters=i)
+    km.fit(df[['petal length (cm)', 'petal width (cm)']])
+    sse.append(km.inertia_)
+
+
+---------> Naive Bayes
+- It's another supervised machine learning technique where it finds the conditional probability of one event wrt other independent events.
+
+- There are three different type of NB algorithm.
+-> Gaussian Naive Bayes: where the value of the features are discrete in nature and not having any relation with each other.
+-> Multinomial Naive Bayes: where the value of features are continous and relative in nature like rating from 0 to 10.
+-> Bernoulli Naive Bayes: if all the features are binary in nature
+
+- CountVectorizer() is a method availabe in sklearn.feature_extraction.text which converts any text into vector (1D array).
+
+
+--------> Hyperparameter Tuning (GridSearchCV) 
+Hyperparameter is the best suited parameter for a model.
+Hyperparameter tuning is selecting the hyperparameter for the model by trail and error method.
+
+- GridSearchCV is a model where we can tune our model and parameters.
+- Syntax:
+from sklearn.model_selection import GridSearchCV
+model = GridSearchCV(estimator, parameter obj, return_train_score = False)
+
+-------> L1 and L2 regularization
+- L1 regularization is also called as Lasso and L2 regularization is called as Ridge regularization.
+
+- Syntax: 
+from sklearn.linear_model import Lasso
+lasso_reg_model = Lasso(alpha=50, max_iter=100, tol=0.1)
+lasso_reg_model.fit(x_train, y_train)
+from sklearn.linear_model import Ridge
+ridge_reg_model = Ridge(alpha=50, max_iter=100, tol=0.1)
+
+- This regularization model helps to deal with overfitted model. Overfitted model are those model which tries to fit to all datapoints along with there noises. There variance is high. Their performance is good in case of training datas. But worse in case of testing data. It applies a penalty to deal with the overfitted model.
+
+- The difference between L1 and L2 is the formula. In L2 we use square in the penalty term which in L1, we simply just takes the absolute difference in the penalty term.
+
+
+--------> KNN classifier
+- K nearest neighbour is a supervised machine learning technique which creates k clusters of the training dataset. And it predicts for the new testing datasets. It takes the distance of each new datapoint to the clusters and the smallest distance it gets, it predicts the datapoint to be that particular cluster. 
+
+- positive instance: Consider a binary classifier of dog or not. In this case, we can consider dog photos as positive instance.
+- Negative instance: The photos other than dog photos are negative instances.
+
+- True positive(TP): The actual value is a postitive instance and the model predicted it as the positive instance is called as true positive. Example is in case of dog or not classifier, if the image is of a dog image and the model predicts the same. 
+
+- False positive(FP): The actual value is a negative instance and the model predicted it as the positive instance is called as false positive. Example is in case of dog or not classifier, if the image is of a cat image and the model predicts it as a dog image. 
+
+- True negative(TN): The actual value is a negative instance and the model predicted it as the negative instance is called as true negative. Example is in case of dog or not classifier, if the image is not of a dog image and the model predicts the same. 
+
+- False negative(FN): The actual value is a negative instance and the model predicted it as the positive instance is called as false negative. Example is in case of dog or not classifier, if the image is of not a dog image and the model predicts it as a dog image. 
+
+- Accuracy: The base metric used for model evaluation is often Accuracy, describing the number of correct predictions over all predictions
+ Accuracy = (TP + TN) / (TP + TN + FP + FN) =  (No of correct predictions) / (No of all prediction) = ( no of correct predictions) / (size of dataset)
+
+- Precision: Precision is a measure of how many of the positive predictions made are correct (true positives). The formula for it is:
+ Precision = (TP) / (TP + FP) = (no of correctly predicted positive instances) / (no of total positive predictions you made) = (no of correctly predicted people with cancer) / (no of people you predicted to have cancer)
+
+- F1-score = 2 * ((precision * recall) / (precision + recall))
+
+-----------------> PCA (Principal Component Analysis)
+- Principal component analysis is a method where we can reduce the features to make faster the training time of the model.
+- It has nothing to do with training the model. It helps in reducing the number of features in our dataset without much affecting the performance of our model.
+
+- Syntax:
+from sklearn.decomposition import PCA
+pca = PCA(0.95) // It creates a pca that will convert the data in a way that 95% of the performance will be retained in the new dataset
+x_pca = pca.fit_transform(x) // It transforms the x data or features of the dataset
+
+or 
+pca = PCA(n_components = 2) // It suggests that the final dataset will have only 2 columns
+x_pca = pca.fit_transform(x)
+
+
+-----------------> Bagging
+- Bagging is a method that random forest classification uses.
+- In bagging method, the entire dataset is divided into small small parts and we use an algorithm to derive the result for the problem and then we will take the the result which is repeated in maximum parts. 
+- The difference between bagging and random forest classification is bagging only divides rows means in the smaller paritions of datasets, we will find some parts of rows, but all columns will be there for each row. But in case of random forest classification our smaller parts will divide the rows as well as the columns also. Means a part of rows along with part of columns.
+
+- Synatax:
+from sklearn.ensemble import BaggingClassifier
+bag_model = BaggingClassifier(
+	base_estimator = DecisionTreeClassifier(), 
+	n_estimators = 100,
+	max_samples = 0.8,
+	oob_score = True,
+	random_state = 0
+)
+
+here base_estimator is the classification method that each part of the division will be using.
+n_estimators are the number of parts we will be creating
+max_samples means 80% of the dataset will be present in each division
+oob_score means for the remaining of rows which are absent from all divisions will be used for predicting oob_score of the model. oob_score is like score of the model on the basis of the left out rows.
+
+
+------------------> Feature Engineering
+- Feature engineerng is a process of extracting useful features from raw data using math, statitics and domain knowledge.
+- It includes outlier detection, one hot encoding and handling missing values.
+- It's an important step in data cleaning process.
+- There are different ways. Like using percentile or using z-score or using IQR.

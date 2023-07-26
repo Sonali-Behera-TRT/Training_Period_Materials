@@ -1,0 +1,1093 @@
+Python
+
+
+- Python file extension: '.py'
+- To compile python program: python <python_file_name>
+- To print anything, syntax: python("statement")
+- Python doesn't uses semicolon to mark line-end. New line is treated as a next command
+- Indentation is important to mark a statements inside a paricular block. It is not meant for only readability. So should be taken care and atleast one space should be there. And for statements inside a particular block the indentation should be same. Different indentation throws error. 
+
+--> Comments:
+- Single line comments can be marked by '#'.
+- Python will ignore strings which are not assigned to any variables. So we can use them as multi-line comments. So for multi-line comments, we can use triple quotes(''') at starting and ending of comment lines or we can insert '#' before starting of each line.
+
+
+-->  Variables:
+- There is no declaration for python variables. The moment it's assigned to a value, the variable is created at that time only.
+- We donot need to mention the type of the variable. The type can also change after assigning it to a value. 
+- We can type cast the variables by specifying the datatype of the variables.
+Syntax: x = str(2)
+x = int(2)
+x = float(2)
+
+- We can get the type of the variable using the type() method.
+Ex: type('4') // <class 'str'>
+type(4) // <class 'int'>
+type(4.0) // <class 'float'>
+
+- Name of the variables are case-sensitive.
+- String can use single quotes or double quotes.
+
+- Rules for naming a variable
+A variable name must start with a letter or the underscore character
+A variable name cannot start with a number
+A variable name can only contain alpha-numeric characters and underscores (A-z, 0-9, and _ )
+Variable names are case-sensitive (age, Age and AGE are three different variables)
+A variable name cannot be any of the Python keywords.
+
+- For variables having more than one words in their name, we can use camel-case(myName) or snake case(my_name) or Pascal case(MyName)
+
+---> Assign multiple values:
+- We can assign multiple values to multiple variables in a single line
+Ex: 
+a, b, c = 'apple', 'banana', 'kiwi'
+print(a) // apple
+print(b) // banana
+print(c) // kiwi
+
+a = b = c = 'apple'
+print(a) // apple
+print(b) // apple
+print(c) // apple
+
+- Unpack a collection
+- Like destructring in case of typescript
+fruits = ['apple', 'banana', 'kiwi']
+x, y, z = fruits
+
+print(x) // apple
+print(y) // banana
+print(z) // kiwi
+
+----> Output variables
+- To print multiple values, we separate them using comma(',') 
+- In case of + operator, if both the operands are integer, then it will do addition. If both the operands are string, then it will do string concatination.
+
+--> Global variables
+- The variables which are declared outside a function are known as global variables. 
+- We can create a global variable inside a function with the help of keyword 'global'.
+- We can change the value of a global variable inside a function by referring the global keyword.
+
+---> Python datatypes
+- Following are the builtin datatypes
+Text Type:		str
+Numeric Types:	int, float, complex
+Sequence Types:	list, tuple, range
+Mapping Type:		dict
+Set Types:			set, frozenset
+Boolean Type:		bool
+Binary Types:		bytes, bytearray, memoryview
+None Type:		NoneType
+
+---> Python numbers
+- Numbers are of 3 types int, float, complex
+- Float can also be scientific numbers with an "e" to indicate the power of 10. It is case insensitive.
+Ex: a = 3e2 // 300.0
+b = 3E2 // 300.0
+
+- Complex numbers uses 'j' to mark the imaginary part.
+Ex: 3 + 2j
+
+- We can typecast by using the syntax:
+var2 = data_type(var1);
+
+x = 10.5
+y = int(x)
+print(y) // 10
+
+- We can't typecast complex numbers into other number types.
+
+- To generate random numbers, we can use a modul called 'random' and import into our file. We can generate random numbers between ranges using a method called randrange() having the syntax:
+random.randrange(start_number, end_number)
+
+Ex: import random
+a = random.randrange(1, 10) // a can store any value between 1 and 10. Both are inclusive
+
+----> Python strings
+- Python strings can be surrounded by single quotes('') or double quotes("")
+- We can have a multiline string by surrounding the text inside either triple single quotes(''') or triple double quotes(""")
+- The line breaks will be present at the respective places as mentioned while assignment.
+- Each charachter in a string, behaves as a string with length 1.
+- We can get the length of a string, using len()
+- We can loop through each charchter of a string using for in loop.
+Syntax:
+for each_var_name in string_name:
+	// body
+- We can check whether a substring is present in a string or not using 'in' or 'not in' keyword respectively.
+Syntax: print('on' in 'sonali') // True
+print('on' not in 'sonali') // False
+
+-  String slicing - To get substrings out of strings, we can use string slicing
+Syntax: string_name[start_index : end_index] where start_index is inclusive but end_index is exclusive.
+
+- We can also use -ve indexing. Negative indexing starts from 1.
+- If we skip the start_index in string slicing then the slice will start from the first. If we skip the end_index then the string slicing will end at the last.
+
+- String methods - All these methods are immutable in nature. Means it will not change the original strings
+
+string_name.upper() - returns the string in upper case
+string_name.lower() - returns the string in lower case
+string_name.strip() - returns whitespaces from the beginning and ending of the string
+string_name.replace(str1, str2) - returns string after replacing str1 with str2 if str1 present in the string.
+string_name.split(char) - returns a list/array after spliting the string from the separator passed in the arguement if present positively in the array. If no separtor is provided, it will  split the string across whitespaces (' ')
+
+
+----> format()
+- We can't append string and number with the help of '+' operator. So we can use format()
+Syntax: string_name.format(var1, var2....);
+- Here var1 and var2 will be replaced by {} in the given string.
+- We can rearrange these variables using the index numbers which we can mention between curly braces {index_no}. Here the index of var1 is 0 and var2 is 1 and so on..
+- We can also use named indexes
+Ex: s = 'My name is {name} and age is {age}'
+s.format(name = 'Sonali', age = 22) // My name is Sonali and age is 22
+
+- Ex: 
+str = 'Hi! My name is {} and I am {} years old'
+print(str.format('Sonali', 21)) // Hi! My name is Sonali and I am 21 years old
+
+str = 'Hi! My name is {1} and I am {0} years old'
+print(str.format(21, 'Sonali')) // Hi! My name is Sonali and I am 21 years old
+
+-----> Escape characters
+There are some restrictions about some particular type of charcters that we can mention in a string like double quotes, single quotes, backslashes etc. are not allowed inside string. Therefore we need to use escape character that is a backslash('\')
+
+\'	Single Quote	
+\\	Backslash	
+\n	New Line	
+\r	Carriage Return - moves the carriage head to the leftmost position	
+\t	Tab	
+\b	Backspace	 - removes the first character at the left hand side
+\f	Form Feed	
+\ooo	Octal value	
+\xhh	Hex value
+
+===> Bool
+- True/ False
+- bool() returns true or false based on the value passed in the arguments
+- (), {}, [], '', false, 0, None are falsy values.
+- A class with __len__ function that returns 0 or False is also falsy.
+
+
+===> Operators
+-Python divides the operators in the following groups:
+	Arithmetic operators (+, -, *, /, %, **(power), //(floor division))
+	Assignment operators (=, +=, -=, *=, /=, %=, //=, **=, &=, |=, ^=, >>=, <<=)
+	Comparison operators (==, !=, >, <, <=, <=)
+	Logical operators (and, or, not)
+	Identity operators (is, is not)
+	Membership operators (in, not in)
+	Bitwise operators (&, |, ~, <<, >>)
+
+- Arithmetic operator
+a ** b = a to the power b
+a // b = divides a by b and returns the floor. If anyone of the numerator or denominator is float then the result will be a floating whole number otherwise integer whole number.
+
+2 ** 5 = 32
+10 // 2 = 5
+10.0 //2 = 5.0
+10 // 2.0 = 5.0
+8.4 / 2 = 4.2
+8.4 // 2 = 4.0
+
+- Identitiy operator:
+is - returns true if two variables share the same memory location
+is not - returns true if two variables donot share the same memory location
+
+x = [1,2,3]
+y = [1,2,3]
+z = x
+
+print(x == y) // True
+print(x is y) // False
+print(x is z) // True
+print(x == z) // True
+
+- Membership operators
+in - returns true if a sequence is present in a list or string
+not in - returns true if a sequence is not present in a list or string
+
+x = [1, 2, 3]
+print(2 in x) // True
+print(5 in x) // False
+
+- Precedence in operators
+()				Parentheses	
+**				Exponentiation	
++x  -x  ~x			Unary plus, unary minus, and bitwise NOT	
+*  /  //  %			Multiplication, division, floor division, and modulus	
++  -				Addition and subtraction	
+<<  >>			Bitwise left and right shifts	
+&				Bitwise AND	
+^				Bitwise XOR	
+|				Bitwise OR	
+==  !=  >  >=  <  <= is  is not  in  not in 			
+				Comparisons, identity, and membership operators	
+not				Logical NOT	
+and				AND	
+or				OR
+
+
+====> Python List
+- List is a collection of items.
+- List items are ordered(New item will be added to the end of the list), changeable(change, add, or remove items in the list) and allow duplicate values.
+- Indexing starts with 0.
+- Negative indexing starts with -1
+- len() - returns the length of the list
+- List can contain homogeneous elements(elements with same data type) or heterogeneous elements(elements with different datatypes).
+- type() - returns the type of the variable. In case of list it will return <class 'list'>
+- We can create a list with the help of list constructor i,e,. list()
+Ex: thisList = list(('apple', 'banana', 'cherry))
+
+- We can get a sub-list out of list by using range of indexes  
+syntax:
+list_name[st_idx : en_idx]
+where st_idx 0is inclusive and en_idx is not inclusive
+
+- To check if an item is present in an array or not, we can use 'in' or 'not in' operator.
+
+- We can change a range of items by assigning it to a new list.
+Ex: list_name[st_indx : en_indx] = [item1, item2, item3, ....]
+- We can assign more or less items to the range. Accordingly the length of the list will change.
+
+- insert(idx_number, value) - We can insert element at that particular position and the rest items will shift.
+- append(item) - item will be appended at the end of the list
+- extend(list2) - list2 items will be appended at the end of the list1. The parameter doesn't need to be list. It can be any iterable object (tuples, sets, dictionaries etc.).
+
+- remove(item) - removes the particular item from the list. If the item is not present in the list, then throws error. One arguement is compulsory.
+- pop(index_no) - removes item at the index from the list. If index not provided then removes the last item.
+- del list_name[index_no] - deletes the item at the index from the list
+- del list_name - deletes the entire list
+- clear() - empties the list. The list still remains, but it has no content.
+
+====> Looping through lists
+- for each_item in list_name:
+	print(each_item)
+- for i in range(len(list_name)):
+	print(list_name[i])
+- i = 0
+while(i < len(list_name)):
+	print(list_name[i])
+	i++;
+- Looping using list comprehensive
+[print(each_item) for each_item in list]
+
+- sort() - sort the list alphabetically by default in ascending order. If we want to order in descending order then we can pass an arguement inside the parenthesis of the sort() i,e,. sort(reverse = True). If we want to sort the list according to our own customized function then we can pass an arguement i,e,. sort(key = function_name). As small the return type of the function, the value will be present at the starting of the list
+
+- We can merge two or more lists with the help of '+' operator.
+
+- copy() - returns a copy of the list
+- list(list_name) - returns a copy of the list
+Simple assignemnt will end up referencing to the original list. Small change in one list, will change the other too 
+
+- list_name.count(item) - counts the number of times the item is present in the list.
+- index(element) - returns the index number of the element in the list
+- reverse() - reverses the list
+
+====> Python Tuples
+- Tuples are also collection of items which is ordered, unchangeable(can't add or remove or update values once the tuple is initialized) and allow to store duplicate values.
+- Tuples are written with round brackets '()'.
+- Indexing starts from 0.
+- Allows negative indexing staring from -1
+- len() - returns the length of the tuple
+- If we want to create a tuple with only one item, we need to mention a comma (',') after the the item. Otherwise python compiler won't consider it as a tuple. Rather than it will consider it as a string.
+Ex: myTuple1 = ('item1',)
+type(myTuple1) // <class 'tuple'>
+
+myTuple2 = ('item2')
+type(myTuple2) // <class 'str'>
+
+- Tuple can be homogeneous i,e,. all items of a tuple can have only one type of datatype.
+- Tuple can be heterogeneous i,e,. all items of a tuple can have different datatypes.
+- type() - returns the datatype of the variable
+- tuple() constructor - we can use tuple constructor() to create a tuple.
+Ex: myTuple = tuple(('apple', 'mango', 'banana'))
+
+- We can get a sub-tuple out of tuple by using range of indexes  
+syntax:
+tuple_name[st_idx : en_idx]
+where st_idx 0is inclusive and en_idx is not inclusive
+
+- To check if an item is present in an array or not, we can use 'in' or 'not in' operator.
+
+- As tuple is unchangeable we can't modify it. But we can convert it into a list and apply all the methods of a list and reassign it into the same tuple.
+- We can append one tuple into another tuple with the help of '+' operator.
+- We can delete a tuple completely by using 'del' keyword. 
+
+- When we initialize a tuple, it's called as packing. 
+myTuple = (item1, item2, .....) // packing of tuple
+
+- We can destructure the tuple of extract the values back into variable and this method is called as unpacking. 
+Syntax: (item1, item2, item3, ...) = myTuple  // unpacking
+First item of the tuple will be assigned to variable item1
+Second item of the tuple will be assigned to variable item2 and so on...
+- The number of variables must be same with the size of the tuple. If the variable number is less than the size of the tuple, then we can use an asterisk symbol('*') before the variable name so that the rest elements of the tuple will be extracted back as a list.
+- If asterisk is added to other variables than the last variable, then python will assign the values to the variables until the number of values left matches the number of variables left.
+
+====> Looping through tuples
+- for each_item in tuple_name:
+	print(each_item)
+- for i in range(len(tuple_name)):
+	print(tuple_name[i])
+- i = 0
+while(i < len(tuple_name)):
+	print(tuple_name[i])
+	i++;
+- Looping using list comprehensive
+[print(each_item) for each_item in tuple_name]
+
+- We can merge the items of two or more tuples using '+' operator.
+- We can multiply the content of the tuple using '*' operator.
+- count('item') - count the number of time the item is present in the tuple.
+- index('item') - returns the index of the item(first occurance) in the tuple
+
+====> set
+- Sets are also used to store multiple items in a single variable.
+- Set is unordered(doesnot maintain any order i,e,. order might change in each time printing), unchangeable(we can't modify the set items but we can add and remove items from the set), doesnot allow duplicate items in the set(duplicate items will be automatically deleted from the set) and unindexed.
+- Sets are created with curly braces '{}'
+- True and 1 are considered as same value. It will be considered as duplicate values. So hence only one item will be there in the set.
+- len() - returns the length of the set
+- The set can be homogeneous(all the elements can have same datatype) or heterogeneous(all the elements can have different datatypes)
+
+- type() - returns the type of the set i,e,. <class 'set'>
+- We can create a set using set() constructor.
+Ex: mySet = set(('apple', 'banana', 'cherry'))
+
+- As set is unindexed, so we can't access the items using indexes. So we can use for in loop to access each item in the set. We can use 'in' operator to know whether an item is present in the set or not.
+
+- We can't modify the set items. But we can add new items into the set using add() and update() method.
+- add(item) - insert the item into the set
+update(set2) - insert the items from the set2 into the main set. Not only set but from any iterable objects like string, list, set, dictionary, tuple etc. the items can be taken and inserted into the main set.   
+
+- remove(item) - removes the item from the set. If the item not present in the set, it will throw an error.
+- discard(item) - removes the item from the set. If the item not present in the set, it will not throw an error.
+- pop() - removes a random item from the set and returns the deleted item. 
+- clear() - empties the set
+- del set_name: deletes the entire set
+
+- set1.union() - We can join two sets 
+- set1.update(set2) - keeps all the values from set2 into set1
+- set1.intersection_update(set2) - updates set1 with the intersection values from set1 and set2
+- set1.intersection(set2) - returns a new set with the intersection items from both set1 and set2
+- set1.symmetric_difference_update(set2) - updates set1 with the uncommon values from both set1 and set2
+- set1.symmetric_difference(set2) - returns a new set with uncommon values from both set1 and set2
+- True and 1 are considered as duplicate values in set.
+- False and 0 are also considered as duplicate values in set.
+
+- copy() - returns a copy of the set
+- set1.difference(set2) - returns the item which are present in set1 but not present in set2
+- set1.difference(set2) - updates set1 with a new set which are present in set1 but not present in set2
+
+- set1.issubset(set2) - returns true if set1 is subset of set2
+- set1.issuperset(set2) - returns true if set1 is superset of set2
+- set1.isdisjoint(set2) - returns true if there is no intersection point between set1 and set2
+
+===> Dictionary
+- Dictionary is used to store key value pairs.
+- It is ordered, changeable and do not allow duplicates
+- Dictionaries are written with curly braces and key value pairs.
+- We can access the items of the dictionary using key name;
+Ex: dict_name['key_name']
+- len() - returns the length of the dictionary.
+- Dictionary can't have two items with same key name. The later value will be considered as the final value.
+- Dictionary items can have any data type.
+- type() - return the datatype as <class 'dict'>
+- We can create a dictionary using dict() constructor.
+Syntax: 
+dict_name = dict(key1 = 'value1', key2 = 'value2', ........)
+Ex: dict(name = 'Sonali', age = 21, country = 'India')
+
+- .get('key_name') - returns the value of the particular key from the dictionary.
+- .keys() - return a list of keys in the dictionary
+- .values() - return a list of values in the dictionary
+- .items() - return a list having each item as a tuple
+- We can ensure whether a key is present in a dictionary or not using 'in' keyword.
+- We can update the dictionary item using the following syntax
+dict_name['key_name'] = newValue
+- update({key: newValue}) - updates the value of the key field in the dictionary. If the key doesn't exits, the key will be created for the dictionary.
+
+- pop('key_name') - pops out the key value pair from the dictionary
+- popitem() - remves the last key value pair inserted from the dictionary
+- del dictionary_name[key_name] - deletes the particular key value pair from the dictionary.
+- del dictionary_name - deletes the entire dictionary
+- clear() - empties the dictionary
+
+- We can loop through the dictionary using for in loop which will return the keys of the dictionary and we can get the values using the syntax: dictionary_name[key_name]
+
+- We can loop through the list of dictionary_name.keys(), dictionary_name.values(), dictionary_name.items() to get the individual keys, values and key-value pairs respectively.
+
+- To copy one dictionary into another dictionary, simple assignment won't work as it will reference the first dictionary and any changes made to anyone of the dictionary will change the other one.
+
+- copy() - creates copy of one dictionary and returns that.
+- We can use list() constructor to create a copy of the dictionary.
+
+- Nested dictionary: We can create nested dictionary where atleast one key holds another dictionary. We can get the value of the child dictionary keys using the syntax:
+parentDict: {
+	'childDict': {
+		name: 'Sonali'
+	}
+}
+Syntax: dictionary_name['childDict']['name'] // Sonali
+
+- fromkeys(keys, value) - returns a dictionary having all the given keys with the same value provided in the second arguement.
+
+- setdefault(key, value): If the key exists in the dictionary, then return the value otherwise inserts the key having the value provided in the 2nd arguement into the dictionary and return the value of the key. If the arguement doesn't exist and the value is not provided in the second arguement then the key will be inserted in the dictionary havind value 'None' 
+
+=====> Python If.. Else
+- Syntax:
+if (condition):
+	// body of if block
+elif (condiiton):
+	// body of else if block
+else: 
+	// body of else block
+
+- Indetation is important to define the scope of the block which works the same like curly braces '{}' in other programming language.
+
+- Shorthand if: If we have one statement under if block then we can use shorthand syntax.
+Ex: if(condition): // statement
+
+- Shorthand if else: If we have one statement under if block and one statement under else block we can use ternary operator or conditional expression or shorthand if else.
+Ex: <statement of if block> if (condition) else <statement  of else block>
+
+- If we don't have any content to write under any block, then we can write 'pass' keyword.
+
+=====> While loop
+- Syntax
+while condition:
+	// body of while loop
+else: 
+	 // body of else part
+
+- Once the condition is false then the control will pass to else block.
+- break - takes the control out of the loop 
+- continue - skips the current iteration and continue to the next iteration.
+
+====> for Loop
+- Syntax:
+for each_value in iterable_item_name:
+	// body
+
+- range(a, b, c) - it will returns us a sequence starting from a(inclusive) to b(exclusive) with an increment of c. If a is not provided then sequence starts from 0. If c is not provided then the default increment is 1.
+
+range(6) // 0, 1, 2, 3, 4, 5
+range(1, 6) // 1, 2, 3, 4, 5
+range(1, 6, 2) // 1, 3, 5
+
+- break statement in if block doesn't pass the control to else block.
+
+====> Function 
+- Syntax
+def function_name(parameter):
+	// body
+
+function_name()
+- arguements: those which are passed when a function is called
+- parameters: which are mentioned inside the function definition
+- arguements are shorthandly written as args
+
+- Arbitary arguements (*args) - When we don't know the number of arguements passed to a function, we can use arbitary arguements by writing a '*' before the parameter name. It will convert all the arguemets into a tuple and store it in the parameter.
+
+- Keyword arguements - During function call, we can pass keyword arguements with the key = value syntax. Here the order of the arguements doesn't matter. 
+Keyword arguements is also called as 'kwargs' in python documentation.
+
+- Arbitary keyword arguements - If we don't know the number of kwargs then we can us arbiratry kwargs by mentioning a '**' before the parametere name. It will convert the coming arguements into a dictionary and store it in the parameter. 
+
+- We can mention default parameter value in the function definition using the syntax: parameter = value which will be taken when the fucntion call doesn't have any arguement.
+
+=====> Python Lambda function
+- Lambda function is a small anonymous function that can have any number of arguements but can have only one expression
+- Syntax:
+lambda arguements: expression
+It expression is executed and the result is returned
+- It is used in case of higher order functions
+- We should use lambda functions when an anonymous function is required for a short period of time.
+
+
+====> Classes and objects
+- Python is an object oriented language which considers everything as an object.
+- Syntax:
+class Class_Name: 
+	// body
+obj_name = Class_Name()
+
+- __init__ function - It is like the constructor. It is called during the object creation and can take arguements to initialize object properties.
+- __str__ function - This function controls what should be returned when the object of the class is represented as a string. If it is not defined in the class, then the string represenation of the function is returned.
+- self parameter - It references to the current instance of the class. Like 'this' keyword in other PLs. It is not mandatory to keep the name as 'self'. But what should be the name, it should be the first arguement in the method of the class.
+
+- del object_name.property_name - delete the property for that object
+- del object_name - deletes the entire object
+
+======> Inheritance
+- We can inherit the properties and methods of parent or base class into child or derived class using inheritance.
+- Syntax:
+class Child_class_name(Parent_class_name):
+	pass
+
+- Now we have all the properties and methods of parent class available in child class. 
+
+- We can define __init__ function in child class. After adding child class __init__ function,  when we will create object of child class child class __init__ function will be called instead of parent class.
+
+- When both parent and child class have method with same name, then the child class method overrides the parent class method.
+
+- Still we can call parent class functions or properties using the parent class name or super()  function.
+Syntax:
+Parent_class_name.__init__(self)
+or super().__init__()
+
+- The super() function is used to give access to methods and properties of a parent or sibling class.
+The super() function returns an object that represents the parent class.
+
+- Difference between the above two syntaxes are::
+We need to explicitly pass the reference to the object in the first syntax in the arguements of the methods as the first arguement.
+
+- But in case of super(), we don't need to explicitly send the reference as the first parameter.
+
+Ex::
+Using 2nd synatx=====
+class Student(Person):
+    def __init__(self, name, age, gender):
+        super().__init__(name, age, gender)
+
+    def showName(self):
+        super().printName()
+
+Using 1st syntax=====
+class Student(Person):
+    def __init__(self, name, age, gender):
+        Person.__init__(self, name, age, gender)
+
+    def showName(self):
+        Person.printName(self)
+
+15.5.2023
+
+=====> Python Iterators:
+- Iterator is an object that contains countable number of values upon which we can iterate on.
+- These objects must contain methods like __iter__ and __next__.
+- __iter__ can intialize the iterator object and must return the iterator object.
+- __next__ must return value at each place of the iterator and also should modify the value for the next iteration.
+- List, tuples, set, dictionaries, strings all are iterable objects. All these objects have an __iter__ function which returns an iterator.
+- We can use for in loop to iterate through the objects.
+
+- If we not explicitly not stop the iteration, then it won't stop in case of for in loop. So we need to use 'StopIteration' statement, so that the iteration through the object will stop. 
+
+Ex: 
+
+class MyClass: 
+    def __iter__(self):
+        self.x = 1
+        return self
+        
+    def __next__(self):
+        if (self.x > 20):
+            raise StopIteration
+        x = self.x
+        self.x += 1
+        return x
+    
+myClass = MyClass()
+myIter = iter(myClass)
+
+for x in myIter:
+    print(x) // 1 2 3 4 5 ..... 20
+
+====> Polymorphism
+- Means many form(function overriding)
+- If same function is present in multiple classes, it is an example of polymorphism.
+- Ex: len() is present for string, tuple, set, dictionaries etc.
+- When we do inheritance, if the inheriting class contains methods those are already present in the parent class, then it is called as polymorphism.
+
+=====> Scope
+- If we create variables outside and inside a function with same name, then python compiler will create separate variables. 
+- If we want to reassign the global variable which was declared outside the function, inside a function then we need to use the keyword 'global' which will refer to a variable at global scope.
+
+======> Python Modules
+- Module is simplly a file that contains variables and function which we can import in our file and use it.
+- There are some inbuilt modules and also we can create our own modules. Module is just simply a python file with extension '.py'
+- To import a module, we have to use the syntax:
+import <module_name>
+- To use methods or variables of the imported file, we can use the syntax:
+module_name.property_name
+- If we want to set any alias name for the module, then we can do it by using the syntax:
+import <module_name> as <alias_name>
+- And then we can access all the methods and properties inside the imported module using the alias name.
+- platform module - built-in module which contain methods and variables to get the details regarding the user's system.
+- dir() - Built-in function which will list all the function names and variable names in a module.
+
+- We can import a particular part of a module using the syntax:
+from <module_name> import <part_of_the_module>
+Then we can directly access the part without using the module name.
+
+====> Python Dates
+- If we want to include date and time into our file, then we can import a module called datetime. Which has different methods to work with dates.
+
+Ex: 
+import datetime
+
+datetime.datetime.now() // 2023-05-15 11:55:09.648004 (current date and time in the format year-month-day hour:min:sec.microsec)
+
+x = datetime.datetime.now()
+print(x.year) // 2023
+print(x.strftime(''%A")) // weekday, full version
+
+- We can create our own date using the following syntax:
+datenow.datenow(year, month, day, microsecond, timezone)
+
+- Here the second datenow is a constructor of the class datenow. where first 3 arguements are compulsory and the next arguements like microsecond and timezone are optional having default value 0 and None respectively.
+
+- strftime(format) - this method returns a customized readable string from the date objects. 
+There are different kind of formats like
+ %a - weekday, short version
+%A - weekday, full version
+%b - month name, short version
+%B - month name, short version
+.
+.
+.
+and many more.
+
+====> Math module
+
+- Python has some built-in matho functions which are directly available, we don't need to import any modules like
+min(a, b, c, ...) // returns minimum number in the passed args
+max(a, b, c, ...) // returns maximum number in the passed args
+pow(a, b) // returns a to the power b
+abs(number) // returns absolute positive value of the passed number
+Ex: abs(-7.35) // 7.35
+
+- Python has a builtin math module that contains some imp functions related to mathematics that we have to import in our file
+
+import math
+math.sqrt(64) // 8.0
+math.ceil(1.4) // 2
+math.floor(1.4) // 1
+math.pi // 3.14
+
+
+=====> JSON
+- json is javascript object notation which stores texts in the form of javascirpt objects.
+- To work with JSON, python has a built in package called 'json'.
+json.loads(var_name) - converts JSON string into a python dictionary
+json.dumps(var_name) - converts python variables into JSON string.
+
+Python		JSON
+dict - 		Object
+list			Array
+tuple		Array
+str			String
+int			Number
+float			Number
+True			true
+False			false
+None		null
+
+- But this json strings will be without indentation and line breaks. We can give indentation by mentioning a parameter in the dump() method.
+syntax: json.dumps(var_name, indent = 4)
+
+- We can also provide separators, default value is (", ", ": ") that means use a comma and a space to separate different properties of the object and a colon and a space to separate keys from values.
+Ex: json.dumps(x, indent=4, separators=(". ", " = "))
+
+- We can sort the key by using the parameter 'sort_keys=true' which will sort the keys in alphabetical order.
+Ex: json.dumps(x, indent=4, sort_keys=True)
+
+
+====> Python RegEx
+- It's a sequence of charachter's that forms a search pattern.
+- module name is 're'
+- methods:
+-> findall(pattern, string) - returns a list containing all matches
+-> search(pattern, string) - searches for the match for the first time and returns a match object if it founds otherwise returns none.
+-> match(pattern, string) - it returns a match object if it matches the starting part of the string with the pattern.
+-> split(pattern, string) - returns a list where the string has been split at each match
+-> sub(pattern, replaced_string, original_string) - return the string after replacing all the instances of the pattern in the original string by the replaced string. 
+
+- Symbols used:
+[] - matches for individual characters if present in the string or not
+[^] - leaves the charachters mentioned after the caret symbol(^) from the char set and finds for the rest charachters.
+$ - finds for the charachter present before this symbol if present at the ending of the string or not
+^ - finds for the charachter present after this symbol if it is present at the starting of the string or not
+. - matches with any single character
+? - matches with a single or absent of the charchter present befter this symbol in the string
+* - matches with 0 or any number of repetition of the character in the string
++ - matches with 1 or any number of repetition of the charachter in the string
+{number} - matches whether the string contains the charchter before this symbol for that number of time
+| - matches whether the charchter before and after this symbol present in the string or not
+
+Ex:
+[a-z] // a, b, c, ....., y, z
+[abc] // a, b, c
+
+
+====> Packages
+- Module is a python code library which we can use in our code
+- Package is a container that contains all the files required by the module
+- pip is python package manager
+- To download a package, the command used is:
+pip install <package_name>
+
+- To remove a package, the command used is:
+pip uninstall <package_name>
+
+- To list all the packages installed in our system, command used is:
+pip list
+
+=====> Try Except
+- try - This block lets you to test a block of code for errors.
+- except - This block will handle error
+- else - This block will execute the code when there is no error
+- finally - This block will execute the code, regardless of try block raises an error or not.
+- We can specify multiple except blocks specific to the error raised.
+Syntax: except <error_name>:
+- We can throw an exception by using the keyword raise
+Syntax: raise <error_name>
+
+- For one try block there must be atleast one except block. There can be as many except blocks possible.
+
+====> User Input
+- To take user input, we can use input()
+Syntax: num = input('Enter a number')
+- Python stops executing when it comes to the input() function, and continues when the user has given some input.
+
+====> File Handling
+- Python has several functions for creating, reading, updating and deleting files.
+- open(file_name, mode) - used to open a particular file in a particular mode.
+- Different modes are:
+"r" - Read - default value. Opens a file for reading, error if the file doesnot exist
+"a" - append - opens a file for appending, Creates the file if it doesnot exist
+"w" - write - opens a file for writing, creates the file if it doesnot exist
+"x" - Create - creates the specified file, returns an error if the file exists.
+
+Additional modes available
+"t" - Text - Default value. Text mode
+"b" - Binary - Binary mode(e.g. images)
+
+- open(file_location, mode) - opens the file at the location in the particular mode
+
+Ex: open("demofile.txt", "rt")
+
+-read() - used to read the content of the file
+- read(number) - reads only the content of the file having length equal to the number
+- readline() - reads one line at a time. Next readline() will read next line.
+
+- close() - used to close a file whcih was opened
+
+- write() - we can write in the file. If the file is opened in the append mode, then the new text will be appended at the end of the file. But if the file is opened in write mode, then it will overwrite the old content of the file.
+
+- If we want to delete any file or folder, then we need to import 'os' module. Then we can use the method os.remove(file_name) to delete the file and os.rmdir(folder_name) to delete the folder.
+
+- To avoid error we should first check whether the file or folder exists or not by using the syntax:::
+if os.path.exists(file_name):
+	os.remove(file_name)
+
+- In case of folders we can only delete empty folders.
+
+
+=======> NumPy
+- stands for 'Numerical Python'
+- It's a module or library or package that works with arrays.
+- Arrays are more faster than python lists as the array is stored in continous memory location. So to access and manipulate array items is easy.
+- NumPy array is 50 times faster than lists.
+- These arrays are called as ndarray
+- NumPy is written partially in Python, but mostly is C or C++
+
+- We can import numpy package in our code directly or by using alias name as 'np'. Alias name is more preferred.
+
+- np.__version__ - returns the version of numpy package installed
+- np.array([1,2,3,4..]) - returns an ndarray object from a list, tuple or any array like object. 
+- np.ndim - returns the dimension of array
+0D - single array elements or scalars //1 , 2, 3
+1D - array that has 0D elements // [1, 2, 3]
+2D - array that has 1D array as elements. Also called as matrix // [[1, 2, 3], [4, 5, 6]]
+
+- If we want to explicitly set the dimension of the array, we can pass it in the 2nd arguement of array() method.
+Ex: np.array([1,2,3], ndmin = 5) //5D array 
+
+- We can access the array elements using indices like in normal array. Differences arises in case 2D, 3D and more dimentional array. In these cases we will write the indices by comma separated inside a single square braces.
+like arr[1,2] // value at 2nd row and 3rd column
+
+- We can also use -ve indexing that starts from -1
+Ex: arr[1, -1] // value at 2nd row and last column
+
+===> Slicing of array::
+Syntax: arr_name[start:end:step]
+
+17.5.23
+
+====> Data types in Numpy 
+- In Numpy there are some extra datatypes which are referred with a single charachter.
+i - integer
+b - boolean
+u - unsigned integer
+f - float
+c - complex float
+m - timedelta
+M - datetime
+O - object
+S - string
+U - unicode string
+V - void
+
+- We can check the datatype of the array elements using 'dtype' property.
+Syntax: array_name.dtype 
+
+Ex: arr = np.array([1, 2, 3, 4, 5]) 
+print(arr.dtype) // int64
+
+- We can explcitly set the datatype while we create ndarray using the parameter dtype
+Ex: arr = np.array([1.1, 2.2, 3.3, 4.4, 5.5], dtype='i') // [1,2,3,4,5]
+
+- For i, u, f, S and U we can also define the size as well.
+Ex: arr = np.array([1, 2, 3, 4], dtype='i4') // creates 4bytes integer array 
+
+- If the types can't be casted to the mentioned datatype then NumPy will throw 'ValueError'. But this error will generate in python complier when the passed value to the function arguement is not expected or incorrect.
+
+Ex: arr = np.array(['a', '2', '3'], dtype='i') // Thorws ValueError as it is not possible to convert from string 'a' to integer.
+
+- astype(datatype) - We can create a copy of the array items in the required data type. In the parameter we can write the short form of data type of the exact name. Like we can write both 'f' or 'float' and 'i' or 'int' etc....
+
+Ex: arr = np.array([1.1, 2.2, 3.3])
+newArr = arr.astype('i') // [1, 2, 3]
+
+====> NumPy Array Copy vs View
+- Difference between copy and view of an array is that the copy is a new array and view is just a view of the original array.
+- Copy owns the data while views donot own the data.
+- Changes made to copy won't affect the original array. Also changes made to original array won't affect the copy. 
+- Changes made to view affects the original array. And changes made to original array will affect the view.
+
+Syntax:
+arr = np.array([1,2,3])
+copyArr = arr.copy()
+viewArr = arr.view()
+
+- We can identify whether an array owns data or not by using the attribute 'base'.
+If arr_name.base == 'None', means the array is a copied array as it owns data
+arr.name.base == [any array] // means the base of the array of is the returned array. The particular array doesn't own any data and referring to the datas of the returned array.
+
+====> NumPy Array shaping
+
+- Shape of array means number of elements in each dimension.
+- shape() - returns a tuple with at each index having elements that represents the number of elements at that dimention
+
+Ex: arr = np.array([[1, 2, 3, 4], [5, 6, 7, 8]])
+print(arr.shape) // (2, 4)
+
+arr = np.array([1, 2, 3, 4], ndmin=5)
+print(arr.shape) // (1, 1, 1, 1, 4)
+
+
+===> NumPy Array Reshaping
+- Reshaping means changing the shape of an array.
+- Using reshaping we can add or remove dimensions or change the number of elements in each dimension.
+
+Ex: arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+newArr = arr.reshape(4, 3) 
+print(newArr) // [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]]
+
+- Before and after reshaping the number of elements must be same.
+- Reshape() method returns a view of the original array that we can confirm using 'base' property.
+
+- We can set only one dimension in the reshape() as unknown by providing value as '-1'. NumPy will calculate the number for us.
+
+Ex: arr = np.array([1, 2, 3, 4, 5, 6, 7, 8])
+newarr = arr.reshape(2, 2, -1)
+
+- We can not pass -1 to more than one dimension.
+
+- We can also flatten the array i,e,. from multidimensional to one-dimensional using reshape(-1).
+
+Ex: arr = np.array([[1, 2, 3], [4, 5, 6]])
+newarr = arr.reshape(-1)
+print(newarr)  // [1, 2, 3, 4, 5, 6]
+- It is also a view of the original multidimensional array
+
+====> NumPy Array Iterating
+
+- We can iterate in array using for in loop
+- The number of nested for in loop must be equal with number of dimensions to get the scalars.
+- np.nditer(arr_name) - we can directly get the scalars without using multiple nested for loops.
+- op_dtypes= 'datatype_name' - If we want to change the datatype of array items in nditer(), we can pass this property in the 2nd element.
+- flags=['buffered'] - The change of datatype of array items can't be done at their respective places. The array need some extra space to perform this typecasting. This extra space can be enabled by passing this property inside the arguement.
+
+- np.ndenumerate(arr_name) - If we want to access the index along with the elements, we can use this method.
+
+
+====> NumPy Joining Array
+- We can put the contents of two or more arrays into a single array.
+- np.concatenate((arr1, arr2, ....), axis=1) : It will concatenate the content of the arrays based on the axis provided in the second arguement which is optional. The default value is 0. 
+axis = 0: horizonatal axis or 1st dimension or x-axis
+axis = 1: vertical axis or 2nd dimension or y-axis
+axis = 2: 3rd dimension
+
+If shape of the array must be same in the arrays. If the array dimensions is 2, then possible axis value can be 0 or 1. 
+
+If the dimension is 3, then possible axis value can be 0 or 1 or 2 and likewise.
+
+- np.stack((arr1, arr2, ....), axis=1): It will also concatenate the arrays based on the axis. But the difference between stack and concatenate is stack will return one higher dimensional array than the given arrays. 
+
+If the provided arrays are 1D, then the resultant array will be 2D.
+If the provided arrays are 2D, then the resultant array will be 3D.
+and so on...
+
+- If axis = None, it will completely flatten the array and merge the content into one array.
+
+- np.hstack(arr1, arr2, ....) - It will return the resultant array after merging the content horizontally or row-wise.
+
+- np.vstack(arr1, arr2, ...) - It will return the resultant array after merging the content vertically or column-wise.
+
+- np.dstack(arr1, arr2, ...) - It will return the resultant array after merging the content depth-wise.
+
+18.05.2023
+
+====> NumPy Splitting Array
+- np.array_split(arr_name, number_of_splits, axis=number) - It will split the array in the given number of splits along the mentioned axis and returns a list containing the splitted arrays.
+
+- There is a same split() method which acts similar to array_split(). But split() divides the array in equal parts. But array_split() can adjust the unequal parts from the end.
+
+- np.hsplit(arr, number_of_splits) - It will split the array in number of mentioned equal parts in horizontal axis. It throws error if it can't divide it in equal parts.
+
+- np.vsplit(arr, number_of_splits) - splits the array in vertically in number of mentioned equal parts. Throws error if can't divide it in equal parts.
+
+- np.dsplit(arr, number_of_splits) - splits the array depth wise along 3rd axis in number of mentioned equal parts. Throws error if can't divide it in equal parts. 
+
+====> NumPy Searching Array
+- np.where(condition) - Filters out all the items in the array and returns a tuple containing a single array of all the matched items in the array. 
+
+- np.searchsorted(array_name, value) - It perform the binary search from the left and returns the index where the value should be inserted and it considers the array as sorted.
+
+- np.searchsorted(array_name, value, side='right') - It perform the binary search from the right and returns the index where the value should be inserted and it considers the array as sorted too.
+
+
+====> NumPy Array Sort
+- np.sort(array_name) - Returns a copy of the array in sorted way. The array can be number array or string array or boolean array. String arrays will be sorted in alphabetical manner. Boolean arrays will be sorted from False to True.
+
+- arr.sort() - It sorts the array (mutable in nature)
+
+====> NumPy Array Filter
+- Getting some elements out of an existing array and creating a new array out of them is called as filtering.
+- For filtering a boolean index list is used.
+- Boolean index list is a list that contains only boolean values True or False. It's length should be same of the size of the original array.
+- If the value at the boolean index list is True, then that element will be included in the filtered array otherwise will be excluded from the array.
+
+- We don't need to hard code the boolean index list, we can assign True or False based on some condition.
+
+- Instead of using for loop to assign value to boolean index list, we can create this array directly by using the filtering condition.
+Ex: arr = np.array([1, 2, 3, 4, 5])
+ filter_array = arr % 2 == 0 // [False, True, False, True, False]
+
+====> Numpy Random
+- We can import 'random' module from 'numpy' package.
+- Random numbers are actually pseudo random in nature. As a function runs based on the defined logic or algorithm. So random function will definitely also have an algorithm defined. That means we can predict the numbers. So it is pseudo random in nature.
+- Random numbers are generated through a generation algorithm. Hence pseudo random in nature.
+
+- random.randint(number) - generates a random integer between 0 to the number defined in the arguement.
+
+- random.randint(number, , size=(number1, number2,...)) - Generates an array of size mentioned in the second optional arguement and numbers will be in the range of 0 - number specified in the first arguement.
+
+- random.rand() - generates a random float number between 0 to 1.
+- random.rand(num1, num2,....) - generates an array of size defined in the arguement and the numbers will be floating point numbers in the range of 0 - number specified in the first arguement.
+
+- random.choice([num1, num2, num3...]) - It will return a random number out of the numbers array provided in the arguement.
+
+- random.choice([num1, num2, num3,....], size = (num1, num2, num3,....)) - It will generate an array of defined size in the 2nd arguement which is optional and will contain random numbers from the array provided in the first arguement.
+
+
+====> Random Distribution
+- Random distribution is a set of random numbers that follows a certain probability density function(a function that defines the probability of all values in the array)
+
+- random.choice(array, probability_array, size) - It will return an array of defined size where the elements of the array will be choosen randomly from the array present in the 1st arguement and also based on the defined propbabilty mentioned in the probability array. The summation of all probability of the array items will be 1.
+
+
+====> Random Permutations:
+- shuffle(arr_name) - It will shuffle or change the position of the elements of the array present in the arguement. It is mutable means it will change the original array.
+
+- permutation(arr_name) - It will return an array changing the position of elements in the array. But it will never modify the original array.
+
+====> Seaborn
+- It's a library that uses Matplotlib underneath to plot graphs. It will be used to vizualize the data.
+
+Syntax: 
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+- sns.distplot(array_name) : It plots a curve corresponding to the distribution of points in the array.
+- sns.distplot(array_name, hist=False): It only plots the curve, the histogram will not be drawn.
+- sns.distplot(array_name, hist=False, label='label-name'): It will additionally set a label for each curve.
+- plt.show() : It will show or visualize us the graph. 
+
+- random.normal(loc=number, scale=number, size=(shape)) - It will return an array where the array elements are the result of normal distribution or Gaussian distribution which is a bell shaped graph. loc is the mean where the center of the distribution lies. scale is the width of the distribution. size is the shape of the returned array.
+
+- random.binomial(n=number, p=probability, size=(shape)) - It will return an array where the array elements are the result of binomial distribution which is discrete in nature. Binomial distribution is applicable to the place where there is two chances of any scenario. Like toss of coin which will be either True or False.
+
+
+========================Pandas========================
+- This library is used to find the relationship between the columns in a table.
+- We can import 'pandas' library as 'pd'.
+- pd.__version__ - returns the version of the python library.
+- Series: It represents column of the table
+Ex: a = [1, 2, 3]
+print(pd.Series(a))
+
+0	1
+1	2
+2	3
+Here 0, 1, 2 are indices.
+- pd.Series(a, index = ['sonali', 'monali', 'hardik']) - returns a column of a table having index 'sonali', 'monali', and 'hardik' respectively.
+
+- pd.DataFrame(dictionary_name) - returns a table
+
+- pd.read_csv('file_name') - returns a DataFrame out of the csv file. If row number is more than pd.options.display.max_rows then only first five rows and last five rows will be displayed.
+
+- pd.options.display.max_rows - returns the max-rows that would be visible in a DataFrame.
+We can change this value, Accordingly rows will be shown. If row size is more than this value then only five rows from the first and last will be visible.
+
+- pd.read_json('json_file_name') - returns a DataFrame out of a json file.
+- JSON objects are same as python dictionaries. So instead of json files if it is present in the form of python dictionary, then we can create a table directly using 'DataFrame'
+Ex: pd.DataFrame(dictionary_name)
+
+- df.head(number) - It returns a DataFrame of arguement number of starting rows.
+- df.tail(number) - It returns a DataFrame of arguement number of ending rows.
+If nothing is specified in the arguement, then it will by default consider 5 rows.
+
+- df.info() - It returns a result that shows total number of rows and starting and ending index. Along with number of columns and their names and datatypes they are dealing with. In that particular row, total number of non-null entries.
+
+- Data cleaning - Fixing bad data in your data set. The bad data may be empty cells, data in wrong format, wrong data or duplicates.
+
+- df.dropna() - It will return a new table and delete the rows that contains empty rows.
+
+- df.to_string() - It will display the entire table.
+
+- df.dropna(inplace=True) - removes the empty rows in the original table.
+
+- df.fillna(value) - It will return a new table by replacing empty cells with the value given.
+
+- df.fillna(value, inplace = True) - It will replace the empty cells with the value given in the original table.
+
+- df['column_name'].mean() - It will return a value which is the average value of that column.
+
+- df['column_name'].median() - It will return a value which is the middle value of the column when the column is sorted in ascending order.
+
+- df['column_name'].mode()[0] - It will return a value which has highest frequency in that column
+
+- pd.to_datetime('string') - It will convert the string into datetime format and return it.
+
+- df.dropna(subset=['Date'], inplace = True) - It will remove the rows with empty values for the column 'Date'
+
+- df.loc[row_name, column_name]  = value // It will change the particular cell with value given.
+
+- df.drop(row_number) - drop the particular row
+- df.duplicated() - returns True/False for each row based on if any duplicate rows present in the table or not.
+- drop_duplicates() - It will remove the duplicate rows.
+
+
+- df.corr() - returns the relationship between columns of the table. It ignores not numeric columns. Result varies from -1 to 1.
+1 means one-to-one relationship. If value of one column increases then value of other column will also increase.
+
+0.9 is also a good relationship, both the columns are directly proportional.
+-0.9 is also good relationship, both the columns are inversely proportional.
+- 0.2 means not a good relationship, means if value of one column increases, then that doesn't mean other will also change.
+
+>= 0.6 and <= 0.6 are considered as good relationship.
+
+- df.plot() - It creates a diagram.
+- df.plot(kind='scatter', x = 'column1_name', y = 'column2_name') - It plots a scattered graph between two columns.
+- df.plot(kind='hist') - It plots a graph of only one column with it's frequency.
