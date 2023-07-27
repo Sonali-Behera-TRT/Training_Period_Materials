@@ -1,0 +1,116 @@
+--------------------------------------------------> Lesson 1
+- Fastai is a deep learning framework or library which is built on the top of pytorch framework.
+- First Neural Network was Mark I Perceptron.
+- In neural network, we don't need to explicitly set the features. The model will itself learn these things.
+- file_name.stem = returns the file_name before the extension
+- file_name.suffix = returns the extension after the file name
+- ImageDataLoaders.from_name_func(): used for image classification models. from_name_func() means that the labels we get from an user-defined function 
+- SegmentationDataLoaders.from_label_func() - used for segmentation models. Here also the labels we get from user defined function
+- TextDataLoaders.from_folders() - used for text classification models. Here the texts are present in separate files present in folders.
+- TabularDataLoaders.from_csv() - used for table analysis models. Here the data is present in csv files
+- CollabDataLoaders.from_csv() - used for collaborative filtering models. Here also the data is present in csv.
+- untar_data(URLS.dataset) - it downloads and extract the dataset available in fastai library.
+- fine_tune(epoch no) - It finetunes the pretrained model which is already trained with differnet variety of dataset to our given dataset by transfer learning
+- fit_one_cycle(epoch no) - For training a model from scratch, we use this method. It is mostly used by tabular models.
+
+
+---------------------------------------------------------> Lesson 2
+
+- For confusion matrix:
+ClassificationInterpretation.from_learner(model_name).plot_confusion_matrix()
+- For plot_top_losses():
+ClassificationInterpretation.from_learner(model_name).plot_top_losses()
+- For data cleaning
+ImageClassifierCleaner(model_name) : It will return a widget for data cleaning
+- RandomResizedCrop(size, min_scale): randomly crop each image in each epoch
+- aug_transform(mult): flip, rotate, change color of images randomly
+
+- Gradio helps to give a client side interface.
+- HuggingFace helps to deploy our model along with gradio
+
+
+---------------------------------------------------------> Lesson 3
+
+- The Bias or constant that we add to calculate the weighted sum, for this we can add one extra column with value one which will be treated like other parameters and we will multiply with a random weight initially. This is how bias gets added in neural network.
+
+- The columns that are created in one hot encoding is called as binary categorical columns or dummy columns.
+
+-----------------------------------------------------------> Lesson 4
+
+- Natural Language Processing(NLP): for under 2000 word sentences Transformers can work well. Above 2000 word sentences ULMFit can do better.
+- Fastai uses ulmfit method on RNNs on language model which goes like below.
+-> Language model - Where they train a model on wikipedia dataset which can predict the next word of an article. This model can 30% correctly guess the next word
+-> Language model - Using the previous language model, they train this model on IMDB movie review dataset. So that it can understand the reviews.
+-> Classification model - Then the model can predict whether the review is positive or negative.
+
+- But transformers outshines ulmfit by using masked language model where they delete some words in the dataset. And the model will predict the words. Similar approch like ulmfit.
+
+- After getting the word embeddings, we should convert the dataframe into a dataset as transformers accept data in the form of datasets. And we have to split the dataset into training and validation set. 
+
+- For any problem the two things where we should focus are : 
+----> Creating an effective validation set
+----> Iterating rapidly to find changes which improve results on the validation set.
+
+- There are chances of overfitting of model. So choose validation sets properly. We shouldn't delete outliers, instead we should analize the outliers, the reason of there origin, we should analyse and evaluate the outliers separately.
+
+- Hugginface hub has a huge collection of model and we will use our pretrained transformer from this hub.
+- First of all we have to convert our word into embeddings. As model can't understand texts. For that we will use tokenization and numericalization. For tokenization, first we will select a pretrained model and we will use their tokenization model and we will convert the tokens into numbers by using their numericalization method from their vocabulory. 
+
+- We should convert any nlp prob into known area prob. Like if we have told to create a model which can predict whether two texts are similar or not. For this we should combine the two texts into a single text separated by a separator and we can fed this as an input to our model and get the output as a category of similar or not-similar.
+
+- Steps in huggingface transformer are pretty similar to fastai but a little lengthy. So refer NLP_classification_model.ipynb from lesson4 for all the syntaxes.
+
+- How to choose effective validation sets ???
+-> Choose any one particular field and take the list of the unique values and then shuffle it with a seed.
+-> Take 0.25 or 0.2 portion of the length of unique item array as validation length 
+-> Take first 0.25 or 0.2 of the unique item list as the validation list and the rest item will be of training list.
+-> Create a list of indexes of original dataframe.
+-> Create a list of bollean values which says whethr the element present at the particular position is from the validation item list or not.
+-> create two sublists train_idxs and val_idxs which will store the indeces of training set and validatation sets respectively. 
+-> Like wise filter out the values for training set and validation set.
+
+- How to improve the result ??????
+-> We can use various methods. Like playing around with the separators or converting the strings to lowercase or creating custom special tokens.
+-> We can do hyperparameter tuning.
+-> We can try cross-validation
+-> We can try different models out there.
+
+
+-----------------------------------------------------------------------------> Lesson 5
+
+- In neural network, each training set is divided into batches for cpu optimization, each batch input is represented in the form of rank-2 tensor or matrix which is then multiplied with 1st layer weight and summed up and goes through activation function. And become input to the next layer. 
+- Decision tree classifier is based on 'oneR' classification rule according to which each dataset will be divided into two sets based on a condition of a particular column. THen in each divided part, we will apply again division like wise we will create a decision tree.
+
+- When we create multiple models and takes the maximum outcome then this method is called as bagging in ensembling. The difference between bagging and random forest classification is in randomforestclassification both rows and columns are divided into different sets. But in bagging only the rows are divided, all the columns stays as it is.
+
+--------------------------------------------------------------------------------> Lesson 6
+
+- For optimizing the performance, we should try different resize ratio, augmentation size, resize methods, epochs, losses and all.
+- And should choose the best parameter as hyperparameter.
+
+- There is a concept called gradient accumulation where we decrease the batch size but the gradient will be calculated at a particular number of batches. The gradients will be accumulated and when the number of batch becomes the desired one, then we will calculate the gradient descent.
+
+------------------------------------------------------------------------------> Lesson 7
+- Collaborative Filtering is a method used to recommend products to the users based on the similar choices they have with other users. Here we create embedding matrix of latent factors of each users and each items and multiply them and take sigmoid and range them to our desired range.
+- There will be some movies which will not be liked by the user who likes similar genre movies. and there will be users who loves to watch movies and give more ranking and some users who doesn't like to watch movies and always gives lower ratings. So these will affect our result. So we can add user_bias and movies_bias in our dot product and then take the sigmoid function and range them.
+- In initial cases when the user first signs up to the website or any new movie added into the list, then we can take the mean of the latent factors of the rest items. But that might not be a good choice. Instead we can ask certain quesions to our users. And should create a model which can create latent factors based on the question answered.
+- In case of neural network, in the input layer, we add the number of latent factors per movie and number of latent factors per users and create that many number of neurons in that layer and we can create our hidden layers and activation function also.
+
+
+-----------------------------------------------------------------------------> Lesson 8
+- Convolution Neural Network, same as I learned in codebasics.
+- Fastai uses both max pool and average pool together to have optimal performace known as concat pool which contains the concatenate result of both max pool and average pool.
+- Average pool is better than max pool.
+- Stride size should be 2 means the window should slide by 2 step. Then the feature map will be 4 dimension less than the original one. 2 from row and 2 from column will be removed.
+- To avoid overfitting, we can use dropout layer which will dropout few neurons in each layer which will help in better generalization.
+
+-----------------------------------------------------------------------------> Lesson 9 (stable diffusion)
+- We can also generate an image by giving a prompt as input using huggingface pretrained diffusion models.
+- Suppose there is an api which can output probability of a image as handwritten digit. For a clear handwritten digit, it might output 0.98, for a image with some noise, the probability might be 0.4. Image with more noise might have probability 0.02 likewise.
+- Like we do in neural network, we can give an image input and the model should try to improve the picture. It will calculate the total loss wrt a particular pixel and calculate for all the pixels. It is the gradient which will be multiplied with  a constant (like learning rate in neural network) And then modify with the pixel value such that the probability will increase. This process will continue such that we will eliminate all the noises from the picture and get a good handwritten picture with good probability.
+- But there isn't such api and there isn't any way to calculate the probility of a perfect picture. So instead we will input a model with image with certain noise and the model will output theh noise present in the picture. Then we can subtract the noises from the picture and continue this process for some time and will get a good picture without noise.
+- The picture size may be large and computation will be costly. So we can create an autoencoder model or VAE model which consist of two parts. First part is encoder which will decrease the size of the image to half each time. So by the end, the image will be very small in size like compressed one. Then we can save this compressed image. Then comes the second part which is the decoder which will convert the compressed image into a large or actual image. 
+
+- So here we will have 3 models. One is 'unet' which will find the noise in the noisy image. And do gradient descent and remove the noise. Next 'VAE's decoder' which will convert the small image into large image. Then comes the CLIP text encoder which will convert the text into embedding.
+
+- So for each image there will image and a text describing the image(prompt). We will take 2 encoders known as text encoder and image encoder. Text encoder will convert the text into embedding and image encoder will convert into embedding. For the same image and it's description the embedding should be same in both the encoders. So we will train this until both the embeddings become same. We will do dot product of the text embedding with image embedding. For same embeddings the result will be larger. And for rest combinations the result will be small. We will calculate the loss subtracting the sum of smaller values from the sum of larger values. Here teh two encoders are known as 'CLIP'. And the difference between the sum of larger and smaller ones is called as contrastic loss.
